@@ -35,7 +35,7 @@ public class CameraRotate : MonoBehaviour
         ClampYRotation();
 
         // 3. 회전 방향으로 회전시킨다.
-        transform.eulerAngles = new Vector3(-_rotationY, _rotationX, 0f);
+        transform.eulerAngles = new Vector3(-_rotationY, _rotationX + 90f, 0f);
     }
     private void ClampYRotation()
     {
