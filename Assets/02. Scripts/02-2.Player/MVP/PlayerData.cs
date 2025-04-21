@@ -5,39 +5,21 @@ public class PlayerData : MonoBehaviour
 {
     public event Action<float> PlayerStaminaChanged;
 
-
-    private float _gravity = -9.81f; // 중력
+    [Header("Basic")]
+    private float _gravity = -9.81f;
     public float Gravity => _gravity;
 
-    private float _yVelocity = 0f; // 중력 가속도
+    private float _yVelocity = 0f;
     public float YVelocity { get => _yVelocity; set => _yVelocity = value; }
 
-    [Header("Movement")]
-    [SerializeField]
-    private float _moveSpeed;
-    [SerializeField]
-    private float _moveSpeedMultiplier;
-    public float MoveSpeedMultiplier { get => _moveSpeedMultiplier; set => _moveSpeedMultiplier = value; }
-    public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
-
-    [Header("Jump")]
-    [SerializeField]
-    private float _jumpPower;
-    public float JumpPower { get => _jumpPower; set => _jumpPower = value; }
-
-    [Header("Climb")]
-    private bool _isClimbing = false;
-    public bool IsClimbing { get => _isClimbing; set => _isClimbing = value; }
 
     [Header("Stamina")]
     [SerializeField]
     private float _stamina = 100f;
     private float _staminaMin = 0f;
     private float _staminaMax = 100f;
-    [SerializeField]
-    private float _staminaChangeVolume = 20f;
-    public float Stamina 
-    { 
+    public float Stamina
+    {
         get => _stamina;
         set
         {
@@ -47,5 +29,45 @@ public class PlayerData : MonoBehaviour
     }
     public float StaminaMin { get => _staminaMin; set => _staminaMin = value; }
     public float StaminaMax { get => _staminaMax; set => _staminaMax = value; }
-    public float StaminaChangeVolume { get => _staminaChangeVolume; set => _staminaChangeVolume = value; }
+
+
+    [Header("Movement")]
+    [SerializeField]
+    private float _moveSpeed;
+    [SerializeField]
+    private float _moveSpeedMultiplier;
+    public float MoveSpeedMultiplier { get => _moveSpeedMultiplier; set => _moveSpeedMultiplier = value; }
+    public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
+
+
+    [Header("Run")]
+    [SerializeField]
+    private float _staminaCostForRun = 20f;
+    public float StaminaCostForRun { get => _staminaCostForRun; set => _staminaCostForRun = value; }
+
+
+    [Header("Jump")]
+    [SerializeField]
+    private float _jumpPower;
+    public float JumpPower { get => _jumpPower; set => _jumpPower = value; }
+
+
+    [Header("Rolling")]
+    [SerializeField]
+    private float _rollingPower = 10f;
+    [SerializeField]
+    private float _staminaCostForRolling = 20f;
+    [SerializeField]
+    private float _rollDuration = 0.1f;
+    public float RollingPower { get => _rollingPower; set => _rollingPower = value; }
+    public float StaminaCostForRolling { get => _staminaCostForRolling; set => _staminaCostForRolling = value; }
+    public float RollDuration { get => _rollDuration; set => _rollDuration = value; }
+
+
+    [Header("Climb")]
+    [SerializeField]
+    private float _staminaCostForClimbing;
+    private bool _isClimbing = false;
+    public float StaminaCostForClimbing { get => _staminaCostForClimbing; set => _staminaCostForClimbing = value; }
+    public bool IsClimbing { get => _isClimbing; set => _isClimbing = value; }
 }

@@ -21,7 +21,6 @@ public class PlayerRun : MonoBehaviour
             {
                 _isRunning = true;
                 _playerData.MoveSpeed *= moveSpeedMultiplier;
-                Debug.Log("달리기 시작");
             }
         }
         else if (Input.GetKey(KeyCode.LeftShift) && _isRunning)
@@ -31,7 +30,6 @@ public class PlayerRun : MonoBehaviour
             {
                 _isRunning = false;
                 _playerData.MoveSpeed /= moveSpeedMultiplier;
-                Debug.Log("달리기 종료");
             }
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift) && _isRunning)
@@ -47,10 +45,10 @@ public class PlayerRun : MonoBehaviour
     }
     private void UseStamina()
     {
-        _playerData.Stamina -= Time.deltaTime * _playerData.StaminaChangeVolume;
+        _playerData.Stamina -= Time.deltaTime * _playerData.StaminaCostForRun;
     }
     private void RecoverStamina()
     {
-        _playerData.Stamina += Time.deltaTime * _playerData.StaminaChangeVolume;
+        _playerData.Stamina += Time.deltaTime * _playerData.StaminaCostForRun;
     }
 }

@@ -2,11 +2,7 @@ using UnityEngine;
 
 public class PlayerWallClimb : MonoBehaviour
 {
-    [Header("WallClimbing")]
-    [SerializeField]
-    private float _staminaCostForClimbing;
     private bool _canClimb = true;
-
     private PlayerData _playerData;
     private CharacterController _characterController;
 
@@ -51,7 +47,7 @@ public class PlayerWallClimb : MonoBehaviour
     }
     private void UseStamina()
     {
-        _playerData.Stamina -= Time.deltaTime * _staminaCostForClimbing;
+        _playerData.Stamina -= Time.deltaTime * _playerData.StaminaCostForClimbing;
     }
     private void CheckIsGround()
     {

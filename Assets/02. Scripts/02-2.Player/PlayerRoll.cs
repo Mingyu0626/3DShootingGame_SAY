@@ -3,15 +3,7 @@ using UnityEngine;
 
 public class PlayerRoll : MonoBehaviour
 {
-    [Header("Rolling")]
-    [SerializeField]
-    private float _rollingPower = 10f;
-    [SerializeField]
-    private float _staminaCostForRolling = 20f;
-    [SerializeField]
-    private float _rollDuration = 0.1f;
     private bool _isRolling = false;
-
     private PlayerData _playerData;
     private CharacterController _characterController;
     private void Awake()
@@ -25,23 +17,21 @@ public class PlayerRoll : MonoBehaviour
     }
     private void Roll()
     {
-        if (Input.GetKeyDown(KeyCode.E) && _staminaCostForRolling <= _playerData.Stamina && !_isRolling)
+        if (Input.GetKeyDown(KeyCode.E) && _playerData.StaminaCostForRolling <= _playerData.Stamina && !_isRolling)
         {
             StartCoroutine(RollCoroutine());
         }
     }
     private IEnumerator RollCoroutine()
     {
-        Debug.Log("구르기");
-        _playerData.Stamina -= _staminaCostForRolling;
+        _playerData.Stamina -= _playerData.StaminaCostForRolling;
         _isRolling = true;
-        _playerData.MoveSpeed *= _rollingPower;
+        _playerData.MoveSpeed *= _playerData.RollingPower;
 
-        yield return new WaitForSeconds(_rollDuration);
+        yield return new WaitForSeconds(_playerData.RollDuration);
 
-        _playerData.MoveSpeed /= _rollingPower;
+        _playerData.MoveSpeed /= _playerData.RollingPower;
         _isRolling = false;
-        Debug.Log("구르기 끝");
         yield return null;
     }
 }

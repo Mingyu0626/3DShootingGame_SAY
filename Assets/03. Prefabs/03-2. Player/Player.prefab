@@ -121,6 +121,8 @@ GameObject:
   - component: {fileID: 803771840405246667}
   - component: {fileID: 2730075310662355720}
   - component: {fileID: 7110149192143653485}
+  - component: {fileID: -5319079965397104100}
+  - component: {fileID: 1768192182900643976}
   - component: {fileID: 4508800623132309206}
   - component: {fileID: 8762288208691459073}
   - component: {fileID: 9094091210276448663}
@@ -246,6 +248,31 @@ MonoBehaviour:
   _jumpPower: 5
   _stamina: 100
   _staminaChangeVolume: 20
+--- !u!114 &-5319079965397104100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566557679951068972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402e362622efe534289b433d1255ea65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerStaminaBar: {fileID: 0}
+--- !u!114 &1768192182900643976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566557679951068972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12112558811278a4a95fd6f272e35bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4508800623132309206
 MonoBehaviour:
   m_ObjectHideFlags: 0
