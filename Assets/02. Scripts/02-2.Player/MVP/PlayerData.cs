@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    
+    public event Action<float> PlayerStaminaChanged;
+
+
     private float _gravity = -9.81f; // 중력
     public float Gravity => _gravity;
 
@@ -33,6 +36,16 @@ public class PlayerData : MonoBehaviour
     private float _staminaMax = 100f;
     [SerializeField]
     private float _staminaChangeVolume = 20f;
-    public float Stamina { get => _stamina; set => _stamina = Mathf.Clamp(value, _staminaMin, _staminaMax); }
+    public float Stamina 
+    { 
+        get => _stamina;
+        set
+        {
+            _stamina = Mathf.Clamp(value, _staminaMin, _staminaMax);
+            PlayerStaminaChanged?.Invoke(_stamina);
+        }
+    }
+    public float StaminaMin { get => _staminaMin; set => _staminaMin = value; }
+    public float StaminaMax { get => _staminaMax; set => _staminaMax = value; }
     public float StaminaChangeVolume { get => _staminaChangeVolume; set => _staminaChangeVolume = value; }
 }
