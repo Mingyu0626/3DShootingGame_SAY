@@ -9,6 +9,8 @@ public class PlayerFire : MonoBehaviour
     private GameObject _bombPrefab;
     [SerializeField]
     private ParticleSystem _bulletVFX;
+    [SerializeField]
+    private TrailRenderer _bulletTrailPrefab;
 
     [Header("Inspector")]
     [SerializeField]
@@ -105,17 +107,45 @@ public class PlayerFire : MonoBehaviour
             _bulletVFX.transform.position = hitInfo.point;
             _bulletVFX.transform.forward = hitInfo.normal; // normal은 법선 벡터를 의미한다.
             _bulletVFX.Play();
+
+            // 트레이서 생성
+            CreateTracer(_firePosition.transform.position, hitInfo.point);
         }
 
         // Ray : 레이저(시작위치, 방향)
         // RayCast : 레이저를 발사
         // RayCastHit: 레이저가 물체와 부딪혔다면 부딪힌 물체의 정보를 저장하는 구조체
-    }
 
+    }
     private IEnumerator CooldownCoroutine()
     {
         _isContinousFireCoolDown = true;
         yield return new WaitForSeconds(_bulletFireCooldown);
         _isContinousFireCoolDown = false;
+    }
+    private void CreateTracer(Vector3 start, Vector3 end)
+    {
+        TrailRenderer trail = Instantiate(_bulletTrailPrefab, start, Quaternion.identity)
+            .GetComponent<TrailRenderer>();
+
+        float tracerSpeed = 200f; // 이동 속도
+        float distance = Vector3.Distance(start, end);
+        float duration = distance / tracerSpeed;
+        StartCoroutine(MoveTracer(trail, start, end, duration));
+    }
+    private IEnumerator MoveTracer(TrailRenderer trail, Vector3 start, Vector3 end, float duration)
+    {
+        float time = 0f;
+
+        while (time < duration)
+        {
+            trail.transform.position = Vector3.Lerp(start, end, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        trail.transform.position = end;
+
+        Destroy(trail.gameObject);
     }
 }
