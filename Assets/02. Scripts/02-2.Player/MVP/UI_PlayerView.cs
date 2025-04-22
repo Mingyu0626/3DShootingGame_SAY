@@ -7,9 +7,9 @@ public class UI_PlayerView : MonoBehaviour
     [SerializeField]
     private Slider _playerStaminaBar;
     [SerializeField]
-    private TextMeshProUGUI _playerBombCountText;
+    private TextMeshProUGUI _playerBombCountTMP;
     [SerializeField]
-    private TextMeshProUGUI _playerBulletCountText;
+    private TextMeshProUGUI _playerBulletCountTMP;
     public void InitSliderPlayerStamina(float staminaMax)
     {
         if (!ReferenceEquals(_playerStaminaBar, null))
@@ -20,17 +20,17 @@ public class UI_PlayerView : MonoBehaviour
     }
     public void InitTextPlayerBomb(int bombCount, int bombCountMax)
     {
-        if (!ReferenceEquals(_playerBombCountText, null))
+        if (!ReferenceEquals(_playerBombCountTMP, null))
         {
-            _playerBombCountText.text
+            _playerBombCountTMP.text
                 = $"Bomb : {bombCount.ToString()} / {bombCountMax.ToString()}";
         }
     }
     public void InitTextPlayerBullet(int bulletCount, int bulletCountMax)
     {
-        if (!ReferenceEquals(_playerBulletCountText, null))
+        if (!ReferenceEquals(_playerBulletCountTMP, null))
         {
-            _playerBulletCountText.text
+            _playerBulletCountTMP.text
                 = $"Bullet : {bulletCount.ToString()} / {bulletCountMax.ToString()}";
         }
     }
@@ -43,17 +43,17 @@ public class UI_PlayerView : MonoBehaviour
     }
     public void SetTextPlayerBomb(int bombCount, int bombCountMax)
     {
-        if (!ReferenceEquals(_playerBombCountText, null))
+        if (!ReferenceEquals(_playerBombCountTMP, null))
         {
-            _playerBombCountText.text
+            _playerBombCountTMP.text
                 = $"Bomb : {bombCount.ToString()} / {bombCountMax.ToString()}";
         }
     }
     public void SetTextPlayerBullet(int bulletCount, int bulletCountMax)
     {
-        if (!ReferenceEquals(_playerBulletCountText, null))
+        if (!ReferenceEquals(_playerBulletCountTMP, null))
         {
-            _playerBulletCountText.text
+            _playerBulletCountTMP.text
                 = $"Bullet : {bulletCount.ToString()} / {bulletCountMax.ToString()}";
         }
     }

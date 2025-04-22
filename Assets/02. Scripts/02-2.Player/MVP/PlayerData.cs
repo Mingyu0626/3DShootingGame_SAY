@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    public Action<float> PlayerStaminaChanged;
-    public Action<int, int> PlayerBombCountChanged;
-    public Action<int, int> PlayerBulletCountChanged;
+    public Action <float> PlayerStaminaChanged;
+    public Action <int, int> PlayerBombCountChanged;
+    public Action <int, int> PlayerBulletCountChanged;
+    public Action <float> PlayerReloadGaugeChanged;
 
 
     [Header("Basic")]
