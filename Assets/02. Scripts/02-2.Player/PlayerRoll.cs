@@ -5,10 +5,12 @@ public class PlayerRoll : MonoBehaviour
 {
     private bool _isRolling = false;
     private PlayerData _playerData;
+    private PlayerPresenter _playerPresenter;
     private CharacterController _characterController;
     private void Awake()
     {
         _playerData = GetComponent<PlayerData>();
+        _playerPresenter = GetComponent<PlayerPresenter>();
         _characterController = GetComponent<CharacterController>();
     }
     private void Update()
@@ -24,7 +26,7 @@ public class PlayerRoll : MonoBehaviour
     }
     private IEnumerator RollCoroutine()
     {
-        _playerData.Stamina -= _playerData.StaminaCostForRolling;
+        _playerPresenter.OnStaminaChanged(-_playerData.StaminaCostForRolling);
         _isRolling = true;
         _playerData.MoveSpeed *= _playerData.RollingPower;
 

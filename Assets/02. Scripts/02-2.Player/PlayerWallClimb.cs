@@ -4,11 +4,13 @@ public class PlayerWallClimb : MonoBehaviour
 {
     private bool _canClimb = true;
     private PlayerData _playerData;
+    private PlayerPresenter _playerPresenter;
     private CharacterController _characterController;
 
     private void Awake()
     {
         _playerData = GetComponent<PlayerData>();
+        _playerPresenter = GetComponent<PlayerPresenter>();
         _characterController = GetComponent<CharacterController>();
     }
     private void Update()
@@ -47,7 +49,7 @@ public class PlayerWallClimb : MonoBehaviour
     }
     private void UseStamina()
     {
-        _playerData.Stamina -= Time.deltaTime * _playerData.StaminaCostForClimbing;
+        _playerPresenter.OnStaminaChanged(-Time.deltaTime * _playerData.StaminaCostForClimbing);
     }
     private void CheckIsGround()
     {
