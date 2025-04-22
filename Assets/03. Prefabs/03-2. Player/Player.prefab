@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 7028463505125608691}
   - component: {fileID: 3565409782651115750}
   - component: {fileID: 5159659518756239006}
+  - component: {fileID: -834913060099920595}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -331,6 +332,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerStaminaBar: {fileID: 0}
+  _playerBombCountText: {fileID: 0}
+  _playerBulletCountText: {fileID: 0}
 --- !u!114 &1768192182900643976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,7 +432,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombPrefab: {fileID: 2177233979882235531, guid: 20fa31d85da11ab4dbfda5919d5ba814, type: 3}
+  _bulletVFX: {fileID: 0}
   _firePosition: {fileID: 0}
+--- !u!114 &-834913060099920595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566557679951068972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95058a9b68d5a624bae135c1eee7fbfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4794626987173978739
 GameObject:
   m_ObjectHideFlags: 0
