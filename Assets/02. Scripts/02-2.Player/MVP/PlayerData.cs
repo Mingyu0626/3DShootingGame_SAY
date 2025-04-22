@@ -68,13 +68,16 @@ public class PlayerData : MonoBehaviour
     public bool IsClimbing { get => _isClimbing; set => _isClimbing = value; }
 
     [Header("Fire(Bullet & Bomb)")]
+    private bool _isBulletFiring = false;
+    public bool IsBulletFiring { get => _isBulletFiring; set => _isBulletFiring = value; }
+
     private int _maxBulletCount = 50;
-    private int _currentBulletCount = 0;
+    private int _currentBulletCount = 50;
     public int MaxBulletCount { get => _maxBulletCount; set => _maxBulletCount = value; }
     public int CurrentBulletCount { get => _currentBulletCount; set => _currentBulletCount = value; }
 
     private int _maxBombCount = 3;
-    private int _currentBombCount = 0;
+    private int _currentBombCount = 3;
     public int MaxBombCount { get => _maxBombCount; set => _maxBombCount = value; }
     public int CurrentBombCount { get => _currentBombCount; set => _currentBombCount = value; }
 }
