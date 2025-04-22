@@ -1,0 +1,35 @@
+using TMPro.Examples;
+using UnityEngine;
+
+public class CameraQuarterState : ICameraState, IRotate
+{
+    private CameraController _cameraController;
+
+    public void Enter(CameraController playerController)
+    {
+        _cameraController = playerController;
+        _cameraController.CurrentCameraMode = CameraMode.Quarter;
+        _cameraController.CurrentTargetTransform = _cameraController.TargetTransforms[(int)CameraMode.Quarter];
+    }
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            _cameraController.CameraStateContext.ChangeState(_cameraController.FpsState);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            _cameraController.CameraStateContext.ChangeState(_cameraController.TpsState);
+        }
+        Rotate();
+    }
+    public void Exit()
+    {
+
+    }
+
+    public void Rotate()
+    {
+        _cameraController.transform.LookAt(_cameraController.CurrentTargetTransform.parent);
+    }
+}

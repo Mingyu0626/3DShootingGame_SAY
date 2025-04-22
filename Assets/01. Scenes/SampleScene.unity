@@ -265,8 +265,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
-  - component: {fileID: 330585548}
-  - component: {fileID: 330585549}
+  - component: {fileID: 330585550}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -392,7 +391,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &330585548
+--- !u!114 &330585550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -401,23 +400,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f8b632e2e270e74d893fbe285b07304, type: 3}
+  m_Script: {fileID: 11500000, guid: 3219e80698bcf9d4f87d1652b918447e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _targetTransforms:
+  - {fileID: 2127927032}
+  - {fileID: 6140187147841336327}
+  - {fileID: 6140187147841336326}
   _rotationSpeed: 1000
---- !u!114 &330585549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6576c378b4197154caed458f79a8172b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetTransform: {fileID: 2127927032}
 --- !u!1 &363007064
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,7 +1437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7937650576482074, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10.58
       objectReference: {fileID: 0}
     - target: {fileID: 7937650576482074, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1485,6 +1475,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5321709453567674950, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: m_Name
+      value: CameraPosition_FPS
+      objectReference: {fileID: 0}
     - target: {fileID: 7028463505125608691, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: _rollDuration
       value: 0.1
@@ -1506,6 +1500,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60be9673240058041829509e809be47e, type: 3}
+--- !u!4 &6140187147841336326 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4460872662858282365, guid: 60be9673240058041829509e809be47e, type: 3}
+  m_PrefabInstance: {fileID: 6140187147841336325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6140187147841336327 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1019147331460598882, guid: 60be9673240058041829509e809be47e, type: 3}
+  m_PrefabInstance: {fileID: 6140187147841336325}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
