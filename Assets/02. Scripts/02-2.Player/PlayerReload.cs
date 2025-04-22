@@ -4,8 +4,8 @@ using System.Collections;
 public class PlayerReload : MonoBehaviour
 {
     private PlayerData _playerData;
-
-
+    [SerializeField]
+    private UI_Reload _uiReload;
     [Header("Reload")]
     private bool _isReloading = false;
     private float _reloadDuration = 2f;
@@ -19,7 +19,8 @@ public class PlayerReload : MonoBehaviour
     private void Update()
     {
         // R 키를 눌렀을 때 재장전 시도
-        if (Input.GetKeyDown(KeyCode.R) && !_isReloading && _playerData.CurrentBulletCount < _playerData.MaxBulletCount)
+        if (Input.GetKeyDown(KeyCode.R) && !_isReloading && _playerData.CurrentBulletCount < _playerData.MaxBulletCount
+            && !_playerData.IsBulletFiring)
         {
             _reloadCoroutine = StartCoroutine(ReloadCoroutine());
         }
@@ -27,7 +28,7 @@ public class PlayerReload : MonoBehaviour
 
     private IEnumerator ReloadCoroutine()
     {
-        Debug.Log("Reloading...");
+        _uiReload.ShowReloading();
         _isReloading = true;
         float elapsed = 0f;
         while (elapsed < _reloadDuration)
@@ -43,7 +44,7 @@ public class PlayerReload : MonoBehaviour
         }
 
         _playerData.CurrentBulletCount = _playerData.MaxBulletCount;
-        Debug.Log("Reloading Complete");
+        _uiReload.ShowReloadSuccess();
         _isReloading = false;
     }
 
@@ -53,8 +54,8 @@ public class PlayerReload : MonoBehaviour
         {
             StopCoroutine(_reloadCoroutine);
             _reloadCoroutine = null;
+            _uiReload.ShowReloadCancel();
         }
-        Debug.Log("Reloading Canceled");
         _isReloading = false;
     }
 }
