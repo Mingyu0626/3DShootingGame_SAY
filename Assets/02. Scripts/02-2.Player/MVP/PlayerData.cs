@@ -26,6 +26,7 @@ public class PlayerData : MonoBehaviour
         set
         {
             _stamina = Mathf.Clamp(value, _staminaMin, _staminaMax);
+            PlayerStaminaChanged?.Invoke(_stamina);
         }
     }
     public float StaminaMin { get => _staminaMin; set => _staminaMin = value; }
@@ -74,10 +75,26 @@ public class PlayerData : MonoBehaviour
     private int _maxBulletCount = 50;
     private int _currentBulletCount = 50;
     public int MaxBulletCount { get => _maxBulletCount; set => _maxBulletCount = value; }
-    public int CurrentBulletCount { get => _currentBulletCount; set => _currentBulletCount = value; }
+    public int CurrentBulletCount 
+    { 
+        get => _currentBulletCount;
+        set
+        {
+            _currentBulletCount = value;
+            PlayerBulletCountChanged?.Invoke(_currentBulletCount, _maxBulletCount);
+        }
+    }
 
     private int _maxBombCount = 3;
     private int _currentBombCount = 3;
     public int MaxBombCount { get => _maxBombCount; set => _maxBombCount = value; }
-    public int CurrentBombCount { get => _currentBombCount; set => _currentBombCount = value; }
+    public int CurrentBombCount 
+    { 
+        get => _currentBombCount;
+        set
+        {
+            _currentBombCount = value;
+            PlayerBombCountChanged?.Invoke(_currentBombCount, _maxBombCount);
+        }
+    }
 }

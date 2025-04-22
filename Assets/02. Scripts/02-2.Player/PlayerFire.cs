@@ -29,11 +29,9 @@ public class PlayerFire : MonoBehaviour
     private bool _isContinousFireCoolDown = false;
 
     private PlayerData _playerData;
-    private PlayerPresenter _playerPresenter;
     private void Awake()
     {
         _playerData = GetComponent<PlayerData>();
-        _playerPresenter = GetComponent<PlayerPresenter>();
     }
 
     private void Update()
@@ -55,7 +53,7 @@ public class PlayerFire : MonoBehaviour
             float normalizedHoldTime = Mathf.Clamp01(heldTime / _maxHoldTime);
             float power = Mathf.Lerp(_minBombPower, _maxBombPower, normalizedHoldTime);
             FireBomb(power);
-            _playerPresenter.OnBombCountChanged(_playerData.CurrentBombCount - 1);
+            _playerData.CurrentBombCount -= 1;
             _isHoldingBomb = false;
         }
     }
@@ -93,7 +91,7 @@ public class PlayerFire : MonoBehaviour
     {
         _lastBulletFireTime = Time.time;
         _playerData.IsBulletFiring = true;
-        _playerPresenter.OnBulletCountChanged(_playerData.CurrentBulletCount - 1);
+        _playerData.CurrentBulletCount -= 1;
         // 2. 레이케스트(레이저)를 생성하고 발사 위치와 진행 방향을 설정하기
         Ray ray = new Ray(_firePosition.transform.position, Camera.main.transform.forward);
 

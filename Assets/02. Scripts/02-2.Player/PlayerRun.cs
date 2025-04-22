@@ -4,11 +4,9 @@ public class PlayerRun : MonoBehaviour
 {
     private bool _isRunning = false;
     private PlayerData _playerData;
-    private PlayerPresenter _playerPresenter;
     private void Awake()
     {
         _playerData = GetComponent<PlayerData>();
-        _playerPresenter = GetComponent<PlayerPresenter>();
     }
     private void Update()
     {
@@ -47,10 +45,10 @@ public class PlayerRun : MonoBehaviour
     }
     private void UseStamina()
     {
-        _playerPresenter.OnStaminaChanged(-Time.deltaTime * _playerData.StaminaCostForRun);
+        _playerData.Stamina -= Time.deltaTime * _playerData.StaminaCostForRun;
     }
     private void RecoverStamina()
     {
-        _playerPresenter.OnStaminaChanged(Time.deltaTime * _playerData.StaminaCostForRun);
+        _playerData.Stamina += Time.deltaTime * _playerData.StaminaCostForRun;
     }
 }

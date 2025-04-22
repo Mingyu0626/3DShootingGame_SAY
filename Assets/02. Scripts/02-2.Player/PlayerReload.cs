@@ -4,7 +4,6 @@ using System.Collections;
 public class PlayerReload : MonoBehaviour
 {
     private PlayerData _playerData;
-    private PlayerPresenter _playerPresenter;
 
 
     [Header("Reload")]
@@ -15,7 +14,6 @@ public class PlayerReload : MonoBehaviour
     private void Awake()
     {
         _playerData = GetComponent<PlayerData>();
-        _playerPresenter = GetComponent<PlayerPresenter>();
     }
 
     private void Update()
@@ -29,6 +27,7 @@ public class PlayerReload : MonoBehaviour
 
     private IEnumerator ReloadCoroutine()
     {
+        Debug.Log("Reloading...");
         _isReloading = true;
         float elapsed = 0f;
         while (elapsed < _reloadDuration)
@@ -43,7 +42,8 @@ public class PlayerReload : MonoBehaviour
             yield return null;
         }
 
-        _playerPresenter.OnBulletCountChanged(_playerData.MaxBulletCount);
+        _playerData.CurrentBulletCount = _playerData.MaxBulletCount;
+        Debug.Log("Reloading Complete");
         _isReloading = false;
     }
 
@@ -54,7 +54,7 @@ public class PlayerReload : MonoBehaviour
             StopCoroutine(_reloadCoroutine);
             _reloadCoroutine = null;
         }
-
+        Debug.Log("Reloading Canceled");
         _isReloading = false;
     }
 }
