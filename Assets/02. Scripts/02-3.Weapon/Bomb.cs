@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+public class Bomb : MonoBehaviour, IProduct
 {
     // 목표 : 마우스 우클릭을 하면, 카메라가 바라보는 방향으로 수류탄 던지기
     // 1. 수류탄 오브젝트 만들기
@@ -15,14 +15,14 @@ public class Bomb : MonoBehaviour
         
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         Instantiate(_explosionVFXPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        BombPool.Instance.ReturnObject(this);
+        gameObject.SetActive(false);
+    }
+
+    public void Init()
+    {
     }
 }
