@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyData : MonoBehaviour 
@@ -13,8 +11,6 @@ public class EnemyData : MonoBehaviour
     public float FindDistance { get => _findDistance; set => _findDistance = value; }
 
     [Header("Return State")]
-    private Vector3 _startPosition;
-    public Vector3 StartPosition { get => _startPosition; set => _startPosition = value; }
     [SerializeField] private float _returnDistance = 5f;
     public float ReturnDistance { get => _returnDistance; set => _returnDistance = value; }
 
@@ -27,14 +23,26 @@ public class EnemyData : MonoBehaviour
     [Header("Damaged State")]
     [SerializeField] private float _damagedTime = 0.5f;
     public float DamagedTime { get => _damagedTime; set => _damagedTime = value; }
+    [SerializeField] private float _knockbackDistance = 2f;
+    public float KnockbackDistance { get => _knockbackDistance; set => _knockbackDistance = value; }
+    [SerializeField] private float _knockbackSpeed = 10f;
+    public float KnockbackSpeed { get => _knockbackSpeed; set => _knockbackSpeed = value; }
 
     [Header("Health System")]
     [SerializeField] private int _maxHealthPoint;
     public int MaxHealthPoint { get => _maxHealthPoint; set => _maxHealthPoint = value; }
     private int _currentHealthPoint;
     public int CurrentHealthPoint { get => _currentHealthPoint; set => _currentHealthPoint = value; }
-    
-    private void OnEnable()
+
+    [Header("Patrol State")]
+    [SerializeField] private float _patrolRadius = 3f;
+    public float PatrolRadius => _patrolRadius;
+    [SerializeField] private float _patrolWaitTime = 2f;
+    public float PatrolWaitTime => _patrolWaitTime;
+    private Vector3[] _patrolPoints;
+    public Vector3[] PatrolPoints { get => _patrolPoints; set => _patrolPoints = value; }
+
+    private void Awake()
     {
         _currentHealthPoint = _maxHealthPoint;
     }
