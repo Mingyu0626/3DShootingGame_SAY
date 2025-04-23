@@ -10,6 +10,8 @@ public class EnemyData : MonoBehaviour
     [Header("Idle & Trace State")]
     [SerializeField] private float _findDistance = 7f;
     public float FindDistance { get => _findDistance; set => _findDistance = value; }
+    [SerializeField] private float _idleToPatrolWaitTime = 5f;
+    public float IdleToPatrolWaitTime => _idleToPatrolWaitTime;
 
     [Header("Return State")]
     [SerializeField] private float _returnDistance = 5f;

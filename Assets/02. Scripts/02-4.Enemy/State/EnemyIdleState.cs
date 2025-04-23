@@ -35,7 +35,7 @@ public class EnemyIdleState : IEnemyState
 
     private IEnumerator IdleCoroutine()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(_enemyController.EnemyData.IdleToPatrolWaitTime);
         _enemyController.EnemyStateContext.ChangeState(_enemyController.PatrolState);
         Debug.Log("IdleState -> PatrolState");
     }
