@@ -14,8 +14,12 @@ public class PlayerReload : MonoBehaviour
     {
         _playerData = GetComponent<PlayerData>();
     }
-
     private void Update()
+    {
+        Reload();
+    }
+
+    private void Reload()
     {
         // R 키를 눌렀을 때 재장전 시도
         if (Input.GetKeyDown(KeyCode.R) && !_isReloading && _playerData.CurrentBulletCount < _playerData.MaxBulletCount
