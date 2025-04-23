@@ -43,13 +43,13 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        _idleState = new EnemyIdleState();
-        _traceState = new EnemyTraceState();
-        _returnState = new EnemyReturnState();
-        _attackState = new EnemyAttackState();
-        _damagedState = new EnemyDamagedState();
-        _dieState = new EnemyDieState();
-        _patrolState = new EnemyPatrolState();
+        _idleState = new EnemyIdleState(this);
+        _traceState = new EnemyTraceState(this);
+        _returnState = new EnemyReturnState(this);
+        _attackState = new EnemyAttackState(this);
+        _damagedState = new EnemyDamagedState(this);
+        _dieState = new EnemyDieState(this);
+        _patrolState = new EnemyPatrolState(this);
         _enemyStateContext.ChangeState(_idleState);
 
         _startPosition = transform.position;

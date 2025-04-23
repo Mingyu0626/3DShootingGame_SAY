@@ -8,9 +8,13 @@ public class EnemyDamagedState : IEnemyState
     private IEnumerator _damagedCoroutine;
     private Vector3 _knockbackDirection;
 
-    public void Enter(EnemyController enemyController)
+    public EnemyDamagedState(EnemyController enemyController)
     {
         _enemyController = enemyController;
+    }
+
+    public void Enter()
+    {
         _knockbackDirection = (_enemyController.transform.position - _enemyController.Player.transform.position).normalized;
         _damagedCoroutine = DamagedCoroutine();
         _enemyController.StartCoroutineInEnemyState(_damagedCoroutine);

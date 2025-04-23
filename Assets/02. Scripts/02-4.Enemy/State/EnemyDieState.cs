@@ -7,9 +7,13 @@ public class EnemyDieState : IEnemyState
     private EnemyController _enemyController;
     private IEnumerator _dieCoroutine;
 
-    public void Enter(EnemyController enemyController)
+    public EnemyDieState(EnemyController enemyController)
     {
         _enemyController = enemyController;
+    }
+
+    public void Enter()
+    {
         _dieCoroutine = DieCoroutine();
         _enemyController.StartCoroutineInEnemyState(_dieCoroutine);
     }

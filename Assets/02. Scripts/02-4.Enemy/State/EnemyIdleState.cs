@@ -7,9 +7,13 @@ public class EnemyIdleState : IEnemyState
     private EnemyController _enemyController;
     private IEnumerator _idleCoroutine;
 
-    public void Enter(EnemyController enemyController)
+    public EnemyIdleState(EnemyController enemyController)
     {
         _enemyController = enemyController;
+    }
+
+    public void Enter()
+    {
         _idleCoroutine = IdleCoroutine();
         _enemyController.StartCoroutineInEnemyState(_idleCoroutine);
     }

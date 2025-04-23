@@ -1,6 +1,6 @@
 public interface IEnemyState
 {
-    void Enter(EnemyController enemyController);
+    void Enter();
     void Update();
     void Exit();
 } 

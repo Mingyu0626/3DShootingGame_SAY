@@ -7,9 +7,13 @@ public class EnemyPatrolState : IEnemyState
     private IEnumerator _patrolCoroutine;
     private int _currentPatrolIndex;
 
-    public void Enter(EnemyController enemyController)
+    public EnemyPatrolState(EnemyController enemyController)
     {
         _enemyController = enemyController;
+    }
+
+    public void Enter()
+    {
         _currentPatrolIndex = 0;
         _patrolCoroutine = PatrolCoroutine();
         _enemyController.StartCoroutineInEnemyState(_patrolCoroutine);

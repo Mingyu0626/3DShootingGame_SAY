@@ -7,9 +7,13 @@ public class EnemyAttackState : IEnemyState
     private EnemyController _enemyController;
     private IEnumerator _attackCoroutine;
 
-    public void Enter(EnemyController enemyController)
+    public EnemyAttackState(EnemyController enemyController)
     {
         _enemyController = enemyController;
+    }
+
+    public void Enter()
+    {
         _attackCoroutine = AttackCoroutine();
         _enemyController.StartCoroutineInEnemyState(_attackCoroutine);
     }

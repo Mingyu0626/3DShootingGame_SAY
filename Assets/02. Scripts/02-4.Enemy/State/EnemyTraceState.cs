@@ -5,9 +5,13 @@ using UnityEngine;
 public class EnemyTraceState : IEnemyState
 {
     private EnemyController _enemyController;
-    public void Enter(EnemyController enemyController)
+    public EnemyTraceState(EnemyController enemyController)
     {
         _enemyController = enemyController;
+    }
+    public void Enter()
+    {
+        
     }
 
     public void Update()

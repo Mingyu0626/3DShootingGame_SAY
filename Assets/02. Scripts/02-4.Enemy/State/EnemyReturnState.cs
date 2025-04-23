@@ -6,9 +6,14 @@ public class EnemyReturnState : IEnemyState
 {
     private EnemyController _enemyController;
 
-    public void Enter(EnemyController enemyController)
+    public EnemyReturnState(EnemyController enemyController)
     {
         _enemyController = enemyController;
+    }
+
+    public void Enter()
+    {
+        
     }
 
     public void Update()

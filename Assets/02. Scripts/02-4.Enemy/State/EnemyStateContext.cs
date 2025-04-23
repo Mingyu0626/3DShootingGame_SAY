@@ -13,8 +13,8 @@ public class EnemyStateContext
 
     public void ChangeState()
     {
-        _currentState = new EnemyIdleState();
-        _currentState.Enter(_enemyController);
+        _currentState = new EnemyIdleState(_enemyController);
+        _currentState.Enter();
     }
 
     public void ChangeState(IEnemyState newState)
@@ -24,6 +24,6 @@ public class EnemyStateContext
             _currentState.Exit();
         }
         _currentState = newState;
-        _currentState.Enter(_enemyController);
+        _currentState.Enter();
     }
 } 
