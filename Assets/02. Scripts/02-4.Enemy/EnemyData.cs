@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EnemyData : MonoBehaviour 
 {
@@ -39,8 +40,8 @@ public class EnemyData : MonoBehaviour
     public float PatrolRadius => _patrolRadius;
     [SerializeField] private float _patrolWaitTime = 2f;
     public float PatrolWaitTime => _patrolWaitTime;
-    private Vector3[] _patrolPoints;
-    public Vector3[] PatrolPoints { get => _patrolPoints; set => _patrolPoints = value; }
+    private List<Vector3> _patrolPoints = new List<Vector3>();
+    public List<Vector3> PatrolPoints { get => _patrolPoints; set => _patrolPoints = value; }
 
     private void Awake()
     {

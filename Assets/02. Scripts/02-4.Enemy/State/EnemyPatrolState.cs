@@ -47,7 +47,7 @@ public class EnemyPatrolState : IEnemyState
             }
 
             yield return new WaitForSeconds(_enemyController.EnemyData.PatrolWaitTime);
-            _currentPatrolIndex = (_currentPatrolIndex + 1) % _enemyController.EnemyData.PatrolPoints.Length;
+            _currentPatrolIndex = (_currentPatrolIndex + 1) % _enemyController.EnemyData.PatrolPoints.Count;
         }
     }
 }

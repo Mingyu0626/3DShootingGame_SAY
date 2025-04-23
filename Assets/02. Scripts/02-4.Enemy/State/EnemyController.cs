@@ -80,16 +80,15 @@ public class EnemyController : MonoBehaviour
 
     private void GeneratePatrolPoints()
     {
-        Vector3[] patrolPoints = new Vector3[3];
+        _enemyData.PatrolPoints.Clear();
         for (int i = 0; i < 3; i++)
         {
             float angle = i * 120f * Mathf.Deg2Rad;
-            patrolPoints[i] = _startPosition + new Vector3(
+            _enemyData.PatrolPoints.Add(_startPosition + new Vector3(
                 Mathf.Cos(angle) * _enemyData.PatrolRadius,
                 0f,
                 Mathf.Sin(angle) * _enemyData.PatrolRadius
-            );
+            ));
         }
-        _enemyData.PatrolPoints = patrolPoints;
     }
 } 
