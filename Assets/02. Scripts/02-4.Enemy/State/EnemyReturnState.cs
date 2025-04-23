@@ -13,7 +13,7 @@ public class EnemyReturnState : IEnemyState
 
     public void Update()
     {
-        float distance = Vector3.Distance(_enemyController.EnemyData.StartPosition, _enemyController.transform.position);
+        float distance = Vector3.Distance(_enemyController.StartPosition, _enemyController.transform.position);
         
         if (distance <= 0.1f)
         {
@@ -22,7 +22,7 @@ public class EnemyReturnState : IEnemyState
         }
         else
         {
-            Vector3 direction = (_enemyController.EnemyData.StartPosition - _enemyController.transform.position).normalized;
+            Vector3 direction = (_enemyController.StartPosition - _enemyController.transform.position).normalized;
             _enemyController.CharacterController.Move(direction * _enemyController.EnemyData.MoveSpeed * Time.deltaTime);
         }
     }
