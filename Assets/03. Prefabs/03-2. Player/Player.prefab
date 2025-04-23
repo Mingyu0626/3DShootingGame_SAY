@@ -319,6 +319,12 @@ MonoBehaviour:
   _staminaCostForRolling: 20
   _rollDuration: 0.1
   _staminaCostForClimbing: 0
+  _bulletFireInterval: 0.2
+  _bulletFireCooldown: 5
+  _minBombPower: 10
+  _maxBombPower: 40
+  _maxHoldTime: 2
+  _reloadDuration: 2
 --- !u!114 &-5319079965397104100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,8 +338,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerStaminaBar: {fileID: 0}
-  _playerBombCountText: {fileID: 0}
-  _playerBulletCountText: {fileID: 0}
+  _playerBombCountTMP: {fileID: 0}
+  _playerBulletCountTMP: {fileID: 0}
 --- !u!114 &1768192182900643976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +439,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bombPrefab: {fileID: 2177233979882235531, guid: 20fa31d85da11ab4dbfda5919d5ba814, type: 3}
   _bulletVFX: {fileID: 0}
+  _bulletTrailPrefab: {fileID: 0}
+  _tracerSpeed: 200
   _firePosition: {fileID: 0}
 --- !u!114 &-834913060099920595
 MonoBehaviour:
@@ -446,6 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95058a9b68d5a624bae135c1eee7fbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _uiReload: {fileID: 0}
 --- !u!1 &4794626987173978739
 GameObject:
   m_ObjectHideFlags: 0
