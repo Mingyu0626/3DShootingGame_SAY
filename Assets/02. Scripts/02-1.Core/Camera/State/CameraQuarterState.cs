@@ -5,9 +5,9 @@ public class CameraQuarterState : ICameraState, IRotate
 {
     private CameraController _cameraController;
 
-    public void Enter(CameraController playerController)
+    public void Enter(CameraController cameraController)
     {
-        _cameraController = playerController;
+        _cameraController = cameraController;
         _cameraController.CurrentCameraMode = CameraMode.Quarter;
         _cameraController.CurrentTargetTransform = _cameraController.TargetTransforms[(int)CameraMode.Quarter];
     }

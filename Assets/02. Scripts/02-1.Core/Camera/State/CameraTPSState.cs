@@ -5,9 +5,9 @@ public class CameraTPSState : ICameraState, IRotate
     private CameraController _cameraController;
     private float _rotationYPositiveLimit = 10f;
     private float _rotationYNegativeLimit = -15f;
-    public void Enter(CameraController playerController)
+    public void Enter(CameraController cameraController)
     {
-        _cameraController = playerController;
+        _cameraController = cameraController;
         _cameraController.CurrentCameraMode = CameraMode.TPS;
         _cameraController.CurrentTargetTransform = _cameraController.TargetTransforms[(int)CameraMode.TPS];
     }

@@ -5,9 +5,9 @@ public class CameraFPSState : ICameraState, IRotate
     private CameraController _cameraController;
     private float _rotationYPositiveLimit = 40f;
     private float _rotationYNegativeLimit = -40f;
-    public void Enter(CameraController playerController)
+    public void Enter(CameraController cameraController)
     {
-        _cameraController = playerController;
+        _cameraController = cameraController;
         _cameraController.CurrentCameraMode = CameraMode.FPS;
         _cameraController.CurrentTargetTransform = _cameraController.TargetTransforms[(int)CameraMode.FPS];
     }
