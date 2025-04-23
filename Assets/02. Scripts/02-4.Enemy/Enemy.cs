@@ -12,8 +12,9 @@ public enum EnemyState
 
 public class Enemy : MonoBehaviour, IProduct
 {
-    // 기본 Enemy 클래스
     public void Init()
     {
     }
+
+
 } 

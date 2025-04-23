@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAttackState : IEnemyState
@@ -15,7 +16,8 @@ public class EnemyAttackState : IEnemyState
 
     public void Update()
     {
-        if (_enemyController.AttackDistance < Vector3.Distance(_enemyController.transform.position, _enemyController.Player.transform.position))
+        if (_enemyController.EnemyData.AttackDistance < 
+        Vector3.Distance(_enemyController.Player.transform.position, _enemyController.transform.position))
         {
             _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
             Debug.Log("AttackState -> TraceState");
@@ -36,7 +38,7 @@ public class EnemyAttackState : IEnemyState
         while (true)
         {
             Debug.Log("공격");
-            yield return new WaitForSeconds(_enemyController.AttackCoolTime);
+            yield return new WaitForSeconds(_enemyController.EnemyData.AttackCoolTime);
         }
     }
 } 

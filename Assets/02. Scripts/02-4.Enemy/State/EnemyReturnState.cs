@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyReturnState : IEnemyState
@@ -11,27 +13,21 @@ public class EnemyReturnState : IEnemyState
 
     public void Update()
     {
-        if (Vector3.Distance(_enemyController.transform.position, _enemyController.StartPosition) 
-        <= 0.001f)
+        float distance = Vector3.Distance(_enemyController.EnemyData.StartPosition, _enemyController.transform.position);
+        
+        if (distance <= 0.1f)
         {
             _enemyController.EnemyStateContext.ChangeState(_enemyController.IdleState);
             Debug.Log("ReturnState -> IdleState");
         }
-
-        if (Vector3.Distance(_enemyController.transform.position, _enemyController.Player.transform.position) < _enemyController.ReturnDistance)
+        else
         {
-            _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
-            Debug.Log("ReturnState -> TraceState");
+            Vector3 direction = (_enemyController.EnemyData.StartPosition - _enemyController.transform.position).normalized;
+            _enemyController.CharacterController.Move(direction * _enemyController.EnemyData.MoveSpeed * Time.deltaTime);
         }
-        Return();
     }
 
     public void Exit()
     {
-    }
-    private void Return()
-    {
-        Vector3 direction = (_enemyController.StartPosition - _enemyController.transform.position).normalized;
-        _enemyController.CharacterController.Move(direction * _enemyController.MoveSpeed * Time.deltaTime);
     }
 } 
