@@ -48,6 +48,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         _instance = this as T;
         SetupDontDestroyOnLoad();
     }
+    
+    private void OnApplicationQuit()
+    {
+        _isQuitting = true;
+    }
 
     protected virtual void OnDestroy()
     {
@@ -55,11 +60,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             _instance = null;
         }
-    }
-
-    private void OnApplicationQuit()
-    {
-        _isQuitting = true;
     }
 
     private static void CheckForDuplicateInstances()
@@ -77,16 +77,19 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     private void SetupDontDestroyOnLoad()
     {
-        if (!_isDontDestroy) return;
+        if (!_isDontDestroy)
+        {
+            return;
+        }
 
-        if (transform.parent == null)
+        if (ReferenceEquals(transform.parent, null))
         {
             DontDestroyOnLoad(gameObject);
             return;
         }
 
         GameObject rootManagerGO = GameObject.FindGameObjectWithTag("Manager");
-        if (rootManagerGO != null)
+        if (!ReferenceEquals(rootManagerGO, null))
         {
             transform.SetParent(rootManagerGO.transform);
             DontDestroyOnLoad(rootManagerGO);
