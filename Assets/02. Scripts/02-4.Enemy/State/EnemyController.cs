@@ -53,7 +53,6 @@ public class EnemyController : MonoBehaviour
         _enemyStateContext.ChangeState(_idleState);
 
         _startPosition = transform.position;
-        GeneratePatrolPoints();
     }
 
     private void Update()
@@ -76,19 +75,5 @@ public class EnemyController : MonoBehaviour
         _enemyData.CurrentHealthPoint -= damage.Value;
         Debug.Log($"Change to DamagedState");
         _enemyStateContext.ChangeState(_damagedState);
-    }
-
-    private void GeneratePatrolPoints()
-    {
-        _enemyData.PatrolPoints.Clear();
-        for (int i = 0; i < 3; i++)
-        {
-            float angle = i * 120f * Mathf.Deg2Rad;
-            _enemyData.PatrolPoints.Add(_startPosition + new Vector3(
-                Mathf.Cos(angle) * _enemyData.PatrolRadius,
-                0f,
-                Mathf.Sin(angle) * _enemyData.PatrolRadius
-            ));
-        }
     }
 } 

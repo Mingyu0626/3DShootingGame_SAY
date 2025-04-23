@@ -14,6 +14,7 @@ public class EnemyPatrolState : IEnemyState
 
     public void Enter()
     {
+        GeneratePatrolPoints();
         _currentPatrolIndex = 0;
         _patrolCoroutine = PatrolCoroutine();
         _enemyController.StartCoroutineInEnemyState(_patrolCoroutine);
@@ -37,7 +38,20 @@ public class EnemyPatrolState : IEnemyState
             _patrolCoroutine = null;
         }
     }
-
+    private void GeneratePatrolPoints()
+    {
+        _enemyController.EnemyData.PatrolPoints.Clear();
+        for (int i = 0; i < 3; i++)
+        {
+            float angle = i * 120f * Mathf.Deg2Rad;
+            _enemyController.EnemyData.PatrolPoints.Add(_enemyController.StartPosition + new Vector3(
+                Mathf.Cos(angle) * _enemyController.EnemyData.PatrolRadius,
+                0f,
+                Mathf.Sin(angle) * _enemyController.EnemyData.PatrolRadius
+            ));
+        }
+    }
+ 
     private IEnumerator PatrolCoroutine()
     {
         while (true)
