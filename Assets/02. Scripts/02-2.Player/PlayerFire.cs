@@ -11,6 +11,8 @@ public class PlayerFire : MonoBehaviour
     private ParticleSystem _bulletVFX;
     [SerializeField]
     private TrailRenderer _bulletTrailPrefab;
+    [SerializeField]
+    private float _tracerSpeed = 200f;
 
     [Header("Inspector")]
     [SerializeField]
@@ -24,11 +26,14 @@ public class PlayerFire : MonoBehaviour
     private float _lastBulletFireTime = -Mathf.Infinity;
     private bool _isContinuousFiring = false;
     private bool _isContinousFireCoolDown = false;
+    private Camera _mainCamera;
 
     private PlayerData _playerData;
+
     private void Awake()
     {
         _playerData = GetComponent<PlayerData>();
+        _mainCamera = Camera.main;
     }
 
     private void Update()
@@ -36,6 +41,7 @@ public class PlayerFire : MonoBehaviour
         HandleFireBombInput();
         HandleFireBulletInput();
     }
+
     private void HandleFireBombInput()
     {
         if (Input.GetMouseButtonDown(1) && 0 < _playerData.CurrentBombCount)
@@ -54,13 +60,15 @@ public class PlayerFire : MonoBehaviour
             _isHoldingBomb = false;
         }
     }
+
     private void FireBomb(float fireBombPower)
     {
         Bomb bomb = BombPool.Instance.GetObject(BombType.NormalBomb, _firePosition.transform.position);
         Rigidbody bombRigidbody = bomb.gameObject.GetComponent<Rigidbody>();
-        bombRigidbody.AddForce(Camera.main.transform.forward * fireBombPower, ForceMode.Impulse);
+        bombRigidbody.AddForce(_mainCamera.transform.forward * fireBombPower, ForceMode.Impulse);
         bombRigidbody.AddTorque(Vector3.one);
     }
+
     private void HandleFireBulletInput()
     {
         if (Input.GetMouseButtonDown(0) && 0 < _playerData.CurrentBulletCount)
@@ -84,50 +92,46 @@ public class PlayerFire : MonoBehaviour
             _playerData.IsBulletFiring = false;
         }
     }
+
     private void FireBullet()
     {
         _lastBulletFireTime = Time.time;
         _playerData.IsBulletFiring = true;
         _playerData.CurrentBulletCount -= 1;
-        // 2. 레이케스트(레이저)를 생성하고 발사 위치와 진행 방향을 설정하기
-        Ray ray = new Ray(_firePosition.transform.position, Camera.main.transform.forward);
 
-        // 3. 레이케스트와 부딪힌 물체의 정보를 저장할 변수를 생성하기
+        Ray ray = new Ray(_firePosition.transform.position, _mainCamera.transform.forward);
         RaycastHit hitInfo = new RaycastHit();
-
-        // 4. 레이 발사 후, 부딪힌 데이터가 있다면 피격 이펙트를 생성하기
         if (Physics.Raycast(ray, out hitInfo))
         {
-            // 5. 피격 이펙트 생성하기
-            _bulletVFX.transform.position = hitInfo.point;
-            _bulletVFX.transform.forward = hitInfo.normal; // normal은 법선 벡터를 의미한다.
-            _bulletVFX.Play();
-
-            // 트레이서 생성
+            CreateHitEffect(hitInfo);
             CreateTracer(_firePosition.transform.position, hitInfo.point);
         }
-
-        // Ray : 레이저(시작위치, 방향)
-        // RayCast : 레이저를 발사
-        // RayCastHit: 레이저가 물체와 부딪혔다면 부딪힌 물체의 정보를 저장하는 구조체
-
     }
+
+    private void CreateHitEffect(RaycastHit hitInfo)
+    {
+        _bulletVFX.transform.position = hitInfo.point;
+        _bulletVFX.transform.forward = hitInfo.normal;
+        _bulletVFX.Play();
+    }
+
     private IEnumerator CooldownCoroutine()
     {
         _isContinousFireCoolDown = true;
         yield return new WaitForSeconds(_playerData.BulletFireCooldown);
         _isContinousFireCoolDown = false;
     }
+
     private void CreateTracer(Vector3 start, Vector3 end)
     {
         TrailRenderer trail = Instantiate(_bulletTrailPrefab, start, Quaternion.identity)
             .GetComponent<TrailRenderer>();
 
-        float tracerSpeed = 200f; // 이동 속도
         float distance = Vector3.Distance(start, end);
-        float duration = distance / tracerSpeed;
+        float duration = distance / _tracerSpeed;
         StartCoroutine(MoveTracer(trail, start, end, duration));
     }
+
     private IEnumerator MoveTracer(TrailRenderer trail, Vector3 start, Vector3 end, float duration)
     {
         float time = 0f;
@@ -140,7 +144,7 @@ public class PlayerFire : MonoBehaviour
         }
 
         trail.transform.position = end;
-
         Destroy(trail.gameObject);
     }
 }
+
