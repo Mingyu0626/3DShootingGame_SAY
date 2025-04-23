@@ -5,9 +5,11 @@ using UnityEngine;
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField]
-    private bool _dontDestroy = true;
+    private bool _isDontDestroy = true;
+
     private static bool _isQuitting = false;
     private static T _instance;
+
     public static T Instance
     {
         get
@@ -17,56 +19,41 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 return null;
             }
 
-            if (_instance == null)
+            if (ReferenceEquals(_instance, null))
             {
-                T[] instances = FindObjectsByType<T>(FindObjectsSortMode.None);
-
-                if (1 < instances.Length)
-                {
-                    Debug.LogError($"¡ﬂ∫πµ» Singleton {typeof(T)} ¿ŒΩ∫≈œΩ∫∞° ∞®¡ˆµ«æÓ, ¡ﬂ∫π ¿ŒΩ∫≈œΩ∫ ¡¶∞≈∏¶ ¡¯«‡«’¥œ¥Ÿ.");
-                    for (int i = 1; i < instances.Length; i++)
-                    {
-                        Destroy(instances[i].gameObject);
-                    }
-                }
-
-                _instance = instances.Length > 0 ? instances[0] : null;
-                if (_instance == null)
+                _instance = FindObjectOfType<T>();
+                
+                if (ReferenceEquals(_instance, null))
                 {
                     GameObject go = new GameObject(typeof(T).Name, typeof(T));
                     _instance = go.GetComponent<T>();
+                }
+                else
+                {
+                    CheckForDuplicateInstances();
                 }
             }
             return _instance;
         }
     }
+
     protected virtual void Awake()
     {
-        if (_instance != null)
+        if (!ReferenceEquals(_instance, null) && !ReferenceEquals(_instance, this))
         {
             Destroy(transform.root.gameObject);
             return;
         }
-        else
-        {
-            _instance = this as T;
-        }
+        
+        _instance = this as T;
+        SetupDontDestroyOnLoad();
+    }
 
-        if (_dontDestroy && transform.parent != null && transform.root != null)
+    protected virtual void OnDestroy()
+    {
+        if (ReferenceEquals(_instance, this))
         {
-            DontDestroyOnLoad(transform.root.gameObject);
-        }
-        else
-        {
-            GameObject rootManagerGO = GameObject.FindGameObjectWithTag("Manager");
-            if (rootManagerGO != null)
-            {
-                transform.SetParent(rootManagerGO.transform);
-            }
-            else if (_dontDestroy)
-            {
-                DontDestroyOnLoad(gameObject);
-            }
+            _instance = null;
         }
     }
 
@@ -75,8 +62,38 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         _isQuitting = true;
     }
 
-    protected virtual void OnDestroy()
+    private static void CheckForDuplicateInstances()
     {
-        _instance = null;
+        T[] instances = FindObjectsByType<T>(FindObjectsSortMode.None);
+        if (instances.Length > 1)
+        {
+            Debug.LogError($"Ï§ëÎ≥µÎêú Singleton {typeof(T)} Ïù∏Ïä§ÌÑ¥Ïä§Í∞Ä ÏÉùÏÑ±ÎêòÏñ¥, Ï§ëÎ≥µ Ïù∏Ïä§ÌÑ¥Ïä§Îì§ÏùÑ Ï†úÍ±∞Ìï©ÎãàÎã§.");
+            for (int i = 1; i < instances.Length; i++)
+            {
+                Destroy(instances[i].gameObject);
+            }
+        }
+    }
+
+    private void SetupDontDestroyOnLoad()
+    {
+        if (!_isDontDestroy) return;
+
+        if (transform.parent == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            return;
+        }
+
+        GameObject rootManagerGO = GameObject.FindGameObjectWithTag("Manager");
+        if (rootManagerGO != null)
+        {
+            transform.SetParent(rootManagerGO.transform);
+            DontDestroyOnLoad(rootManagerGO);
+        }
+        else
+        {
+            DontDestroyOnLoad(transform.root.gameObject);
+        }
     }
 }
