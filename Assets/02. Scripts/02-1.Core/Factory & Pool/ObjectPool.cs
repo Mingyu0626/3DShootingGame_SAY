@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public interface IPoolAble
-{
-    public void Init();
-}
-
 public class ObjectPool<EnumType, ScriptType> : Singleton<ObjectPool<EnumType, ScriptType>> where ScriptType : MonoBehaviour, IProduct
 {
     [System.Serializable]
