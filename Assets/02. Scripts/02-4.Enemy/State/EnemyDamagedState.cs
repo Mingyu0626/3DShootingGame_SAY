@@ -6,21 +6,19 @@ public class EnemyDamagedState : IEnemyState
 {
     private EnemyController _enemyController;
     private IEnumerator _damagedCoroutine;
+    private Vector3 _knockbackDirection;
 
     public void Enter(EnemyController enemyController)
     {
         _enemyController = enemyController;
+        _knockbackDirection = (_enemyController.transform.position - _enemyController.Player.transform.position).normalized;
         _damagedCoroutine = DamagedCoroutine();
         _enemyController.StartCoroutineInEnemyState(_damagedCoroutine);
     }
 
     public void Update()
     {
-        if (_enemyController.EnemyData.CurrentHealthPoint <= 0)
-        {
-            _enemyController.EnemyStateContext.ChangeState(_enemyController.DieState);
-            Debug.Log("DamagedState -> DieState");
-        }
+        _enemyController.CharacterController.Move(_knockbackDirection * _enemyController.EnemyData.KnockbackSpeed * Time.deltaTime);
     }
 
     public void Exit()
@@ -35,8 +33,7 @@ public class EnemyDamagedState : IEnemyState
     private IEnumerator DamagedCoroutine()
     {
         yield return new WaitForSeconds(_enemyController.EnemyData.DamagedTime);
-        
         _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
-            Debug.Log("DamagedState -> TraceState");
+        Debug.Log("DamagedState -> TraceState");
     }
 } 

@@ -5,13 +5,14 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [Header("State System")]
-    private IEnemyState _idleState, _traceState, _returnState, _attackState, _damagedState, _dieState;
+    private IEnemyState _idleState, _traceState, _returnState, _attackState, _damagedState, _dieState, _patrolState;
     public IEnemyState IdleState => _idleState;
     public IEnemyState TraceState => _traceState;
     public IEnemyState ReturnState => _returnState;
     public IEnemyState AttackState => _attackState;
     public IEnemyState DamagedState => _damagedState;
     public IEnemyState DieState => _dieState;
+    public IEnemyState PatrolState => _patrolState;
     private EnemyStateContext _enemyStateContext;
     public EnemyStateContext EnemyStateContext => _enemyStateContext;
 
@@ -20,19 +21,26 @@ public class EnemyController : MonoBehaviour
     public CharacterController CharacterController => _characterController;
     private EnemyData _enemyData;
     public EnemyData EnemyData => _enemyData;
+
+    [Header("References")]
     private GameObject _player;
     public GameObject Player => _player;
+    private Vector3 _startPosition;
+    public Vector3 StartPosition => _startPosition;
+
     private void Awake()
     {
-        _enemyStateContext = new EnemyStateContext(this);
+        _player = GameObject.FindGameObjectWithTag("Player");
         _characterController = GetComponent<CharacterController>();
         _enemyData = GetComponent<EnemyData>();
-        _player = GameObject.FindGameObjectWithTag("Player");
+        _enemyStateContext = new EnemyStateContext(this);
     }
+
     private void OnEnable()
     {
         _enemyData.CurrentHealthPoint = _enemyData.MaxHealthPoint;
     }
+
     private void Start()
     {
         _idleState = new EnemyIdleState();
@@ -41,10 +49,13 @@ public class EnemyController : MonoBehaviour
         _attackState = new EnemyAttackState();
         _damagedState = new EnemyDamagedState();
         _dieState = new EnemyDieState();
+        _patrolState = new EnemyPatrolState();
         _enemyStateContext.ChangeState(_idleState);
 
-        _enemyData.StartPosition = transform.position;
+        _startPosition = transform.position;
+        GeneratePatrolPoints();
     }
+
     private void Update()
     {
         _enemyStateContext.CurrentState.Update();
@@ -65,5 +76,20 @@ public class EnemyController : MonoBehaviour
         _enemyData.CurrentHealthPoint -= damage.Value;
         Debug.Log($"Change to DamagedState");
         _enemyStateContext.ChangeState(_damagedState);
+    }
+
+    private void GeneratePatrolPoints()
+    {
+        Vector3[] patrolPoints = new Vector3[3];
+        for (int i = 0; i < 3; i++)
+        {
+            float angle = i * 120f * Mathf.Deg2Rad;
+            patrolPoints[i] = _startPosition + new Vector3(
+                Mathf.Cos(angle) * _enemyData.PatrolRadius,
+                0f,
+                Mathf.Sin(angle) * _enemyData.PatrolRadius
+            );
+        }
+        _enemyData.PatrolPoints = patrolPoints;
     }
 } 
