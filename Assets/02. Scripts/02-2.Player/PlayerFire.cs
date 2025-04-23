@@ -19,13 +19,8 @@ public class PlayerFire : MonoBehaviour
     [Header("Bomb")]
     private float _bombHoldStartTime;
     private bool _isHoldingBomb;
-    private float _minBombPower = 10f;
-    private float _maxBombPower = 40f;
-    private float _maxHoldTime = 2f;
 
     [Header("Bullet")]
-    private float _bulletFireInterval = 0.2f;
-    private float _bulletFireCooldown = 5f; 
     private float _lastBulletFireTime = -Mathf.Infinity;
     private bool _isContinuousFiring = false;
     private bool _isContinousFireCoolDown = false;
@@ -52,8 +47,8 @@ public class PlayerFire : MonoBehaviour
         if (Input.GetMouseButtonUp(1) && _isHoldingBomb)
         {
             float heldTime = Time.time - _bombHoldStartTime;
-            float normalizedHoldTime = Mathf.Clamp01(heldTime / _maxHoldTime);
-            float power = Mathf.Lerp(_minBombPower, _maxBombPower, normalizedHoldTime);
+            float normalizedHoldTime = Mathf.Clamp01(heldTime / _playerData.MaxHoldTime);
+            float power = Mathf.Lerp(_playerData.MinBombPower, _playerData.MaxBombPower, normalizedHoldTime);
             FireBomb(power);
             _playerData.CurrentBombCount -= 1;
             _isHoldingBomb = false;
@@ -73,7 +68,7 @@ public class PlayerFire : MonoBehaviour
             FireBullet();
         }
         if (Input.GetMouseButton(0) && !_isContinousFireCoolDown
-            && _lastBulletFireTime + _bulletFireInterval <= Time.time
+            && _lastBulletFireTime + _playerData.BulletFireInterval <= Time.time
             && 0 < _playerData.CurrentBulletCount)
         {
             _isContinuousFiring = true;
@@ -120,7 +115,7 @@ public class PlayerFire : MonoBehaviour
     private IEnumerator CooldownCoroutine()
     {
         _isContinousFireCoolDown = true;
-        yield return new WaitForSeconds(_bulletFireCooldown);
+        yield return new WaitForSeconds(_playerData.BulletFireCooldown);
         _isContinousFireCoolDown = false;
     }
     private void CreateTracer(Vector3 start, Vector3 end)

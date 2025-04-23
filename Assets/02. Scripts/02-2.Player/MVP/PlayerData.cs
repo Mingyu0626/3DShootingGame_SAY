@@ -8,7 +8,6 @@ public class PlayerData : MonoBehaviour
     public Action <int, int> PlayerBulletCountChanged;
     public Action <float> PlayerReloadGaugeChanged;
 
-
     [Header("Basic")]
     private float _gravity = -9.81f;
     public float Gravity => _gravity;
@@ -19,8 +18,6 @@ public class PlayerData : MonoBehaviour
     [Header("Stamina")]
     [SerializeField]
     private float _stamina = 100f;
-    private float _staminaMin = 0f;
-    private float _staminaMax = 100f;
     public float Stamina
     {
         get => _stamina;
@@ -30,16 +27,21 @@ public class PlayerData : MonoBehaviour
             PlayerStaminaChanged?.Invoke(_stamina);
         }
     }
+
+    private float _staminaMin = 0f;
     public float StaminaMin { get => _staminaMin; set => _staminaMin = value; }
+
+    private float _staminaMax = 100f;
     public float StaminaMax { get => _staminaMax; set => _staminaMax = value; }
 
     [Header("Movement")]
     [SerializeField]
     private float _moveSpeed;
+    public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
+
     [SerializeField]
     private float _moveSpeedMultiplier;
     public float MoveSpeedMultiplier { get => _moveSpeedMultiplier; set => _moveSpeedMultiplier = value; }
-    public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
 
     [Header("Run")]
     [SerializeField]
@@ -54,19 +56,22 @@ public class PlayerData : MonoBehaviour
     [Header("Rolling")]
     [SerializeField]
     private float _rollingPower = 10f;
+    public float RollingPower { get => _rollingPower; set => _rollingPower = value; }
+
     [SerializeField]
     private float _staminaCostForRolling = 20f;
+    public float StaminaCostForRolling { get => _staminaCostForRolling; set => _staminaCostForRolling = value; }
+
     [SerializeField]
     private float _rollDuration = 0.1f;
-    public float RollingPower { get => _rollingPower; set => _rollingPower = value; }
-    public float StaminaCostForRolling { get => _staminaCostForRolling; set => _staminaCostForRolling = value; }
     public float RollDuration { get => _rollDuration; set => _rollDuration = value; }
 
     [Header("Climb")]
     [SerializeField]
     private float _staminaCostForClimbing;
-    private bool _isClimbing = false;
     public float StaminaCostForClimbing { get => _staminaCostForClimbing; set => _staminaCostForClimbing = value; }
+
+    private bool _isClimbing = false;
     public bool IsClimbing { get => _isClimbing; set => _isClimbing = value; }
 
     [Header("Fire(Bullet & Bomb)")]
@@ -74,8 +79,9 @@ public class PlayerData : MonoBehaviour
     public bool IsBulletFiring { get => _isBulletFiring; set => _isBulletFiring = value; }
 
     private int _maxBulletCount = 50;
-    private int _currentBulletCount = 50;
     public int MaxBulletCount { get => _maxBulletCount; set => _maxBulletCount = value; }
+
+    private int _currentBulletCount = 50;
     public int CurrentBulletCount 
     { 
         get => _currentBulletCount;
@@ -87,8 +93,9 @@ public class PlayerData : MonoBehaviour
     }
 
     private int _maxBombCount = 3;
-    private int _currentBombCount = 3;
     public int MaxBombCount { get => _maxBombCount; set => _maxBombCount = value; }
+
+    private int _currentBombCount = 3;
     public int CurrentBombCount 
     { 
         get => _currentBombCount;
@@ -98,4 +105,31 @@ public class PlayerData : MonoBehaviour
             PlayerBombCountChanged?.Invoke(_currentBombCount, _maxBombCount);
         }
     }
+
+    [Header("Reload")]
+    [SerializeField]
+    private float _reloadDuration = 2f;
+    public float ReloadDuration { get => _reloadDuration; set => _reloadDuration = value; }
+
+    [Header("Bomb")]
+    [SerializeField]
+    private float _minBombPower = 10f;
+    public float MinBombPower { get => _minBombPower; set => _minBombPower = value; }
+
+    [SerializeField]
+    private float _maxBombPower = 40f;
+    public float MaxBombPower { get => _maxBombPower; set => _maxBombPower = value; }
+
+    [SerializeField]
+    private float _maxHoldTime = 2f;
+    public float MaxHoldTime { get => _maxHoldTime; set => _maxHoldTime = value; }
+
+    [Header("Bullet")]
+    [SerializeField]
+    private float _bulletFireInterval = 0.2f;
+    public float BulletFireInterval { get => _bulletFireInterval; set => _bulletFireInterval = value; }
+
+    [SerializeField]
+    private float _bulletFireCooldown = 5f;
+    public float BulletFireCooldown { get => _bulletFireCooldown; set => _bulletFireCooldown = value; }
 }

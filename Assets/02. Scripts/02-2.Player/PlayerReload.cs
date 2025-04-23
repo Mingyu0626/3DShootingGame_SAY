@@ -8,7 +8,6 @@ public class PlayerReload : MonoBehaviour
     private UI_Reload _uiReload;
     [Header("Reload")]
     private bool _isReloading = false;
-    private float _reloadDuration = 2f;
     private Coroutine _reloadCoroutine;
 
     private void Awake()
@@ -31,7 +30,7 @@ public class PlayerReload : MonoBehaviour
         _uiReload.ShowReloading();
         _isReloading = true;
         float elapsed = 0f;
-        while (elapsed < _reloadDuration)
+        while (elapsed < _playerData.ReloadDuration)
         {
             if (_playerData.IsBulletFiring)
             {
