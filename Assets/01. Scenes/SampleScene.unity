@@ -1416,10 +1416,11 @@ GameObject:
   - component: {fileID: 972566857}
   - component: {fileID: 972566856}
   - component: {fileID: 972566859}
+  - component: {fileID: 972566861}
   - component: {fileID: 972566860}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1529,11 +1530,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116e03433a9149344818d5dec1a48a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _findDistance: 10
-  _returnDistance: 7
-  _attackDistance: 2
+--- !u!114 &972566861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972566854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b2036514da1cd4a99e4269da8d1729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _moveSpeed: 3.3
+  _findDistance: 7
+  _returnDistance: 5
+  _attackDistance: 2.5
   _attackCoolTime: 3
+  _damagedTime: 0.5
+  _maxHealthPoint: 0
 --- !u!1 &1088081155
 GameObject:
   m_ObjectHideFlags: 0

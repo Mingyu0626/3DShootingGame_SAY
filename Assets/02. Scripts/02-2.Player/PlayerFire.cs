@@ -105,6 +105,18 @@ public class PlayerFire : MonoBehaviour
         {
             CreateHitEffect(hitInfo);
             CreateTracer(_firePosition.transform.position, hitInfo.point);
+
+            if (hitInfo.collider.CompareTag("Enemy"))
+            {
+                EnemyController enemyController = hitInfo.collider.GetComponent<EnemyController>();
+
+                Damage damage = new Damage()
+                {
+                    Value = 10,
+                    From = gameObject
+                };
+                enemyController.TakeDamage(damage);
+            }
         }
     }
 
