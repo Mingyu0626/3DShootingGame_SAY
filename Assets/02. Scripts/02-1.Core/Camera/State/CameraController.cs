@@ -37,7 +37,7 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
-        LockMouseCursor();
+        // LockMouseCursor();
     }
     private void Start()
     {

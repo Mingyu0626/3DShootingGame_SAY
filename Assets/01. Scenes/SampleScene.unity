@@ -1899,8 +1899,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 793532823}
+  - component: {fileID: 793532824}
   m_Layer: 0
-  m_Name: ======= [ Canvas ] =======
+  m_Name: ======= [ UI ] =======
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1922,6 +1923,19 @@ Transform:
   - {fileID: 1679138}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &793532824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793532822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00cd521dde2a6df4fa4ba76a6db2ae58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _reloadingTMP: {fileID: 548109503}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,6 +2746,7 @@ GameObject:
   - component: {fileID: 1365063350}
   - component: {fileID: 1365063348}
   - component: {fileID: 1365063352}
+  - component: {fileID: 1365063353}
   m_Layer: 0
   m_Name: Minimap Camera
   m_TagString: Untagged
@@ -2818,7 +2833,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2863,6 +2878,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 1453323369}
   _yOffset: 10
+--- !u!114 &1365063353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365063347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 866606a216249f24aa4cbb5a959d734c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _zoomInButton: {fileID: 1123909163}
+  _zoomOutButton: {fileID: 2000475183}
+  _minOrthographicSize: 5
+  _maxOrthographicSize: 20
+  _zoomSpeed: 1
 --- !u!1 &1366540254
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,51 +3127,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4794626987173978739, guid: 60be9673240058041829509e809be47e, type: 3}
   m_PrefabInstance: {fileID: 6140187147841336325}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1785809951
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1785809952}
-  - component: {fileID: 1785809953}
-  m_Layer: 0
-  m_Name: ======= [ UI ] =======
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1785809952
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1785809951}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1785809953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1785809951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00cd521dde2a6df4fa4ba76a6db2ae58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _reloadingTMP: {fileID: 548109503}
 --- !u!224 &1796549686 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7014896318022331831, guid: 123d54f53dde32b4796e6d1bd1f51f72, type: 3}
@@ -4075,7 +4062,7 @@ PrefabInstance:
     - target: {fileID: -834913060099920595, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: _uiReload
       value: 
-      objectReference: {fileID: 1785809953}
+      objectReference: {fileID: 0}
     - target: {fileID: 7937650576482074, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4207,10 +4194,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1156784583}
     m_Modifications:
-    - target: {fileID: 2297554280938415134, guid: 5d734aa2e092eec448d2148fc4c9146b, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2746665165524265831, guid: 5d734aa2e092eec448d2148fc4c9146b, type: 3}
       propertyPath: m_Name
       value: Barrel
@@ -4268,7 +4251,6 @@ SceneRoots:
   - {fileID: 793532823}
   - {fileID: 1302881971}
   - {fileID: 1319754761}
-  - {fileID: 1785809952}
   - {fileID: 915417090}
   - {fileID: 284367393}
   - {fileID: 6140187147841336325}
