@@ -117,6 +117,16 @@ public class PlayerFire : MonoBehaviour
                 };
                 enemyController.TakeDamage(damage);
             }
+            if (hitInfo.collider.CompareTag("Obstacle"))
+            {
+                Barrel barrel = hitInfo.collider.GetComponent<Barrel>();
+                Damage damage = new Damage()
+                {
+                    Value = 10,
+                    From = gameObject
+                };
+                barrel.TakeDamage(damage);
+            }
         }
     }
 
