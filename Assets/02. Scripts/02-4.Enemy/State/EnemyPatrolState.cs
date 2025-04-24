@@ -59,8 +59,7 @@ public class EnemyPatrolState : IEnemyState
             Vector3 targetPosition = _enemyController.EnemyData.PatrolPoints[_currentPatrolIndex];
             while (Vector3.Distance(_enemyController.transform.position, targetPosition) > 0.1f)
             {
-                Vector3 direction = (targetPosition - _enemyController.transform.position).normalized;
-                _enemyController.CharacterController.Move(direction * _enemyController.EnemyData.MoveSpeed * Time.deltaTime);
+                _enemyController.Agent.SetDestination(targetPosition);
                 yield return null;
             }
 

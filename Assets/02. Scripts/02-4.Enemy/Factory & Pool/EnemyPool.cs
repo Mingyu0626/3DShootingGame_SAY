@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyPool : ObjectPool<EnemyType, Enemy>
+public class EnemyPool : ObjectPool<EEnemyType, Enemy>
 {
     protected override void Awake()
     {

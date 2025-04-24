@@ -18,6 +18,9 @@ public class EnemyDamagedState : IEnemyState
         _knockbackDirection = (_enemyController.transform.position - _enemyController.Player.transform.position).normalized;
         _damagedCoroutine = DamagedCoroutine();
         _enemyController.StartCoroutineInEnemyState(_damagedCoroutine);
+
+        _enemyController.Agent.ResetPath();
+        _enemyController.Agent.isStopped = true;
     }
 
     public void Update()
@@ -32,6 +35,7 @@ public class EnemyDamagedState : IEnemyState
             _enemyController.StopCoroutineInEnemyState(_damagedCoroutine);
             _damagedCoroutine = null;
         }
+        _enemyController.Agent.isStopped = false;
     }
 
     private IEnumerator DamagedCoroutine()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -28,12 +29,21 @@ public class EnemyController : MonoBehaviour
     private Vector3 _startPosition;
     public Vector3 StartPosition => _startPosition;
 
+
+    [Header("NavMesh")]
+    [SerializeField]
+    private NavMeshAgent _agent;
+    public NavMeshAgent Agent { get => _agent; set => _agent = value; }
+
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         _characterController = GetComponent<CharacterController>();
         _enemyData = GetComponent<EnemyData>();
         _enemyStateContext = new EnemyStateContext(this);
+
+        _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = _enemyData.MoveSpeed;
     }
 
     private void OnEnable()

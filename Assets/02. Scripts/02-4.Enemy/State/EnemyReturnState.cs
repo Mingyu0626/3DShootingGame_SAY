@@ -27,8 +27,7 @@ public class EnemyReturnState : IEnemyState
         }
         else
         {
-            Vector3 direction = (_enemyController.StartPosition - _enemyController.transform.position).normalized;
-            _enemyController.CharacterController.Move(direction * _enemyController.EnemyData.MoveSpeed * Time.deltaTime);
+            _enemyController.Agent.SetDestination(_enemyController.StartPosition);
         }
     }
 
