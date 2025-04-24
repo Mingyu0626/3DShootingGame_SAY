@@ -3,19 +3,28 @@ using UnityEngine;
 public class Barrel : MonoBehaviour
 {
     [Header("Health")]
-    [SerializeField] private int _maxHealth = 100;
+    [SerializeField] 
+    private int _maxHealth = 100;
     private int _currentHealth;
 
     [Header("Explosion")]
-    [SerializeField] private float _explosionRadius = 5f;
-    [SerializeField] private int _explosionDamage = 50;
-    [SerializeField] private float _explosionForce = 10f;
-    [SerializeField] private GameObject _explosionEffect;
+    [SerializeField] 
+    private float _explosionRadius = 5f;
+    [SerializeField] 
+    private int _explosionDamage = 50;
+    [SerializeField] 
+    private float _explosionForce = 10f;
+    [SerializeField] 
+    private GameObject _explosionEffect;
 
     [Header("Physics")]
-    [SerializeField] private float _randomForceMin = 5f;
-    [SerializeField] private float _randomForceMax = 15f;
+    [SerializeField] 
+    private float _randomForceMin = 5f;
+    [SerializeField] 
+    private float _randomForceMax = 15f;
     private Rigidbody _rigidbody;
+
+    private Collider[] _hitColliders = new Collider[10];
 
     private void Awake()
     {
@@ -35,21 +44,24 @@ public class Barrel : MonoBehaviour
 
     private void Explode()
     {
-        // 폭발 이펙트 생성
-        if (_explosionEffect != null)
-        {
-            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
-        }
+        ApplyExplosionDamage();
+        ApplyExplosionForce();
+        ApplyRandomForce();
+        SpawnExplosionEffect();
+        Destroy(gameObject, 3f);
+    }
 
-        // 주변 물체에 데미지 주기
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _explosionRadius);
-        foreach (Collider collider in colliders)
+    private void ApplyExplosionDamage()
+    {
+        int hitCount = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, _hitColliders);
+
+        for (int i = 0; i < hitCount; i++)
         {
-            // 적에게 데미지
+            Collider collider = _hitColliders[i];
             if (collider.CompareTag("Enemy"))
             {
                 EnemyController enemy = collider.GetComponent<EnemyController>();
-                if (enemy != null)
+                if (!ReferenceEquals(enemy, null))
                 {
                     Damage damage = new Damage()
                     {
@@ -59,25 +71,38 @@ public class Barrel : MonoBehaviour
                     enemy.TakeDamage(damage);
                 }
             }
-            // 플레이어에게 데미지
             else if (collider.CompareTag("Player"))
             {
                 PlayerData player = collider.GetComponent<PlayerData>();
-                if (player != null)
+                if (!ReferenceEquals(player, null))
                 {
                     player.Stamina -= _explosionDamage;
                 }
             }
+        }
+    }
 
-            // 물리적 힘 적용
-            Rigidbody rb = collider.GetComponent<Rigidbody>();
-            if (rb != null)
+    private void ApplyExplosionForce()
+    {
+        int hitCount = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, _hitColliders);
+
+        for (int i = 0; i < hitCount; i++)
+        {
+            Collider collider = _hitColliders[i];
+            if (collider.CompareTag("Player") || collider.CompareTag("Enemy"))
             {
-                rb.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
+                CharacterController characterController = collider.GetComponent<CharacterController>();
+                if (!ReferenceEquals(characterController, null))
+                {
+                    Vector3 direction = (collider.transform.position - transform.position).normalized;
+                    characterController.Move(direction * _explosionForce * Time.deltaTime);
+                }
             }
         }
+    }
 
-        // 랜덤한 방향으로 날아가기
+    private void ApplyRandomForce()
+    {
         Vector3 randomDirection = new Vector3(
             Random.Range(-1f, 1f),
             Random.Range(0.5f, 1f),
@@ -86,8 +111,13 @@ public class Barrel : MonoBehaviour
         
         float randomForce = Random.Range(_randomForceMin, _randomForceMax);
         _rigidbody.AddForce(randomDirection * randomForce, ForceMode.Impulse);
+    }
 
-        // 3초 후 파괴
-        Destroy(gameObject, 3f);
+    private void SpawnExplosionEffect()
+    {
+        if (!ReferenceEquals(_explosionEffect, null))
+        {
+            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+        }
     }
 } 

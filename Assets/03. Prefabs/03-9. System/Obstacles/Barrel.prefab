@@ -172,6 +172,6 @@ MonoBehaviour:
   _explosionRadius: 5
   _explosionDamage: 1
   _explosionForce: 10
-  _explosionEffect: {fileID: 0}
+  _explosionEffect: {fileID: 100008, guid: f2d3023b7626c884ba93fec0de211faa, type: 3}
   _randomForceMin: 5
   _randomForceMax: 15
