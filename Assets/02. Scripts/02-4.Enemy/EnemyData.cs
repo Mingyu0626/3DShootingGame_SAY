@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 public class EnemyData : MonoBehaviour 
 {
+    [SerializeField]
+    private EEnemyType _enemyType;
+    public EEnemyType EnemyType { get => _enemyType; set => _enemyType = value; }
+
     [Header("Movement")]
     [SerializeField] private float _moveSpeed;
     public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }

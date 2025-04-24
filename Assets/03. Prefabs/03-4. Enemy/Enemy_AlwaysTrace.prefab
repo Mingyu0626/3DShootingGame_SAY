@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3599411763062322685}
   - component: {fileID: 4364827395558893002}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: Enemy_AlwaysTrace
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9e3733909e636364aae9f6d90848958e, type: 2}
+  - {fileID: 2100000, guid: b52850c1237a32b40bf43282e1a8b727, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -163,8 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b2036514da1cd4a99e4269da8d1729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyType: 1
   _moveSpeed: 3.3
-  _findDistance: 8
+  _findDistance: 1000000
   _idleToPatrolWaitTime: 5
   _returnDistance: 5
   _attackDistance: 2.5

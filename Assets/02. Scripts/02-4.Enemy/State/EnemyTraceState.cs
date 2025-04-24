@@ -18,7 +18,7 @@ public class EnemyTraceState : IEnemyState
     {
         float distance = Vector3.Distance(_enemyController.Player.transform.position, _enemyController.transform.position);
         
-        if (distance > _enemyController.EnemyData.FindDistance)
+        if (_enemyController.EnemyData.FindDistance < distance)
         {
             _enemyController.EnemyStateContext.ChangeState(_enemyController.ReturnState);
             Debug.Log("TraceState -> ReturnState");

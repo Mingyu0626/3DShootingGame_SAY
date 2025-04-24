@@ -44,15 +44,7 @@ public class EnemyController : MonoBehaviour
 
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = _enemyData.MoveSpeed;
-    }
 
-    private void OnEnable()
-    {
-        _enemyData.CurrentHealthPoint = _enemyData.MaxHealthPoint;
-    }
-
-    private void Start()
-    {
         _idleState = new EnemyIdleState(this);
         _traceState = new EnemyTraceState(this);
         _returnState = new EnemyReturnState(this);
@@ -60,11 +52,13 @@ public class EnemyController : MonoBehaviour
         _damagedState = new EnemyDamagedState(this);
         _dieState = new EnemyDieState(this);
         _patrolState = new EnemyPatrolState(this);
-        _enemyStateContext.ChangeState(_idleState);
-
-        _startPosition = transform.position;
     }
-
+    private void OnEnable()
+    {
+        _enemyData.CurrentHealthPoint = _enemyData.MaxHealthPoint;
+        _startPosition = transform.position;
+        SetStartState();
+    }
     private void Update()
     {
         _enemyStateContext.CurrentState.Update();
@@ -85,5 +79,20 @@ public class EnemyController : MonoBehaviour
         _enemyData.CurrentHealthPoint -= damage.Value;
         Debug.Log($"Change to DamagedState");
         _enemyStateContext.ChangeState(_damagedState);
+    }
+    private void SetStartState()
+    {
+        switch (_enemyData.EnemyType)
+        {
+            case EEnemyType.NormalEnemy:
+                _enemyStateContext.ChangeState(_idleState);
+                break;
+            case EEnemyType.AlwaysTraceEnemy:
+                _enemyStateContext.ChangeState(_traceState);
+                break;
+            default:
+                _enemyStateContext.ChangeState(_idleState);
+                break;
+        }
     }
 } 
