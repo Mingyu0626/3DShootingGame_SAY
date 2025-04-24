@@ -783,7 +783,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 255
+    m_Bits: 767
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3828,6 +3828,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6545958847173499800, guid: 72b4660e055351a4e90aaa88021b368a, type: 3}
+      propertyPath: _spawnRadius
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545958847173499800, guid: 72b4660e055351a4e90aaa88021b368a, type: 3}
+      propertyPath: _spawnInterval
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8544973160901231479, guid: 72b4660e055351a4e90aaa88021b368a, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
@@ -4197,6 +4205,10 @@ PrefabInstance:
     - target: {fileID: 2746665165524265831, guid: 5d734aa2e092eec448d2148fc4c9146b, type: 3}
       propertyPath: m_Name
       value: Barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746665165524265831, guid: 5d734aa2e092eec448d2148fc4c9146b, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8287583850640628771, guid: 5d734aa2e092eec448d2148fc4c9146b, type: 3}
       propertyPath: m_LocalPosition.x
