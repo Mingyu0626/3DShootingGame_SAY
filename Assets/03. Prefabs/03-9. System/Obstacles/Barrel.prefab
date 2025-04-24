@@ -15,9 +15,8 @@ GameObject:
   - component: {fileID: 1932090174108682513}
   - component: {fileID: 8158409615500791697}
   - component: {fileID: -2243829398077362211}
-  - component: {fileID: 2297554280938415134}
   m_Layer: 0
-  m_Name: Drum
+  m_Name: Barrel
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,22 +171,7 @@ MonoBehaviour:
   _maxHealth: 1
   _explosionRadius: 5
   _explosionDamage: 1
-  _explosionForce: 5
+  _explosionForce: 10
   _explosionEffect: {fileID: 0}
   _randomForceMin: 5
   _randomForceMax: 15
---- !u!114 &2297554280938415134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2746665165524265831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32caafd0ae7f79e41bb451b8a28e6939, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointA: {fileID: 0}
-  _pointB: {fileID: 0}
-  _speed: 1
