@@ -44,6 +44,11 @@ public class PlayerFire : MonoBehaviour
 
     private void HandleFireBombInput()
     {
+        if (GameManager.Instance.IsInputBlocked)
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(1) && 0 < _playerData.CurrentBombCount)
         {
             _bombHoldStartTime = Time.time;
@@ -71,6 +76,11 @@ public class PlayerFire : MonoBehaviour
 
     private void HandleFireBulletInput()
     {
+        if (GameManager.Instance.IsInputBlocked)
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0) && 0 < _playerData.CurrentBulletCount)
         {
             FireBullet();

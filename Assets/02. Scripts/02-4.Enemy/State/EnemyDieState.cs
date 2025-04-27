@@ -33,8 +33,7 @@ public class EnemyDieState : IEnemyState
 
     private IEnumerator DieCoroutine()
     {
-        // TODO: Implement die logic (e.g., play death animation, drop items, etc.)
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         EnemyPool.Instance.ReturnObject(_enemyController.GetComponent<Enemy>());
     }
 } 
