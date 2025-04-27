@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 3565409782651115750}
   - component: {fileID: 5159659518756239006}
   - component: {fileID: -834913060099920595}
+  - component: {fileID: -7086783229158107779}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -324,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b11fe8b271088240917834925329fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stamina: 100
+  _currentStamina: 100
   _moveSpeed: 5
   _moveSpeedMultiplier: 2
   _staminaCostForRun: 20
@@ -470,6 +471,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiReload: {fileID: 0}
+--- !u!114 &-7086783229158107779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566557679951068972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3beb06389e3b94bb97ddbfdef33007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damagedEffectImage: {fileID: 0}
+  _damagedEffectFadeInTime: 0.05
+  _damagedEffectFadeOutTime: 0.5
 --- !u!1 &4794626987173978739
 GameObject:
   m_ObjectHideFlags: 0

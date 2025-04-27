@@ -22,6 +22,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     public CharacterController CharacterController => _characterController;
     private EnemyData _enemyData;
     public EnemyData EnemyData => _enemyData;
+    private UI_Enemy _enemyHPBar;
+
 
     [Header("References")]
     private GameObject _player;
@@ -31,7 +33,6 @@ public class EnemyController : MonoBehaviour, IDamageable
 
 
     [Header("NavMesh")]
-    [SerializeField]
     private NavMeshAgent _agent;
     public NavMeshAgent Agent { get => _agent; set => _agent = value; }
 
@@ -40,6 +41,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         _player = GameObject.FindGameObjectWithTag("Player");
         _characterController = GetComponent<CharacterController>();
         _enemyData = GetComponent<EnemyData>();
+        _enemyHPBar = GetComponentInChildren<UI_Enemy>();
         _enemyStateContext = new EnemyStateContext(this);
 
         _agent = GetComponent<NavMeshAgent>();
@@ -79,6 +81,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void TakeDamage(Damage damage)
     {
         _enemyData.CurrentHealthPoint -= damage.Value;
+        _enemyHPBar.SetSliderEnemyHealthPoint(_enemyData.CurrentHealthPoint);
         _enemyStateContext.ChangeState(_damagedState);
     }
 
