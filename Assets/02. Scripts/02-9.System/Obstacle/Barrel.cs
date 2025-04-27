@@ -76,7 +76,7 @@ public class Barrel : MonoBehaviour, IDamageable
                 PlayerData player = collider.GetComponent<PlayerData>();
                 if (!ReferenceEquals(player, null))
                 {
-                    player.Stamina -= _explosionDamage;
+                    player.CurrentStamina -= _explosionDamage;
                 }
             }
         }

@@ -17,7 +17,7 @@ public class PlayerRun : MonoBehaviour
         float moveSpeedMultiplier = _playerData.MoveSpeedMultiplier;
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if (0f < _playerData.Stamina && !_isRunning)
+            if (0f < _playerData.CurrentStamina && !_isRunning)
             {
                 _isRunning = true;
                 _playerData.MoveSpeed *= moveSpeedMultiplier;
@@ -26,7 +26,7 @@ public class PlayerRun : MonoBehaviour
         else if (Input.GetKey(KeyCode.LeftShift) && _isRunning)
         {
             UseStamina();
-            if (_playerData.Stamina == 0f)
+            if (_playerData.CurrentStamina == 0f)
             {
                 _isRunning = false;
                 _playerData.MoveSpeed /= moveSpeedMultiplier;
@@ -45,10 +45,10 @@ public class PlayerRun : MonoBehaviour
     }
     private void UseStamina()
     {
-        _playerData.Stamina -= Time.deltaTime * _playerData.StaminaCostForRun;
+        _playerData.CurrentStamina -= Time.deltaTime * _playerData.StaminaCostForRun;
     }
     private void RecoverStamina()
     {
-        _playerData.Stamina += Time.deltaTime * _playerData.StaminaCostForRun;
+        _playerData.CurrentStamina += Time.deltaTime * _playerData.StaminaCostForRun;
     }
 }

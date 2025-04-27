@@ -18,14 +18,14 @@ public class PlayerRoll : MonoBehaviour
     }
     private void Roll()
     {
-        if (Input.GetKeyDown(KeyCode.E) && _playerData.StaminaCostForRolling <= _playerData.Stamina && !_isRolling)
+        if (Input.GetKeyDown(KeyCode.E) && _playerData.StaminaCostForRolling <= _playerData.CurrentStamina && !_isRolling)
         {
             StartCoroutine(RollCoroutine());
         }
     }
     private IEnumerator RollCoroutine()
     {
-        _playerData.Stamina -= _playerData.StaminaCostForRolling;
+        _playerData.CurrentStamina -= _playerData.StaminaCostForRolling;
         _isRolling = true;
         _playerData.MoveSpeed *= _playerData.RollingPower;
 

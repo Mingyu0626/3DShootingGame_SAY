@@ -8,6 +8,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         _playerData = GetComponent<PlayerData>();
         _playerEffect = GetComponent<PlayerEffect>();
+        _playerData.Init();
     }
     public void TakeDamage(Damage damage)
     {

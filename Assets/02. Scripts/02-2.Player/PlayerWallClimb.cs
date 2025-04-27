@@ -20,11 +20,11 @@ public class PlayerWallClimb : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            if (_canClimb && 0f <= _playerData.Stamina && (_characterController.collisionFlags & CollisionFlags.Sides) != 0)
+            if (_canClimb && 0f <= _playerData.CurrentStamina && (_characterController.collisionFlags & CollisionFlags.Sides) != 0)
             {
                 _playerData.IsClimbing = true;
             }
-            else if (_playerData.Stamina == 0f)
+            else if (_playerData.CurrentStamina == 0f)
             {
                 _canClimb = false;
                 _playerData.IsClimbing = false;
@@ -39,7 +39,7 @@ public class PlayerWallClimb : MonoBehaviour
         {
             UseStamina();
         }
-        if (_playerData.Stamina == 0f)
+        if (_playerData.CurrentStamina == 0f)
         {
             _canClimb = false;
             _playerData.IsClimbing = false;
@@ -47,7 +47,7 @@ public class PlayerWallClimb : MonoBehaviour
     }
     private void UseStamina()
     {
-        _playerData.Stamina -= Time.deltaTime * _playerData.StaminaCostForClimbing;
+        _playerData.CurrentStamina -= Time.deltaTime * _playerData.StaminaCostForClimbing;
     }
     private void CheckIsGround()
     {

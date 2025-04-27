@@ -21,14 +21,14 @@ public class PlayerData : MonoBehaviour
 
     [Header("Stat(Stamina & HP)")]
     [SerializeField]
-    private float _stamina = 100f;
-    public float Stamina
+    private float _currentStamina = 100f;
+    public float CurrentStamina
     {
-        get => _stamina;
+        get => _currentStamina;
         set
         {
-            _stamina = Mathf.Clamp(value, _minStamina, _maxStamina);
-            PlayerStaminaChanged?.Invoke(_stamina);
+            _currentStamina = Mathf.Clamp(value, _minStamina, _maxStamina);
+            PlayerStaminaChanged?.Invoke(_currentStamina);
         }
     }
 
@@ -149,4 +149,12 @@ public class PlayerData : MonoBehaviour
     [SerializeField]
     private float _reloadDuration = 2f;
     public float ReloadDuration { get => _reloadDuration; set => _reloadDuration = value; }
+
+    public void Init()
+    {
+        _currentStamina = _maxStamina;
+        _currentHealthPoint = _maxHealthPoint;
+        _currentBulletCount = _maxBulletCount;
+        _currentBombCount = _maxBombCount;
+    }
 }
