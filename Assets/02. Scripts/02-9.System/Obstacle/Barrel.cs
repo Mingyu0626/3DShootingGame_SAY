@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Barrel : MonoBehaviour
+public class Barrel : MonoBehaviour, IDamageable
 {
     [Header("Health")]
     [SerializeField] 
@@ -39,6 +39,7 @@ public class Barrel : MonoBehaviour
         if (_currentHealth <= 0)
         {
             Explode();
+            Destroy(gameObject, 3f);
         }
     }
 
@@ -48,7 +49,6 @@ public class Barrel : MonoBehaviour
         ApplyExplosionForce();
         ApplyRandomForce();
         SpawnExplosionEffect();
-        Destroy(gameObject, 3f);
     }
 
     private void ApplyExplosionDamage()
@@ -111,6 +111,7 @@ public class Barrel : MonoBehaviour
         
         float randomForce = Random.Range(_randomForceMin, _randomForceMax);
         _rigidbody.AddForce(randomDirection * randomForce, ForceMode.Impulse);
+        _rigidbody.AddTorque(Vector3.up, ForceMode.Impulse);
     }
 
     private void SpawnExplosionEffect()

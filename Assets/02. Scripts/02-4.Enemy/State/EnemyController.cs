@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IDamageable
 {
     [Header("State System")]
     private IEnemyState _idleState, _traceState, _returnState, _attackState, _damagedState, _dieState, _patrolState;
@@ -53,12 +53,14 @@ public class EnemyController : MonoBehaviour
         _dieState = new EnemyDieState(this);
         _patrolState = new EnemyPatrolState(this);
     }
+
     private void OnEnable()
     {
         _enemyData.CurrentHealthPoint = _enemyData.MaxHealthPoint;
         _startPosition = transform.position;
         SetStartState();
     }
+
     private void Update()
     {
         _enemyStateContext.CurrentState.Update();
@@ -77,9 +79,9 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(Damage damage)
     {
         _enemyData.CurrentHealthPoint -= damage.Value;
-        Debug.Log($"Change to DamagedState");
         _enemyStateContext.ChangeState(_damagedState);
     }
+
     private void SetStartState()
     {
         switch (_enemyData.EnemyType)

@@ -106,26 +106,14 @@ public class PlayerFire : MonoBehaviour
             CreateHitEffect(hitInfo);
             CreateTracer(_firePosition.transform.position, hitInfo.point);
 
-            if (hitInfo.collider.CompareTag("Enemy"))
+            if (hitInfo.collider.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                EnemyController enemyController = hitInfo.collider.GetComponent<EnemyController>();
-
                 Damage damage = new Damage()
                 {
                     Value = 10,
                     From = gameObject
                 };
-                enemyController.TakeDamage(damage);
-            }
-            if (hitInfo.collider.CompareTag("Obstacle"))
-            {
-                Barrel barrel = hitInfo.collider.GetComponent<Barrel>();
-                Damage damage = new Damage()
-                {
-                    Value = 10,
-                    From = gameObject
-                };
-                barrel.TakeDamage(damage);
+                damageable.TakeDamage(damage);
             }
         }
     }
