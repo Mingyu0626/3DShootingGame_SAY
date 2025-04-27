@@ -7,31 +7,41 @@ public class UI_PlayerView : MonoBehaviour
     [SerializeField]
     private Slider _playerStaminaBar;
     [SerializeField]
+    private Slider _playerHealthPointBar;
+    [SerializeField]
     private TextMeshProUGUI _playerBombCountTMP;
     [SerializeField]
     private TextMeshProUGUI _playerBulletCountTMP;
-    public void InitSliderPlayerStamina(float staminaMax)
+    public void InitSliderPlayerStamina(float maxStamina)
     {
         if (!ReferenceEquals(_playerStaminaBar, null))
         {
-            _playerStaminaBar.maxValue = staminaMax;
-            _playerStaminaBar.value = staminaMax;
+            _playerStaminaBar.maxValue = maxStamina;
+            _playerStaminaBar.value = maxStamina;
         }
     }
-    public void InitTextPlayerBomb(int bombCount, int bombCountMax)
+    public void InitSliderPlayerHealthPoint(float maxHealthPoint)
+    {
+        if (!ReferenceEquals(_playerHealthPointBar, null))
+        {
+            _playerHealthPointBar.maxValue = maxHealthPoint;
+            _playerHealthPointBar.value = maxHealthPoint;
+        }
+    }
+    public void InitTextPlayerBomb(int bombCount, int maxBombCount)
     {
         if (!ReferenceEquals(_playerBombCountTMP, null))
         {
             _playerBombCountTMP.text
-                = $"Bomb : {bombCount.ToString()} / {bombCountMax.ToString()}";
+                = $"Bomb : {bombCount.ToString()} / {maxBombCount.ToString()}";
         }
     }
-    public void InitTextPlayerBullet(int bulletCount, int bulletCountMax)
+    public void InitTextPlayerBullet(int bulletCount, int maxBulletCount)
     {
         if (!ReferenceEquals(_playerBulletCountTMP, null))
         {
             _playerBulletCountTMP.text
-                = $"Bullet : {bulletCount.ToString()} / {bulletCountMax.ToString()}";
+                = $"Bullet : {bulletCount.ToString()} / {maxBulletCount.ToString()}";
         }
     }
     public void SetSliderPlayerStamina(float stamina)
@@ -41,20 +51,27 @@ public class UI_PlayerView : MonoBehaviour
             _playerStaminaBar.value = stamina;
         }
     }
-    public void SetTextPlayerBomb(int bombCount, int bombCountMax)
+    public void SetSliderPlayerHealthPoint(float healthPoint)
+    {
+        if (!ReferenceEquals(_playerHealthPointBar, null))
+        {
+            _playerHealthPointBar.value = healthPoint;
+        }
+    }
+    public void SetTextPlayerBomb(int bombCount, int maxBombCount)
     {
         if (!ReferenceEquals(_playerBombCountTMP, null))
         {
             _playerBombCountTMP.text
-                = $"Bomb : {bombCount.ToString()} / {bombCountMax.ToString()}";
+                = $"Bomb : {bombCount.ToString()} / {maxBombCount.ToString()}";
         }
     }
-    public void SetTextPlayerBullet(int bulletCount, int bulletCountMax)
+    public void SetTextPlayerBullet(int bulletCount, int maxBulletCount)
     {
         if (!ReferenceEquals(_playerBulletCountTMP, null))
         {
             _playerBulletCountTMP.text
-                = $"Bullet : {bulletCount.ToString()} / {bulletCountMax.ToString()}";
+                = $"Bullet : {bulletCount.ToString()} / {maxBulletCount.ToString()}";
         }
     }
 }

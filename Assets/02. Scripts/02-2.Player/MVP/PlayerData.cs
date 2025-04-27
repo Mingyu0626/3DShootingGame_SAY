@@ -5,6 +5,7 @@ public class PlayerData : MonoBehaviour
 {
     [Header("Events")]
     public Action <float> PlayerStaminaChanged;
+    public Action<float> PlayerHealthPointChanged;
     public Action <int, int> PlayerBombCountChanged;
     public Action <int, int> PlayerBulletCountChanged;
     public Action <float> PlayerReloadGaugeChanged;
@@ -18,7 +19,7 @@ public class PlayerData : MonoBehaviour
     public float YVelocity { get => _yVelocity; set => _yVelocity = value; }
 
 
-    [Header("Stamina")]
+    [Header("Stat(Stamina & HP)")]
     [SerializeField]
     private float _stamina = 100f;
     public float Stamina
@@ -26,16 +27,22 @@ public class PlayerData : MonoBehaviour
         get => _stamina;
         set
         {
-            _stamina = Mathf.Clamp(value, _staminaMin, _staminaMax);
+            _stamina = Mathf.Clamp(value, _minStamina, _maxStamina);
             PlayerStaminaChanged?.Invoke(_stamina);
         }
     }
 
-    private float _staminaMin = 0f;
-    public float StaminaMin { get => _staminaMin; set => _staminaMin = value; }
+    private float _minStamina = 0f;
+    public float MinStamina { get => _minStamina; set => _minStamina = value; }
 
-    private float _staminaMax = 100f;
-    public float StaminaMax { get => _staminaMax; set => _staminaMax = value; }
+    private float _maxStamina = 100f;
+    public float MaxStamina { get => _maxStamina; set => _maxStamina = value; }
+
+    private const float _maxHealthPoint = 100f;
+    public float MaxHealthPoint { get => _maxHealthPoint; }
+
+    private float _currentHealthPoint;
+    public float CurrentHealthPoint { get => _currentHealthPoint; set => _currentHealthPoint = value; }
 
 
     [Header("Movement")]

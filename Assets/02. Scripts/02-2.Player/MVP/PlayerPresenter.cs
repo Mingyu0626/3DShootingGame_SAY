@@ -14,7 +14,10 @@ public class PlayerPresenter : MonoBehaviour
     private void Start()
     {
         _playerData.PlayerStaminaChanged += _playerView.SetSliderPlayerStamina;
-        _playerView.InitSliderPlayerStamina(_playerData.StaminaMax);
+        _playerView.InitSliderPlayerStamina(_playerData.MaxStamina);
+
+        _playerData.PlayerHealthPointChanged += _playerView.SetSliderPlayerHealthPoint;
+        _playerView.InitSliderPlayerHealthPoint(_playerData.MaxHealthPoint);
 
         _playerData.PlayerBombCountChanged += _playerView.SetTextPlayerBomb;
         _playerView.InitTextPlayerBomb(_playerData.CurrentBombCount, _playerData.MaxBombCount);
