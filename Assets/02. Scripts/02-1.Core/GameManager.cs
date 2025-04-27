@@ -8,9 +8,10 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
     private TextMeshProUGUI _readyTMP;
-
     [SerializeField]
     private TextMeshProUGUI _goTMP;
+    [SerializeField]
+    private TextMeshProUGUI _gameOverTMP;
 
     [SerializeField]
     private float _waitTimeBeforeReadyTMPOff = 2f;
@@ -23,10 +24,10 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        StartCoroutine(GameStateFlow());
+        StartCoroutine(GameStartFlow());
     }
 
-    private IEnumerator GameStateFlow()
+    private IEnumerator GameStartFlow()
     {
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(_waitTimeBeforeReadyTMPOff);
@@ -40,5 +41,11 @@ public class GameManager : Singleton<GameManager>
         _isInputBlocked = false;
         Time.timeScale = 1f;
         _goTMP.DOFade(0f, 0.05f);
+    }
+    private void GameOver()
+    {
+        _gameOverTMP.DOFade(1f, 0.05f).SetUpdate(true);
+        Time.timeScale = 0f;
+        _isInputBlocked = true;
     }
 }
