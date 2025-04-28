@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 821608108160773202}
   - component: {fileID: 3170848838522672361}
   - component: {fileID: 4980139486171659072}
-  - component: {fileID: 3599411763062322685}
+  - component: {fileID: 6381182720383850521}
   - component: {fileID: 4364827395558893002}
   - component: {fileID: 8385388478507028598}
   m_Layer: 7
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasForEnemyHPBar: {fileID: 7341683630469072286}
---- !u!114 &3599411763062322685
+--- !u!114 &6381182720383850521
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,20 +163,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1526785497384991108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b2036514da1cd4a99e4269da8d1729, type: 3}
+  m_Script: {fileID: 11500000, guid: 996aac0459becb1478ca37f2bb8a16ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyType: 1
-  _moveSpeed: 3.3
-  _findDistance: 1000000
+  _enemyType: 0
+  _moveSpeed: 3
+  _findDistance: 7
   _idleToPatrolWaitTime: 5
   _returnDistance: 5
   _attackDistance: 2.5
   _attackCoolTime: 3
-  _damagedTime: 0.1
-  _knockbackDistance: 1
-  _knockbackSpeed: 20
-  _maxHealthPoint: 1
+  _damagedTime: 0.5
+  _knockbackDistance: 2
+  _knockbackSpeed: 10
+  _maxHealthPoint: 5
   _patrolRadius: 3
   _patrolWaitTime: 2
 --- !u!114 &4364827395558893002
