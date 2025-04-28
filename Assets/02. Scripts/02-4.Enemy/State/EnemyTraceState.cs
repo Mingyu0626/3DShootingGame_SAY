@@ -11,7 +11,6 @@ public class EnemyTraceState : IEnemyState
     }
     public void Enter()
     {
-        
     }
 
     public void Update()
@@ -26,6 +25,7 @@ public class EnemyTraceState : IEnemyState
         else if (distance <= _enemyController.EnemyData.AttackDistance)
         {
             _enemyController.EnemyStateContext.ChangeState(_enemyController.AttackState);
+            _enemyController.Animator.SetTrigger("MoveToAttackDelay");
             Debug.Log("TraceState -> AttackState");
         }
         else

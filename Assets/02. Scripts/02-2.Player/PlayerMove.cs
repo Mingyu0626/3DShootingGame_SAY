@@ -4,10 +4,12 @@ public class PlayerMove : MonoBehaviour
 {
     private PlayerData _playerData;
     private CharacterController _characterController;
+    private Animator _animator;
     private void Awake()
     {
         _playerData = GetComponent<PlayerData>();
         _characterController = GetComponent<CharacterController>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -19,6 +21,10 @@ public class PlayerMove : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+        Vector3 moveDirectionRaw = new Vector3(horizontal, 0f, vertical);
+        _animator.SetFloat("MoveAmount", moveDirectionRaw.magnitude);
+        _animator.SetLayerWeight(1, _playerData.CurrentStamina / _playerData.MaxStamina);
+        _animator.SetLayerWeight(2, 1f - _playerData.CurrentHealthPoint / _playerData.MaxHealthPoint);
         Vector3 moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
 
         // 메인 카메라를 기준으로 방향을 변환한다.
@@ -35,6 +41,7 @@ public class PlayerMove : MonoBehaviour
             // 중력 적용
             moveDirection = ApplyGravity(moveDirection);
         }
+
         _characterController.Move(moveDirection * _playerData.MoveSpeed * Time.deltaTime);
     }
 

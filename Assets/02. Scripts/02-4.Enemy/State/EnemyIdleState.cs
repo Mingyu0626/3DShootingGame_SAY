@@ -24,6 +24,7 @@ public class EnemyIdleState : IEnemyState
         if (distance <= _enemyController.EnemyData.FindDistance)
         {
             _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
+            _enemyController.Animator.SetTrigger("IdleToMove");
             Debug.Log("IdleState -> TraceState");
         }
     }
@@ -41,6 +42,7 @@ public class EnemyIdleState : IEnemyState
     {
         yield return new WaitForSeconds(_enemyController.EnemyData.IdleToPatrolWaitTime);
         _enemyController.EnemyStateContext.ChangeState(_enemyController.PatrolState);
+        _enemyController.Animator.SetTrigger("IdleToMove");
         Debug.Log("IdleState -> PatrolState");
     }
 } 

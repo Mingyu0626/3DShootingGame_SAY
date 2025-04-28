@@ -36,6 +36,11 @@ public class EnemyController : MonoBehaviour, IDamageable
     private NavMeshAgent _agent;
     public NavMeshAgent Agent { get => _agent; set => _agent = value; }
 
+    [Header("Animation")]
+    private Animator _animator;
+    public Animator Animator { get => _animator; set => _animator = value; }
+
+
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -54,6 +59,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         _damagedState = new EnemyDamagedState(this);
         _dieState = new EnemyDieState(this);
         _patrolState = new EnemyPatrolState(this);
+
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()
@@ -86,10 +93,12 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (_enemyData.CurrentHealthPoint <= 0)
         {
             _enemyStateContext.ChangeState(_dieState);
+            _animator.SetTrigger("Die");
         }
         else
         {
             _enemyStateContext.ChangeState(_damagedState);
+            _animator.SetTrigger("Hit");
         }
     }
 

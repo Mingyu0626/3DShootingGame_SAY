@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMeleeAttack : IAttack
 {
-    private PlayerAttackController _playerAttack;
+    private PlayerAttackController _playerAttackController;
     private PlayerData _playerData;
 
     private float _attackRange = 4f;
@@ -12,7 +12,7 @@ public class PlayerMeleeAttack : IAttack
 
     public PlayerMeleeAttack(PlayerAttackController playerAttack, PlayerData playerData)
     {
-        _playerAttack = playerAttack;
+        _playerAttackController = playerAttack;
         _playerData = playerData;
         _enemyLayer = LayerMask.GetMask("Enemy");
     }
@@ -25,14 +25,14 @@ public class PlayerMeleeAttack : IAttack
         }
         if (Input.GetMouseButtonDown(0))
         {
-            MeleeAttack();
+            AttackAnimation();
         }
     }
 
-    private void MeleeAttack()
+    public void MeleeAttack()
     {
-        Vector3 center = _playerAttack.transform.position;
-        Vector3 forward = _playerAttack.transform.right;
+        Vector3 center = _playerAttackController.transform.position;
+        Vector3 forward = _playerAttackController.transform.right;
         List<Collider> targetsInCircularSectorArea = new List<Collider>();
         Collider[] hitColliders = Physics.OverlapSphere(center, _attackRange, _enemyLayer);
         foreach (Collider hitCollider in hitColliders)
@@ -53,10 +53,15 @@ public class PlayerMeleeAttack : IAttack
                 Damage damage = new Damage()
                 {
                     Value = 10,
-                    From = _playerAttack.gameObject
+                    From = _playerAttackController.gameObject
                 };
                 damageable.TakeDamage(damage);
             }
         }
+    }
+    public void AttackAnimation()
+    {
+        Debug.Log("MeleeAttack Animation");
+        _playerAttackController.Animator.SetTrigger("MeleeAttack");
     }
 }

@@ -6,14 +6,23 @@ using UnityEngine;
 public class PlayerAttackController : MonoBehaviour
 {
     private PlayerData _playerData;
-
     private Camera _mainCamera;
 
     private float _bombHoldStartTime;
     private bool _isHoldingBomb;
 
-    private IAttack _gunAttack, _meleeAttack;
+    private PlayerGunAttack _gunAttack;
+    public PlayerGunAttack GunAttack { get => _gunAttack; }
+
+    private PlayerMeleeAttack _meleeAttack;
+    public PlayerMeleeAttack MeleeAttack { get => _meleeAttack; }
+
     private PlayerAttackContext _playerAttackContext;
+
+    private Animator _animator;
+    public Animator Animator { get => _animator; set => _animator = value; }
+
+    private float _fireBombPower;
 
     private void Awake()
     {
@@ -24,6 +33,8 @@ public class PlayerAttackController : MonoBehaviour
         _meleeAttack = new PlayerMeleeAttack(this, _playerData);
         _playerAttackContext = GetComponent<PlayerAttackContext>();
         _playerAttackContext.ChangeAttackStrategy(_gunAttack);
+
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -76,19 +87,24 @@ public class PlayerAttackController : MonoBehaviour
         {
             float heldTime = Time.time - _bombHoldStartTime;
             float normalizedHoldTime = Mathf.Clamp01(heldTime / _playerData.MaxHoldTime);
-            float power = Mathf.Lerp(_playerData.MinBombPower, _playerData.MaxBombPower, normalizedHoldTime);
-            FireBomb(power);
+             _fireBombPower = Mathf.Lerp(_playerData.MinBombPower, _playerData.MaxBombPower, normalizedHoldTime);
             _playerData.CurrentBombCount -= 1;
             _isHoldingBomb = false;
+            ThrowBombAnimation();
         }
     }
 
-    private void FireBomb(float fireBombPower)
+    public void FireBomb()
     {
         Bomb bomb = BombPool.Instance.GetObject(BombType.NormalBomb, _playerData.FirePosition.transform.position);
         Rigidbody bombRigidbody = bomb.gameObject.GetComponent<Rigidbody>();
-        bombRigidbody.AddForce(_mainCamera.transform.forward * fireBombPower, ForceMode.Impulse);
+        bombRigidbody.AddForce(_mainCamera.transform.forward * _fireBombPower, ForceMode.Impulse);
         bombRigidbody.AddTorque(Vector3.one);
+    }
+    private void ThrowBombAnimation()
+    {
+        Debug.Log("ThrowBomb Animation");
+        _animator.SetTrigger("ThrowBomb");
     }
 }
 

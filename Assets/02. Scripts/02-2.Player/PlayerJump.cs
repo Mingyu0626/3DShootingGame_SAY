@@ -6,12 +6,14 @@ public class PlayerJump : MonoBehaviour
     private bool _isDoubleJumping = false;
     private PlayerData _playerData;
     private CharacterController _characterController;
+    private Animator _animator;
 
 
     private void Awake()
     {
         _playerData = GetComponent<PlayerData>();
         _characterController = GetComponent<CharacterController>();
+        _animator = GetComponentInChildren<Animator>();
     }
     private void Update()
     {
@@ -26,11 +28,13 @@ public class PlayerJump : MonoBehaviour
             {
                 _playerData.YVelocity = _playerData.JumpPower;
                 _isSingleJumping = true;
+                JumpAnimation();
             }
             else if (!_isDoubleJumping)
             {
                 _playerData.YVelocity = _playerData.JumpPower;
                 _isDoubleJumping = true;
+                JumpAnimation();
             }
         }
     }
@@ -41,5 +45,10 @@ public class PlayerJump : MonoBehaviour
             _isSingleJumping = false;
             _isDoubleJumping = false;
         }
+    }
+    private void JumpAnimation()
+    {
+        Debug.Log("Jump Animation");
+        _animator.SetTrigger("Jump");
     }
 }

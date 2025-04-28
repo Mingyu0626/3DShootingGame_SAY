@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerGunAttack : IAttack
 {
-    private PlayerAttackController _playerAttack;
+    private PlayerAttackController _playerAttackController;
     private PlayerData _playerData;
     [Header("Bullet")]
     private float _lastBulletFireTime = -Mathf.Infinity;
@@ -13,7 +13,7 @@ public class PlayerGunAttack : IAttack
 
     public PlayerGunAttack(PlayerAttackController playerAttack, PlayerData playerData)
     {
-        _playerAttack = playerAttack;
+        _playerAttackController = playerAttack;
         _playerData = playerData;
         _mainCamera = Camera.main;
     }
@@ -27,6 +27,7 @@ public class PlayerGunAttack : IAttack
         if (Input.GetMouseButtonDown(0) && 0 < _playerData.CurrentBulletCount)
         {
             FireBullet();
+            AttackAnimation();
         }
         if (Input.GetMouseButton(0) && !_isContinousFireCoolDown
             && _lastBulletFireTime + _playerData.BulletFireInterval <= Time.time
@@ -34,19 +35,21 @@ public class PlayerGunAttack : IAttack
         {
             _isContinuousFiring = true;
             FireBullet();
+            AttackAnimation();
         }
         if (Input.GetMouseButtonUp(0) && !_isContinousFireCoolDown)
         {
             if (_isContinuousFiring)
             {
                 _isContinuousFiring = false;
-                _playerAttack.StartCoroutineInPlayerAttackState(CooldownCoroutine());
+                _playerAttackController.StartCoroutineInPlayerAttackState(CooldownCoroutine());
             }
             _playerData.IsBulletFiring = false;
         }
     }
     private void FireBullet()
     {
+        AttackAnimation();
         _lastBulletFireTime = Time.time;
         _playerData.IsBulletFiring = true;
         _playerData.CurrentBulletCount -= 1;
@@ -63,7 +66,7 @@ public class PlayerGunAttack : IAttack
                 Damage damage = new Damage()
                 {
                     Value = 10,
-                    From = _playerAttack.gameObject
+                    From = _playerAttackController.gameObject
                 };
                 damageable.TakeDamage(damage);
             }
@@ -86,11 +89,11 @@ public class PlayerGunAttack : IAttack
     private void CreateTracer(Vector3 start, Vector3 end)
     {
         TrailRenderer trail =
-            _playerAttack.InstantiateObject(_playerData.BulletTrailPrefab, start, Quaternion.identity);
+            _playerAttackController.InstantiateObject(_playerData.BulletTrailPrefab, start, Quaternion.identity);
 
         float distance = Vector3.Distance(start, end);
         float duration = distance / _playerData.TracerSpeed;
-        _playerAttack.StartCoroutineInPlayerAttackState(MoveTracer(trail, start, end, duration));
+        _playerAttackController.StartCoroutineInPlayerAttackState(MoveTracer(trail, start, end, duration));
     }
 
     private IEnumerator MoveTracer(TrailRenderer trail, Vector3 start, Vector3 end, float duration)
@@ -105,6 +108,11 @@ public class PlayerGunAttack : IAttack
         }
 
         trail.transform.position = end;
-        _playerAttack.DestroyObject(trail.gameObject);
+        _playerAttackController.DestroyObject(trail.gameObject);
+    }
+    public void AttackAnimation()
+    {
+        Debug.Log("Shot Animation");
+        _playerAttackController.Animator.SetTrigger("Shot");
     }
 }

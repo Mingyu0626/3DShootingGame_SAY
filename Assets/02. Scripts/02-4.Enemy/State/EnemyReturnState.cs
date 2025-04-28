@@ -20,9 +20,10 @@ public class EnemyReturnState : IEnemyState
     {
         float distance = Vector3.Distance(_enemyController.StartPosition, _enemyController.transform.position);
         
-        if (distance <= 0.1f)
+        if (distance <= 1f)
         {
             _enemyController.EnemyStateContext.ChangeState(_enemyController.IdleState);
+            _enemyController.Animator.SetTrigger("MoveToIdle");
             Debug.Log("ReturnState -> IdleState");
         }
         else

@@ -28,6 +28,7 @@ public class EnemyAttackState : IEnemyState
         Vector3.Distance(_enemyController.Player.transform.position, _enemyController.transform.position))
         {
             _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
+            _enemyController.Animator.SetTrigger("AttackDelayToMove");
             Debug.Log("AttackState -> TraceState");
         }
     }
@@ -45,6 +46,7 @@ public class EnemyAttackState : IEnemyState
     {
         while (true)
         {
+            _enemyController.Animator.SetTrigger("AttackDelayToAttack");
             Collider[] hitColliders = Physics.OverlapSphere
                 (_enemyController.transform.position, _enemyData.AttackDistance, _playerLayer);
             foreach (Collider collider in hitColliders)
