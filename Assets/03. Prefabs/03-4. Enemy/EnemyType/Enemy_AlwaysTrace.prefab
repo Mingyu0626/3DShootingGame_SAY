@@ -171,7 +171,9 @@ MonoBehaviour:
   _findDistance: 7
   _idleToPatrolWaitTime: 5
   _returnDistance: 5
+  _attackDamage: 1
   _attackDistance: 2.5
+  _attackRange: 1.5
   _attackCoolTime: 3
   _damagedTime: 0.5
   _knockbackDistance: 2
