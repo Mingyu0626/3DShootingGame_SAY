@@ -20,7 +20,7 @@ public class PlayerAttackController : MonoBehaviour
     {
         _playerData = GetComponent<PlayerData>();
         _playerAttackStateContext = new PlayerAttackStateContext(this);
-        _knifeAttackState = new PlayerKnifeAttackState(this);
+        _knifeAttackState = new PlayerMeleeAttackState(this);
         _gunAttackState = new PlayerGunAttackState(this);
     }
     private void Start()

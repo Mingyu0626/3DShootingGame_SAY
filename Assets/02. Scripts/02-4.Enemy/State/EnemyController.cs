@@ -59,6 +59,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         _enemyData.CurrentHealthPoint = _enemyData.MaxHealthPoint;
+        _enemyHPBar.InitSliderEnemyHealthPoint(_enemyData.MaxHealthPoint);
         _startPosition = transform.position;
         SetStartState();
     }
@@ -82,7 +83,6 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         _enemyData.CurrentHealthPoint -= damage.Value;
         _enemyHPBar.SetSliderEnemyHealthPoint(_enemyData.CurrentHealthPoint);
-        Debug.Log(_enemyData.CurrentHealthPoint);
         if (_enemyData.CurrentHealthPoint <= 0)
         {
             _enemyStateContext.ChangeState(_dieState);
