@@ -5,11 +5,15 @@ using UnityEngine;
 public class EnemyAttackState : IEnemyState
 {
     private EnemyController _enemyController;
+    private EnemyData _enemyData;
     private IEnumerator _attackCoroutine;
+    private LayerMask _playerLayer;
 
     public EnemyAttackState(EnemyController enemyController)
     {
         _enemyController = enemyController;
+        _enemyData = enemyController.EnemyData;
+        _playerLayer = LayerMask.GetMask("Player");
     }
 
     public void Enter()
@@ -41,7 +45,24 @@ public class EnemyAttackState : IEnemyState
     {
         while (true)
         {
-            Debug.Log("공격");
+            Collider[] hitColliders = Physics.OverlapSphere
+                (_enemyController.transform.position, _enemyData.AttackDistance, _playerLayer);
+            foreach (Collider collider in hitColliders)
+            {
+                if (collider.TryGetComponent<IDamageable>(out IDamageable damageable))
+                {
+                    Damage damage = new Damage()
+                    {
+                        Value = (int)_enemyData.AttackRange,
+                        From = _enemyController.gameObject
+                    };
+                    damageable.TakeDamage(damage);
+                }
+                else
+                {
+                    Debug.Log("Player is not in attack range");
+                }
+            }
             yield return new WaitForSeconds(_enemyController.EnemyData.AttackCoolTime);
         }
     }
