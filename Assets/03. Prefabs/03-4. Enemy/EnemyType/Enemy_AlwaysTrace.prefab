@@ -172,7 +172,7 @@ MonoBehaviour:
   _findDistance: 7
   _idleToPatrolWaitTime: 5
   _returnDistance: 5
-  _attackDamage: 1
+  _attackDamage: 20
   _attackDistance: 2.5
   _attackRange: 1.5
   _attackCoolTime: 3
@@ -514,6 +514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyController: {fileID: 4364827395558893002}
+  _player: {fileID: 0}
 --- !u!4 &8825513807164534694 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}

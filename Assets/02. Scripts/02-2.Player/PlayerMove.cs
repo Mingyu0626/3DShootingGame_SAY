@@ -23,7 +23,7 @@ public class PlayerMove : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         Vector3 moveDirectionRaw = new Vector3(horizontal, 0f, vertical);
         _animator.SetFloat("MoveAmount", moveDirectionRaw.magnitude);
-        _animator.SetLayerWeight(1, _playerData.CurrentStamina / _playerData.MaxStamina);
+        _animator.SetLayerWeight(1, _playerData.CurrentHealthPoint / _playerData.MaxHealthPoint);
         _animator.SetLayerWeight(2, 1f - _playerData.CurrentHealthPoint / _playerData.MaxHealthPoint);
         Vector3 moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
 

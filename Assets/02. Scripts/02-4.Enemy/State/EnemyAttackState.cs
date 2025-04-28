@@ -46,19 +46,19 @@ public class EnemyAttackState : IEnemyState
     {
         while (true)
         {
-            _enemyController.Animator.SetTrigger("AttackDelayToAttack");
             Collider[] hitColliders = Physics.OverlapSphere
                 (_enemyController.transform.position, _enemyData.AttackDistance, _playerLayer);
             foreach (Collider collider in hitColliders)
             {
                 if (collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                 {
-                    Damage damage = new Damage()
-                    {
-                        Value = (int)_enemyData.AttackRange,
-                        From = _enemyController.gameObject
-                    };
-                    damageable.TakeDamage(damage);
+                    _enemyController.Animator.SetTrigger("AttackDelayToAttack");
+                    //Damage damage = new Damage()
+                    //{
+                    //    Value = (int)_enemyData.AttackRange,
+                    //    From = _enemyController.gameObject
+                    //};
+                    //damageable.TakeDamage(damage);
                 }
                 else
                 {
