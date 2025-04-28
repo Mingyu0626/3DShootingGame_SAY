@@ -45,10 +45,7 @@ public class PlayerMeleeAttackState : IPlayerAttackState
         Vector3 center = _playerAttackController.transform.position;
         Vector3 forward = _playerAttackController.transform.right;
         List<Collider> targetsInCircularSectorArea = new List<Collider>();
-
         Collider[] hitColliders = Physics.OverlapSphere(center, _attackRange, _enemyLayer);
-        Debug.Log($"원형 범위 타겟 안에 들어온 적 수 : {hitColliders.Length}");
-
         foreach (Collider hitCollider in hitColliders)
         {
             Vector3 dirToTarget = (hitCollider.transform.position - center).normalized;
@@ -60,7 +57,6 @@ public class PlayerMeleeAttackState : IPlayerAttackState
             }
         }
 
-        Debug.Log($"부채꼴 범위 타겟 안에 들어온 적 수 : {targetsInCircularSectorArea.Count}");
         foreach (Collider target in targetsInCircularSectorArea)
         {
             if (target.TryGetComponent<IDamageable>(out IDamageable damageable))
