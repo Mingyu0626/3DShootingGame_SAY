@@ -42,7 +42,15 @@ public class PlayerData : MonoBehaviour
     public float MaxHealthPoint { get => _maxHealthPoint; }
 
     private float _currentHealthPoint;
-    public float CurrentHealthPoint { get => _currentHealthPoint; set => _currentHealthPoint = value; }
+    public float CurrentHealthPoint 
+    { 
+        get => _currentHealthPoint; 
+        set
+        {
+            _currentHealthPoint = Mathf.Clamp(value, 0f, _maxHealthPoint);
+            PlayerHealthPointChanged?.Invoke(_currentHealthPoint);
+        }
+    }
 
 
     [Header("Movement")]
