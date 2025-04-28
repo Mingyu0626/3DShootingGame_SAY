@@ -1,35 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMeleeAttackState : IPlayerAttackState
+public class PlayerMeleeAttack : IAttack
 {
-    private PlayerAttackController _playerAttackController;
+    private PlayerAttack _playerAttack;
+    private PlayerData _playerData;
 
     private float _attackRange = 4f;
     private float _attackAngle = 120f;
     private LayerMask _enemyLayer;
-    public PlayerMeleeAttackState(PlayerAttackController playerAttackController)
+
+    public PlayerMeleeAttack(PlayerAttack playerAttack)
     {
-        _playerAttackController = playerAttackController;
+        _playerAttack = playerAttack;
+        _playerData = playerAttack.PlayerData;
         _enemyLayer = LayerMask.GetMask("Enemy");
     }
-    public void Enter()
-    {
-    }
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            _playerAttackController.PlayerAttackStateContext.
-                ChangeState(_playerAttackController.GunAttackState);
-            Debug.Log("총 공격 모드로 변경");
-        }
-        HandleMeleeAttackInput();
-    }
-    public void Exit()
-    {
-    }
-    private void HandleMeleeAttackInput()
+
+    public void Attack()
     {
         if (GameManager.Instance.IsInputBlocked)
         {
@@ -40,10 +28,11 @@ public class PlayerMeleeAttackState : IPlayerAttackState
             MeleeAttack();
         }
     }
+
     private void MeleeAttack()
     {
-        Vector3 center = _playerAttackController.transform.position;
-        Vector3 forward = _playerAttackController.transform.right;
+        Vector3 center = _playerAttack.transform.position;
+        Vector3 forward = _playerAttack.transform.right;
         List<Collider> targetsInCircularSectorArea = new List<Collider>();
         Collider[] hitColliders = Physics.OverlapSphere(center, _attackRange, _enemyLayer);
         foreach (Collider hitCollider in hitColliders)
@@ -64,7 +53,7 @@ public class PlayerMeleeAttackState : IPlayerAttackState
                 Damage damage = new Damage()
                 {
                     Value = 10,
-                    From = _playerAttackController.gameObject
+                    From = _playerAttack.gameObject
                 };
                 damageable.TakeDamage(damage);
             }

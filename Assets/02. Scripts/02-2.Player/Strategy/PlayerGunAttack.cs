@@ -1,41 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGunAttackState : IPlayerAttackState
+public class PlayerGunAttack : IAttack
 {
-    private PlayerAttackController _playerAttackController;
+    private PlayerAttack _playerAttack;
     private PlayerData _playerData;
     [Header("Bullet")]
     private float _lastBulletFireTime = -Mathf.Infinity;
     private bool _isContinuousFiring = false;
     private bool _isContinousFireCoolDown = false;
     private Camera _mainCamera;
-    public PlayerGunAttackState(PlayerAttackController playerAttackController)
+
+    public PlayerGunAttack(PlayerAttack playerAttack)
     {
-        _playerAttackController = playerAttackController;
+        _playerAttack = playerAttack;
+        _playerData = playerAttack.PlayerData;
         _mainCamera = Camera.main;
-        _playerData = _playerAttackController.PlayerData;
     }
-
-    public void Enter()
-    {
-    }
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            _playerAttackController.PlayerAttackStateContext.
-                ChangeState(_playerAttackController.KnifeAttackState);
-            Debug.Log("칼 공격 모드로 변경");
-        }
-        HandleFireBulletInput();
-    }
-
-    public void Exit()
-    {
-    }
-    private void HandleFireBulletInput()
+    public void Attack()
     {
         if (GameManager.Instance.IsInputBlocked)
         {
@@ -58,7 +40,7 @@ public class PlayerGunAttackState : IPlayerAttackState
             if (_isContinuousFiring)
             {
                 _isContinuousFiring = false;
-                _playerAttackController.StartCoroutineInPlayerAttackState(CooldownCoroutine());
+                _playerAttack.StartCoroutineInPlayerAttackState(CooldownCoroutine());
             }
             _playerData.IsBulletFiring = false;
         }
@@ -81,7 +63,7 @@ public class PlayerGunAttackState : IPlayerAttackState
                 Damage damage = new Damage()
                 {
                     Value = 10,
-                    From = _playerAttackController.gameObject
+                    From = _playerAttack.gameObject
                 };
                 damageable.TakeDamage(damage);
             }
@@ -104,11 +86,11 @@ public class PlayerGunAttackState : IPlayerAttackState
     private void CreateTracer(Vector3 start, Vector3 end)
     {
         TrailRenderer trail =
-            _playerAttackController.InstantiateObject(_playerData.BulletTrailPrefab, start, Quaternion.identity);
+            _playerAttack.InstantiateObject(_playerData.BulletTrailPrefab, start, Quaternion.identity);
 
         float distance = Vector3.Distance(start, end);
         float duration = distance / _playerData.TracerSpeed;
-        _playerAttackController.StartCoroutineInPlayerAttackState(MoveTracer(trail, start, end, duration));
+        _playerAttack.StartCoroutineInPlayerAttackState(MoveTracer(trail, start, end, duration));
     }
 
     private IEnumerator MoveTracer(TrailRenderer trail, Vector3 start, Vector3 end, float duration)
@@ -123,6 +105,6 @@ public class PlayerGunAttackState : IPlayerAttackState
         }
 
         trail.transform.position = end;
-        _playerAttackController.DestroyObject(trail.gameObject);
+        _playerAttack.DestroyObject(trail.gameObject);
     }
 }

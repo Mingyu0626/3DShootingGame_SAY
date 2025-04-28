@@ -65,7 +65,6 @@ public class Barrel : MonoBehaviour, IDamageable
 
         foreach (Collider hitCollider in _hitCollidersList)
         {
-            Debug.Log(hitCollider.gameObject.name);
             if (hitCollider.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
                 Damage damage = new Damage()

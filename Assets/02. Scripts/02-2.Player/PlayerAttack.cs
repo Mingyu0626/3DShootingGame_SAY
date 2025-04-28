@@ -1,26 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerFire : MonoBehaviour
+public class PlayerAttack : MonoBehaviour
 {
     private PlayerData _playerData;
+    public PlayerData PlayerData { get => _playerData; set => _playerData = value; }
+
     private Camera _mainCamera;
 
     private float _bombHoldStartTime;
     private bool _isHoldingBomb;
 
+    private IAttack _gunAttack, _meleeAttack;
+    private PlayerAttackContext _playerAttackContext;
+
     private void Awake()
     {
         _playerData = GetComponent<PlayerData>();
         _mainCamera = Camera.main;
+
+        _gunAttack = new PlayerGunAttack(this);
+        _meleeAttack = new PlayerMeleeAttack(this);
+        _playerAttackContext = GetComponent<PlayerAttackContext>();
+        _playerAttackContext.ChangeAttackStrategy(_gunAttack);
     }
 
     private void Update()
     {
+        ChangeAttackStrategy();
         HandleFireBombInput();
     }
-
+    private void ChangeAttackStrategy()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _playerAttackContext.ChangeAttackStrategy(_gunAttack);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _playerAttackContext.ChangeAttackStrategy(_meleeAttack);
+        }
+    }
+    public void StartCoroutineInPlayerAttackState(IEnumerator coroutine)
+    {
+        StartCoroutine(coroutine);
+    }
+    public void StopCoroutineInPlayerAttackState(IEnumerator coroutine)
+    {
+        StopCoroutine(coroutine);
+    }
+    public T InstantiateObject<T>(T go, Vector3 Start, Quaternion rotation)
+        where T : UnityEngine.Object
+    {
+        return Instantiate(go, Start, rotation).GetComponent<T>();
+    }
+    public void DestroyObject(GameObject go)
+    {
+        UnityEngine.Object.Destroy(go);
+    }
     private void HandleFireBombInput()
     {
         if (GameManager.Instance.IsInputBlocked)
@@ -52,6 +91,5 @@ public class PlayerFire : MonoBehaviour
         bombRigidbody.AddForce(_mainCamera.transform.forward * fireBombPower, ForceMode.Impulse);
         bombRigidbody.AddTorque(Vector3.one);
     }
-
 }
 
