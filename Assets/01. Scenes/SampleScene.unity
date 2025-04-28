@@ -3165,6 +3165,7 @@ MonoBehaviour:
   _isDontDestroy: 1
   _readyTMP: {fileID: 1564125660}
   _goTMP: {fileID: 680150720}
+  _gameOverTMP: {fileID: 0}
   _waitTimeBeforeReadyTMPOff: 4
   _waitTimeBeforeGoTMPOff: 0.5
 --- !u!1 &1980621302
@@ -3889,6 +3890,10 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7110149192143653485, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: _bulletVFX
+      value: 
+      objectReference: {fileID: 284367394}
+    - target: {fileID: 7110149192143653485, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: _jumpPower
       value: 2
       objectReference: {fileID: 0}
@@ -3896,6 +3901,18 @@ PrefabInstance:
       propertyPath: _moveSpeed
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7110149192143653485, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: _bombPrefab
+      value: 
+      objectReference: {fileID: 2177233979882235531, guid: 20fa31d85da11ab4dbfda5919d5ba814, type: 3}
+    - target: {fileID: 7110149192143653485, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: _firePosition
+      value: 
+      objectReference: {fileID: 1740886789}
+    - target: {fileID: 7110149192143653485, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: _bulletTrailPrefab
+      value: 
+      objectReference: {fileID: 8580181880120533452, guid: 05b7eeb8ceec03c408d0cde6c8d92aae, type: 3}
     - target: {fileID: 7110149192143653485, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: _moveSpeedMultiplier
       value: 2

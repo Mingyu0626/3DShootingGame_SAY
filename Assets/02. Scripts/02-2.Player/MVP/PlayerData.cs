@@ -91,6 +91,21 @@ public class PlayerData : MonoBehaviour
 
 
     [Header("Bullet")]
+    [SerializeField]
+    private ParticleSystem _bulletVFX;
+    public ParticleSystem BulletVFX { get => _bulletVFX; set => _bulletVFX = value; }
+
+    [SerializeField]
+    private TrailRenderer _bulletTrailPrefab;
+    public TrailRenderer BulletTrailPrefab { get => _bulletTrailPrefab; set => _bulletTrailPrefab = value; }
+    [SerializeField]
+    private float _tracerSpeed = 200f;
+    public float TracerSpeed { get => _tracerSpeed; set => _tracerSpeed = value; }
+
+    [SerializeField]
+    private GameObject _firePosition;
+    public GameObject FirePosition { get => _firePosition; set => _firePosition = value; }
+
     private bool _isBulletFiring = false;
     public bool IsBulletFiring { get => _isBulletFiring; set => _isBulletFiring = value; }
 
@@ -118,6 +133,10 @@ public class PlayerData : MonoBehaviour
 
 
     [Header("Bomb")]
+    [SerializeField]
+    private GameObject _bombPrefab;
+    public GameObject BombPrefab { get => _bombPrefab; set => _bombPrefab = value; }
+
     private int _maxBombCount = 3;
     public int MaxBombCount { get => _maxBombCount; set => _maxBombCount = value; }
 
@@ -131,6 +150,12 @@ public class PlayerData : MonoBehaviour
             PlayerBombCountChanged?.Invoke(_currentBombCount, _maxBombCount);
         }
     }
+
+    private float _bombHoldStartTime;
+    public float BombHoldStartTime { get => _bombHoldStartTime; set => _bombHoldStartTime = value; }
+
+
+
 
     [SerializeField]
     private float _minBombPower = 10f;

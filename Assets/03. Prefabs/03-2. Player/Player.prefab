@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 5159659518756239006}
   - component: {fileID: -834913060099920595}
   - component: {fileID: -7086783229158107779}
+  - component: {fileID: -1309631170249852973}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -334,8 +335,13 @@ MonoBehaviour:
   _staminaCostForRolling: 20
   _rollDuration: 0.1
   _staminaCostForClimbing: 0
+  _bulletVFX: {fileID: 0}
+  _bulletTrailPrefab: {fileID: 0}
+  _tracerSpeed: 200
+  _firePosition: {fileID: 0}
   _bulletFireInterval: 0.2
   _bulletFireCooldown: 5
+  _bombPrefab: {fileID: 0}
   _minBombPower: 10
   _maxBombPower: 40
   _maxHoldTime: 2
@@ -454,10 +460,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombPrefab: {fileID: 2177233979882235531, guid: 20fa31d85da11ab4dbfda5919d5ba814, type: 3}
-  _bulletVFX: {fileID: 0}
-  _bulletTrailPrefab: {fileID: 0}
-  _tracerSpeed: 200
-  _firePosition: {fileID: 0}
 --- !u!114 &-834913060099920595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +488,18 @@ MonoBehaviour:
   _damagedEffectImage: {fileID: 0}
   _damagedEffectFadeInTime: 0.05
   _damagedEffectFadeOutTime: 0.5
+--- !u!114 &-1309631170249852973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566557679951068972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e267205a8046734da8145e8a616e0fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4794626987173978739
 GameObject:
   m_ObjectHideFlags: 0
