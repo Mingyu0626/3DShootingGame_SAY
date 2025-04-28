@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttackController : MonoBehaviour
 {
     private PlayerData _playerData;
-    public PlayerData PlayerData { get => _playerData; set => _playerData = value; }
 
     private Camera _mainCamera;
 
@@ -21,18 +20,18 @@ public class PlayerAttack : MonoBehaviour
         _playerData = GetComponent<PlayerData>();
         _mainCamera = Camera.main;
 
-        _gunAttack = new PlayerGunAttack(this);
-        _meleeAttack = new PlayerMeleeAttack(this);
+        _gunAttack = new PlayerGunAttack(this, _playerData);
+        _meleeAttack = new PlayerMeleeAttack(this, _playerData);
         _playerAttackContext = GetComponent<PlayerAttackContext>();
         _playerAttackContext.ChangeAttackStrategy(_gunAttack);
     }
 
     private void Update()
     {
-        ChangeAttackStrategy();
+        HandleChangeAttackInput();
         HandleFireBombInput();
     }
-    private void ChangeAttackStrategy()
+    private void HandleChangeAttackInput()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {

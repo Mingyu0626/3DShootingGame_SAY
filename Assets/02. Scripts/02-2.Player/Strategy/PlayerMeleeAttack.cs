@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class PlayerMeleeAttack : IAttack
 {
-    private PlayerAttack _playerAttack;
+    private PlayerAttackController _playerAttack;
     private PlayerData _playerData;
 
     private float _attackRange = 4f;
     private float _attackAngle = 120f;
     private LayerMask _enemyLayer;
 
-    public PlayerMeleeAttack(PlayerAttack playerAttack)
+    public PlayerMeleeAttack(PlayerAttackController playerAttack, PlayerData playerData)
     {
         _playerAttack = playerAttack;
-        _playerData = playerAttack.PlayerData;
+        _playerData = playerData;
         _enemyLayer = LayerMask.GetMask("Enemy");
     }
 

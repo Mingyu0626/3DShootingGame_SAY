@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerGunAttack : IAttack
 {
-    private PlayerAttack _playerAttack;
+    private PlayerAttackController _playerAttack;
     private PlayerData _playerData;
     [Header("Bullet")]
     private float _lastBulletFireTime = -Mathf.Infinity;
@@ -11,10 +11,10 @@ public class PlayerGunAttack : IAttack
     private bool _isContinousFireCoolDown = false;
     private Camera _mainCamera;
 
-    public PlayerGunAttack(PlayerAttack playerAttack)
+    public PlayerGunAttack(PlayerAttackController playerAttack, PlayerData playerData)
     {
         _playerAttack = playerAttack;
-        _playerData = playerAttack.PlayerData;
+        _playerData = playerData;
         _mainCamera = Camera.main;
     }
     public void Attack()
