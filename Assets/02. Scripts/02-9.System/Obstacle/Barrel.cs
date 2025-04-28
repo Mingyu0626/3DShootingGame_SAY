@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Barrel : MonoBehaviour, IDamageable
@@ -11,7 +12,7 @@ public class Barrel : MonoBehaviour, IDamageable
     [SerializeField] 
     private float _explosionRadius = 5f;
     [SerializeField] 
-    private int _explosionDamage = 50;
+    private int _explosionDamage = 1;
     [SerializeField] 
     private float _explosionForce = 10f;
     [SerializeField] 
@@ -24,7 +25,7 @@ public class Barrel : MonoBehaviour, IDamageable
     private float _randomForceMax = 15f;
     private Rigidbody _rigidbody;
 
-    private Collider[] _hitColliders = new Collider[10];
+    private List<Collider> _hitCollidersList = new List<Collider>();
 
     private void Awake()
     {
@@ -53,50 +54,39 @@ public class Barrel : MonoBehaviour, IDamageable
 
     private void ApplyExplosionDamage()
     {
-        int hitCount = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, _hitColliders);
-
-        for (int i = 0; i < hitCount; i++)
+        Collider[] hitColiiders = Physics.OverlapSphere(transform.position, _explosionRadius);
+        foreach (Collider hitCollider in hitColiiders)
         {
-            Collider collider = _hitColliders[i];
-            if (collider.CompareTag("Enemy"))
+            if (hitCollider.CompareTag("Player") || hitCollider.CompareTag("Enemy"))
             {
-                EnemyController enemy = collider.GetComponent<EnemyController>();
-                if (!ReferenceEquals(enemy, null))
-                {
-                    Damage damage = new Damage()
-                    {
-                        Value = _explosionDamage,
-                        From = gameObject
-                    };
-                    enemy.TakeDamage(damage);
-                }
+                _hitCollidersList.Add(hitCollider);
             }
-            else if (collider.CompareTag("Player"))
+        }
+
+        foreach (Collider hitCollider in _hitCollidersList)
+        {
+            Debug.Log(hitCollider.gameObject.name);
+            if (hitCollider.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                PlayerData player = collider.GetComponent<PlayerData>();
-                if (!ReferenceEquals(player, null))
+                Damage damage = new Damage()
                 {
-                    player.CurrentStamina -= _explosionDamage;
-                }
+                    Value = _explosionDamage,
+                    From = gameObject
+                };
+                damageable.TakeDamage(damage);
             }
         }
     }
 
     private void ApplyExplosionForce()
     {
-        int hitCount = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, _hitColliders);
-
-        for (int i = 0; i < hitCount; i++)
+        foreach (Collider collider in _hitCollidersList)
         {
-            Collider collider = _hitColliders[i];
-            if (collider.CompareTag("Player") || collider.CompareTag("Enemy"))
+            CharacterController characterController = collider.GetComponent<CharacterController>();
+            if (!ReferenceEquals(characterController, null))
             {
-                CharacterController characterController = collider.GetComponent<CharacterController>();
-                if (!ReferenceEquals(characterController, null))
-                {
-                    Vector3 direction = (collider.transform.position - transform.position).normalized;
-                    characterController.Move(direction * _explosionForce * Time.deltaTime);
-                }
+                Vector3 direction = (collider.transform.position - transform.position).normalized;
+                characterController.Move(direction * _explosionForce * Time.deltaTime);
             }
         }
     }
