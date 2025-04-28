@@ -8,10 +8,7 @@ public class PlayerAttackContext : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _currentAttackStrategy.Attack();
-        }
+        _currentAttackStrategy.Attack();
     }
 
     public void ChangeAttackStrategy(IAttack attack)
