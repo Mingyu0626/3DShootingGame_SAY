@@ -63,6 +63,19 @@ public class PlayerMeleeAttack : IAttackStrategy
             }
         }
     }
+    public void AttackVFX()
+    {
+        Vector3 basePos = _playerData.FirePosition.transform.position;
+        Vector3 heightOffset = new Vector3(0f, 0.5f, 0f);
+        Vector3 vfxPosition = basePos - heightOffset;
+
+        Quaternion rotation = Quaternion.LookRotation(_playerAttackController.transform.forward);
+        rotation *= Quaternion.Euler(0f, 45f, 0f);
+        _playerAttackController.InstantiateObject(
+            _playerData.BladeEffect,
+            vfxPosition,
+            rotation);
+    }
     public void AttackAnimation()
     {
         Debug.Log("MeleeAttack Animation");

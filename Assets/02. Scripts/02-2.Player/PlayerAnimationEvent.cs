@@ -13,6 +13,7 @@ public class PlayerAnimationEvent : MonoBehaviour
     {
         Debug.Log("MeleeAttack Event");
         _playerAttackController.MeleeAttack.MeleeAttack();
+        _playerAttackController.MeleeAttack.AttackVFX();
     }
     public void ThrowBombEvent()
     {

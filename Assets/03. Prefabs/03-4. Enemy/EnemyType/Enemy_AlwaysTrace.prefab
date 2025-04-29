@@ -183,6 +183,8 @@ MonoBehaviour:
   _maxHealthPoint: 5
   _patrolRadius: 3
   _patrolWaitTime: 2
+  _hitEffect: {fileID: 1758473627833946668, guid: ae181241c0c21b040a49290718aeee61, type: 3}
+  _bloodEffect: {fileID: 1000013355911406, guid: d32aa916f50cac94db11e6f19821a58f, type: 3}
 --- !u!114 &4364827395558893002
 MonoBehaviour:
   m_ObjectHideFlags: 0

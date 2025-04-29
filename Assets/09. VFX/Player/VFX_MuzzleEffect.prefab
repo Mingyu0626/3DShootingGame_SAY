@@ -19501,7 +19501,7 @@ GameObject:
   - component: {fileID: 198792769130808804}
   - component: {fileID: 199091073991066480}
   m_Layer: 0
-  m_Name: VFX_Muzzle
+  m_Name: VFX_MuzzleEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

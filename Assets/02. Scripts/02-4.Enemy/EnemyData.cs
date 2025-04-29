@@ -76,6 +76,15 @@ public class EnemyData : MonoBehaviour
     private List<Vector3> _patrolPoints = new List<Vector3>();
     public List<Vector3> PatrolPoints { get => _patrolPoints; set => _patrolPoints = value; }
 
+    [Header("VFX")]
+    [SerializeField]
+    private GameObject _hitEffect;
+    public GameObject HitEffect { get => _hitEffect; set => _hitEffect = value; }
+
+    [SerializeField]
+    private GameObject _bloodEffect;
+    public GameObject BloodEffect { get => _bloodEffect; set => _bloodEffect = value; }
+
     private void Awake()
     {
         _currentHealthPoint = _maxHealthPoint;
