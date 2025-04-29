@@ -239,6 +239,7 @@ MonoBehaviour:
   _maxBombPower: 40
   _maxHoldTime: 2
   _reloadDuration: 2
+  _muzzleEffect: {fileID: 1336949550903370, guid: 5846385f616f1e24a92a9d1cff25f8af, type: 3}
 --- !u!114 &-5319079965397104100
 MonoBehaviour:
   m_ObjectHideFlags: 0

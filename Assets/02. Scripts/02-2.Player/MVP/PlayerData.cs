@@ -183,6 +183,20 @@ public class PlayerData : MonoBehaviour
     private float _reloadDuration = 2f;
     public float ReloadDuration { get => _reloadDuration; set => _reloadDuration = value; }
 
+
+    [Header("VFX")]
+    [SerializeField]
+    private GameObject _muzzleEffect; 
+    public GameObject MuzzleEffect { get => _muzzleEffect; set => _muzzleEffect = value; }
+
+    [SerializeField]
+    private GameObject _bladeEffect;
+    public GameObject BladeEffect { get => _bladeEffect; set => _bladeEffect = value; }
+
+    [SerializeField]
+    private GameObject _bombEffect;
+    public GameObject BombEffect { get => _bombEffect; set => _bombEffect = value; }
+
     public void Init()
     {
         _currentStamina = _maxStamina;

@@ -72,6 +72,7 @@ public class PlayerGunAttack : IAttackStrategy
     }
     private void FireBullet()
     {
+        AttackVFX();
         AttackAnimation();
         _lastBulletFireTime = Time.time;
         _playerData.IsBulletFiring = true;
@@ -133,9 +134,13 @@ public class PlayerGunAttack : IAttackStrategy
         trail.transform.position = end;
         _playerAttackController.DestroyObject(trail.gameObject);
     }
+    private void AttackVFX()
+    {
+        _playerAttackController.InstantiateObject
+            (_playerData.MuzzleEffect, _playerData.FirePosition.transform.position, Quaternion.identity);
+    }
     public void AttackAnimation()
     {
-        Debug.Log("Shot Animation");
         _playerAttackController.Animator.SetTrigger("Shot");
     }
 }
