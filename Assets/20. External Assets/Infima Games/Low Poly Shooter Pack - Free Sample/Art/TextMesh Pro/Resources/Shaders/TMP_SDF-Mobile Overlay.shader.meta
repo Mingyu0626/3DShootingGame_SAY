@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 82a193e07e63ef5418cf7417b5d1ec49
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 144839
+  packageName: Low Poly Shooter Pack - Free Sample
+  packageVersion: 2.0.0
+  assetPath: Assets/Infima Games/Low Poly Shooter Pack - Free Sample/Art/TextMesh
+    Pro/Resources/Shaders/TMP_SDF-Mobile Overlay.shader
+  uploadId: 469425
