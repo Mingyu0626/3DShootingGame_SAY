@@ -1,16 +1,18 @@
 using UnityEngine;
 
-public class WeaponData : MonoBehaviour
+public class WeaponData
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public readonly WeaponSO WeaponDataSO;
+
+    private float _currentDamage;
+    public float CurrentDamage
     {
-        
+        get => _currentDamage;
+        set => _currentDamage = value;
     }
 
-    // Update is called once per frame
-    void Update()
+    public WeaponData(WeaponSO weaponDataSO)
     {
-        
+        WeaponDataSO = weaponDataSO;
     }
 }

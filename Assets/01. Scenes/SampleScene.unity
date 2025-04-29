@@ -11871,7 +11871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiCrossHair: {fileID: 810115882}
   _uiSniperZoom: {fileID: 1472363082}
-  _imageWeaponMode: {fileID: 0}
+  _imageWeaponMode: {fileID: 1490217538}
 --- !u!1001 &798499062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19393,6 +19393,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8649820436076088010, guid: 2a4653c4255ce6648825c59c53e03b14, type: 3}
   m_PrefabInstance: {fileID: 3284439928228675415}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1490217538 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 338403219037735209, guid: 2a4653c4255ce6648825c59c53e03b14, type: 3}
+  m_PrefabInstance: {fileID: 3284439928228675415}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1491125517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26701,11 +26712,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4668645390439688760, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4668645390439688760, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5159659518756239006, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: _uiWeapon
@@ -26731,6 +26742,22 @@ PrefabInstance:
       propertyPath: _bulletTrailPrefab
       value: 
       objectReference: {fileID: 8580181880120533452, guid: 05b7eeb8ceec03c408d0cde6c8d92aae, type: 3}
+    - target: {fileID: 5159659518756239006, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: _weaponModeSprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159659518756239006, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: '_weaponModeSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 364139618acf0c3489f74a85036bab01, type: 3}
+    - target: {fileID: 5159659518756239006, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: '_weaponModeSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 21300000, guid: c9363e8437717b74dbd731d102ecd664, type: 3}
+    - target: {fileID: 5159659518756239006, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: '_weaponModeSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 70165f5b675a201459a00e7c250460dc, type: 3}
     - target: {fileID: 5321709453567674950, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: m_Name
       value: CameraPosition_FPS

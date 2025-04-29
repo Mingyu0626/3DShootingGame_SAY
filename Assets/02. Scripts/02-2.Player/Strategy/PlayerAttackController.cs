@@ -35,6 +35,9 @@ public class PlayerAttackController : MonoBehaviour
     private float _zoomOutSize = 60f;
     public float ZoomOutSize { get => _zoomOutSize; set => _zoomOutSize = value; }
 
+    [SerializeField]
+    private List<Sprite> _weaponModeSprites = new List<Sprite>();
+
 
     private void Awake()
     {
@@ -59,14 +62,17 @@ public class PlayerAttackController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _playerAttackContext.ChangeAttackStrategy(_gunAttack);
+            _uiWeapon.RefreshWeaponUI(_weaponModeSprites[0]);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             _playerAttackContext.ChangeAttackStrategy(_meleeAttack);
+            _uiWeapon.RefreshWeaponUI(_weaponModeSprites[1]);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             _playerAttackContext.ChangeAttackStrategy(_bombAttack);
+            _uiWeapon.RefreshWeaponUI(_weaponModeSprites[2]);
         }
     }
     public void StartCoroutineInPlayerAttackState(IEnumerator coroutine)
