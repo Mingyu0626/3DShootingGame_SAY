@@ -17,6 +17,6 @@ public class PlayerAnimationEvent : MonoBehaviour
     public void ThrowBombEvent()
     {
         Debug.Log("ThrowBomb Event");
-        _playerAttackController.FireBomb();
+        _playerAttackController.BombAttack.FireBomb();
     }
 }
