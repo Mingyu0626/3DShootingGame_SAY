@@ -37,7 +37,7 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
-        ConfineMouseCursor();
+        LockMouseCursor();
     }
     private void Start()
     {
@@ -51,6 +51,11 @@ public class CameraController : MonoBehaviour
     {
         FollowTarget();
         _cameraStateContext.CurrentState.Update();
+    }
+    private void LockMouseCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
     private void ConfineMouseCursor()
     {
