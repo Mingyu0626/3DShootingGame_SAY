@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasForEnemyHPBar: {fileID: 3431873392519824816}
+  _goldPrefab: {fileID: 8959531281939941489, guid: 15f15f0b08be0ec4e82788904aaab01c, type: 3}
 --- !u!114 &2491644382584981522
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,9 +7,12 @@ public class EnemyDieState : IEnemyState
     private EnemyController _enemyController;
     private IEnumerator _dieCoroutine;
 
+    private Enemy _enemy; 
+
     public EnemyDieState(EnemyController enemyController)
     {
         _enemyController = enemyController;
+        _enemy = _enemyController.GetComponent<Enemy>();
     }
 
     public void Enter()
@@ -33,7 +36,8 @@ public class EnemyDieState : IEnemyState
 
     private IEnumerator DieCoroutine()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         EnemyPool.Instance.ReturnObject(_enemyController.GetComponent<Enemy>());
+        _enemy.SpawnGold();
     }
 } 

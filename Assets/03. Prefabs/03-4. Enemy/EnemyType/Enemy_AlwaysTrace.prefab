@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasForEnemyHPBar: {fileID: 7341683630469072286}
+  _goldPrefab: {fileID: 8959531281939941489, guid: 15f15f0b08be0ec4e82788904aaab01c, type: 3}
 --- !u!114 &6381182720383850521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996aac0459becb1478ca37f2bb8a16ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyType: 0
+  _enemyType: 1
   _moveSpeed: 3
   _findDistance: 7
   _idleToPatrolWaitTime: 5
