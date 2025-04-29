@@ -1,21 +1,29 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerGunAttack : IAttack
+public class PlayerGunAttack : IAttackStrategy
 {
     private PlayerAttackController _playerAttackController;
     private PlayerData _playerData;
+
     [Header("Bullet")]
     private float _lastBulletFireTime = -Mathf.Infinity;
     private bool _isContinuousFiring = false;
     private bool _isContinousFireCoolDown = false;
     private Camera _mainCamera;
 
+    private bool _zoomMode = false;
+
     public PlayerGunAttack(PlayerAttackController playerAttack, PlayerData playerData)
     {
         _playerAttackController = playerAttack;
         _playerData = playerData;
         _mainCamera = Camera.main;
+    }
+    public void Enter()
+    {
+        _playerAttackController.UiWeapon.RefreshUIOnZoomOut();
+        Camera.main.fieldOfView = _playerAttackController.ZoomOutSize;
     }
     public void Attack()
     {
@@ -45,6 +53,21 @@ public class PlayerGunAttack : IAttack
                 _playerAttackController.StartCoroutineInPlayerAttackState(CooldownCoroutine());
             }
             _playerData.IsBulletFiring = false;
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            _zoomMode = !_zoomMode;
+            if (_zoomMode)
+            {
+                _playerAttackController.UiWeapon.RefreshUIOnZoomIn();
+                Camera.main.fieldOfView = _playerAttackController.ZoomInSize;
+            }
+            else
+            {
+                _playerAttackController.UiWeapon.RefreshUIOnZoomOut();
+                Camera.main.fieldOfView = _playerAttackController.ZoomOutSize;
+            }
         }
     }
     private void FireBullet()

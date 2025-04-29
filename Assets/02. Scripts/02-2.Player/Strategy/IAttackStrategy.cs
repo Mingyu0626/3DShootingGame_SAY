@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public interface IAttack
+public interface IAttackStrategy
 {
+    public void Enter();
     public void Attack();
 
     public void AttackAnimation();

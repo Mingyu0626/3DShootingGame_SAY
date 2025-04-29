@@ -7,9 +7,7 @@ public class PlayerAttackController : MonoBehaviour
 {
     private PlayerData _playerData;
     private Camera _mainCamera;
-
-    private float _bombHoldStartTime;
-    private bool _isHoldingBomb;
+    public Camera MainCamera { get => _mainCamera; set => _mainCamera = value; }
 
     private PlayerGunAttack _gunAttack;
     public PlayerGunAttack GunAttack { get => _gunAttack; }
@@ -19,10 +17,24 @@ public class PlayerAttackController : MonoBehaviour
 
     private PlayerAttackContext _playerAttackContext;
 
+    private PlayerBombAttack _bombAttack;
+    public PlayerBombAttack BombAttack { get => _bombAttack; set => _bombAttack = value; }
+
     private Animator _animator;
     public Animator Animator { get => _animator; set => _animator = value; }
 
-    private float _fireBombPower;
+    [SerializeField]
+    private UI_Weapon _uiWeapon;
+    public UI_Weapon UiWeapon { get => _uiWeapon; set => _uiWeapon = value; }
+
+    [SerializeField]
+    private float _zoomInSize = 15f;
+    public float ZoomInSize { get => _zoomInSize; set => _zoomInSize = value; }
+
+    [SerializeField]
+    private float _zoomOutSize = 60f;
+    public float ZoomOutSize { get => _zoomOutSize; set => _zoomOutSize = value; }
+
 
     private void Awake()
     {
@@ -31,6 +43,7 @@ public class PlayerAttackController : MonoBehaviour
 
         _gunAttack = new PlayerGunAttack(this, _playerData);
         _meleeAttack = new PlayerMeleeAttack(this, _playerData);
+        _bombAttack = new PlayerBombAttack(this, _playerData);
         _playerAttackContext = GetComponent<PlayerAttackContext>();
         _playerAttackContext.ChangeAttackStrategy(_gunAttack);
 
@@ -40,7 +53,6 @@ public class PlayerAttackController : MonoBehaviour
     private void Update()
     {
         HandleChangeAttackInput();
-        HandleFireBombInput();
     }
     private void HandleChangeAttackInput()
     {
@@ -51,6 +63,10 @@ public class PlayerAttackController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             _playerAttackContext.ChangeAttackStrategy(_meleeAttack);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _playerAttackContext.ChangeAttackStrategy(_bombAttack);
         }
     }
     public void StartCoroutineInPlayerAttackState(IEnumerator coroutine)
@@ -69,42 +85,6 @@ public class PlayerAttackController : MonoBehaviour
     public void DestroyObject(GameObject go)
     {
         UnityEngine.Object.Destroy(go);
-    }
-    private void HandleFireBombInput()
-    {
-        if (GameManager.Instance.IsInputBlocked)
-        {
-            return;
-        }
-
-        if (Input.GetMouseButtonDown(1) && 0 < _playerData.CurrentBombCount)
-        {
-            _bombHoldStartTime = Time.time;
-            _isHoldingBomb = true;
-        }
-
-        if (Input.GetMouseButtonUp(1) && _isHoldingBomb)
-        {
-            float heldTime = Time.time - _bombHoldStartTime;
-            float normalizedHoldTime = Mathf.Clamp01(heldTime / _playerData.MaxHoldTime);
-             _fireBombPower = Mathf.Lerp(_playerData.MinBombPower, _playerData.MaxBombPower, normalizedHoldTime);
-            _playerData.CurrentBombCount -= 1;
-            _isHoldingBomb = false;
-            ThrowBombAnimation();
-        }
-    }
-
-    public void FireBomb()
-    {
-        Bomb bomb = BombPool.Instance.GetObject(BombType.NormalBomb, _playerData.FirePosition.transform.position);
-        Rigidbody bombRigidbody = bomb.gameObject.GetComponent<Rigidbody>();
-        bombRigidbody.AddForce(_mainCamera.transform.forward * _fireBombPower, ForceMode.Impulse);
-        bombRigidbody.AddTorque(Vector3.one);
-    }
-    private void ThrowBombAnimation()
-    {
-        Debug.Log("ThrowBomb Animation");
-        _animator.SetTrigger("ThrowBomb");
     }
 }
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMeleeAttack : IAttack
+public class PlayerMeleeAttack : IAttackStrategy
 {
     private PlayerAttackController _playerAttackController;
     private PlayerData _playerData;
@@ -16,7 +16,11 @@ public class PlayerMeleeAttack : IAttack
         _playerData = playerData;
         _enemyLayer = LayerMask.GetMask("Enemy");
     }
-
+    public void Enter()
+    {
+        _playerAttackController.UiWeapon.RefreshUIOnZoomOut();
+        Camera.main.fieldOfView = _playerAttackController.ZoomOutSize;
+    }
     public void Attack()
     {
         if (GameManager.Instance.IsInputBlocked)

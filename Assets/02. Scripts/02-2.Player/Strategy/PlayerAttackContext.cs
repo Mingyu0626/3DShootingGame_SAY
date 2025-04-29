@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerAttackContext : MonoBehaviour
 {
-    private IAttack _currentAttackStrategy;
-    public IAttack CurrentAttackStrategy 
+    private IAttackStrategy _currentAttackStrategy;
+    public IAttackStrategy CurrentAttackStrategy 
     { get => _currentAttackStrategy; set => _currentAttackStrategy = value; }
 
     private void Update()
@@ -11,8 +11,9 @@ public class PlayerAttackContext : MonoBehaviour
         _currentAttackStrategy.Attack();
     }
 
-    public void ChangeAttackStrategy(IAttack attack)
+    public void ChangeAttackStrategy(IAttackStrategy attack)
     {
+        attack.Enter();
         _currentAttackStrategy = attack;
     }
 }
