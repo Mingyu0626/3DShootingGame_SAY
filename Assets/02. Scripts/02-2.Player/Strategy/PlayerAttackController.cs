@@ -35,6 +35,11 @@ public class PlayerAttackController : MonoBehaviour
     private float _zoomOutSize = 60f;
     public float ZoomOutSize { get => _zoomOutSize; set => _zoomOutSize = value; }
 
+
+    [SerializeField]
+    private ShakeCamera shakeCamera;
+    public ShakeCamera ShakeCamera { get => shakeCamera; set => shakeCamera = value; }
+
     [SerializeField]
     private List<Sprite> _weaponModeSprites = new List<Sprite>();
 

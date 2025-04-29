@@ -10,6 +10,9 @@ public class Bomb : MonoBehaviour, IProduct
     [Header("Project")]
     [SerializeField]
     private GameObject _explosionVFXPrefab;
+
+    [SerializeField]
+    private ShakeCamera _shakeCamera;
     private void Awake()
     {
         
@@ -19,6 +22,7 @@ public class Bomb : MonoBehaviour, IProduct
     {
         Instantiate(_explosionVFXPrefab, transform.position, Quaternion.identity);
         BombPool.Instance.ReturnObject(this);
+        _shakeCamera.Shake(0.5f, 0.5f);
         gameObject.SetActive(false);
     }
 

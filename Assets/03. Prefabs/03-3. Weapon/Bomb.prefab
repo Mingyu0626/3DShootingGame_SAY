@@ -149,4 +149,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f26b42772197b4ab00131857830036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionVFXPrefab: {fileID: 100004, guid: b46890100828db6429ff69c322b45893, type: 3}
+  _explosionVFXPrefab: {fileID: 1121192042590650, guid: ac4769147273093469b2618c1591d422, type: 3}
