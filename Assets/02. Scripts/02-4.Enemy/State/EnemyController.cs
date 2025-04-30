@@ -40,7 +40,6 @@ public class EnemyController : MonoBehaviour, IDamageable
     private Animator _animator;
     public Animator Animator { get => _animator; set => _animator = value; }
 
-
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -99,6 +98,9 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             _enemyStateContext.ChangeState(_damagedState);
             _animator.SetTrigger("Hit");
+            StartCoroutine(FlashRedCoroutine(0.5f));
+            HitEffect();
+            BloodEffect();
         }
     }
 
@@ -115,6 +117,36 @@ public class EnemyController : MonoBehaviour, IDamageable
             default:
                 _enemyStateContext.ChangeState(_idleState);
                 break;
+        }
+    }
+
+    private void HitEffect()
+    {
+        _enemyData.HitEffect.GetComponent<ParticleSystem>().Play();
+    }
+    private void BloodEffect()
+    {
+        _enemyData.BloodEffect.GetComponent<ParticleSystem>().Play();
+    }
+    private IEnumerator FlashRedCoroutine(float duration)
+    {
+        var coloredMaterials = new List<(Material mat, Color originalColor)>();
+
+        foreach (var renderer in GetComponentsInChildren<Renderer>())
+        {
+            Material material = renderer.material;
+            if (material.HasProperty("_Color"))
+            {
+                coloredMaterials.Add((material, material.color));
+                material.color = Color.red;
+            }
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        foreach (var (mat, originalColor) in coloredMaterials)
+        {
+            mat.color = originalColor;
         }
     }
 } 

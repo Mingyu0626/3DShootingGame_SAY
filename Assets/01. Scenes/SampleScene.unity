@@ -4915,7 +4915,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 767
+    m_Bits: 1791
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -16745,10 +16745,10 @@ MonoBehaviour:
   _isDontDestroy: 1
   _objectInfos:
   - ObjectEnumType: 0
-    ObjectScriptType: {fileID: 4980139486171659072, guid: a00138cbaaafd4647990f3e47a753fe8, type: 3}
+    ObjectScriptType: {fileID: 4451017245460140839, guid: 846b15fb298ab784fbbfa80bbf0b870f, type: 3}
     Count: 100
   - ObjectEnumType: 1
-    ObjectScriptType: {fileID: 4980139486171659072, guid: e41a524e9e696cb498ee7ad347c24a64, type: 3}
+    ObjectScriptType: {fileID: 4451017245460140839, guid: aeef4a40f1c010148baf50e77c0bda8b, type: 3}
     Count: 100
   _factory: {fileID: 1302881973}
 --- !u!4 &1294192791

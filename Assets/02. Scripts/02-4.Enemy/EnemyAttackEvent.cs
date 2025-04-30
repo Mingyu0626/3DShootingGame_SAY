@@ -4,7 +4,6 @@ public class EnemyAttackEvent : MonoBehaviour
 {
     [SerializeField]
     private EnemyController _enemyController;
-    [SerializeField]
     private Player _player;
 
     private void Awake()

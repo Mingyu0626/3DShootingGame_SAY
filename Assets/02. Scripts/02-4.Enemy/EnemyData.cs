@@ -85,6 +85,13 @@ public class EnemyData : MonoBehaviour
     private GameObject _bloodEffect;
     public GameObject BloodEffect { get => _bloodEffect; set => _bloodEffect = value; }
 
+    [Header("Material")]
+    [SerializeField]
+    private GameObject _enemyGOToAccessMaterial;
+    public GameObject EnemyGOToAccessMaterial { get => _enemyGOToAccessMaterial; set => _enemyGOToAccessMaterial = value; }
+
+    // [Header("SFX")]
+
     private void Awake()
     {
         _currentHealthPoint = _maxHealthPoint;

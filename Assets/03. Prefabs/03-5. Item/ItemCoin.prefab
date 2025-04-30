@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 329660528597175187}
   - component: {fileID: 4786078655471341102}
   - component: {fileID: 7012940935057148666}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider_DetectPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 293962301669713284}
   - component: {fileID: -8935321386149661504}
   - component: {fileID: 8933167039977255305}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ItemCoin
   m_TagString: Untagged
   m_Icon: {fileID: 0}

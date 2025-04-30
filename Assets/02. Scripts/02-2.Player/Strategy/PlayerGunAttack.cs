@@ -7,6 +7,7 @@ public class PlayerGunAttack : IAttackStrategy
     private PlayerData _playerData;
 
     [Header("Bullet")]
+    private float _maxFireDistance = 100f;
     private float _lastBulletFireTime = -Mathf.Infinity;
     private bool _isContinuousFiring = false;
     private bool _isContinousFireCoolDown = false;
@@ -80,7 +81,8 @@ public class PlayerGunAttack : IAttackStrategy
 
         Ray ray = new Ray(_playerData.FirePosition.transform.position, _mainCamera.transform.forward);
         RaycastHit hitInfo = new RaycastHit();
-        if (Physics.Raycast(ray, out hitInfo))
+        int layerMask = LayerMask.GetMask("Enemy", "Obstacle", "Default");
+        if (Physics.Raycast(ray, out hitInfo, _maxFireDistance, layerMask))
         {
             CreateHitEffect(hitInfo);
             CreateTracer(_playerData.FirePosition.transform.position, hitInfo.point);
@@ -89,7 +91,7 @@ public class PlayerGunAttack : IAttackStrategy
             {
                 Damage damage = new Damage()
                 {
-                    Value = 10,
+                    Value = 2,
                     From = _playerAttackController.gameObject
                 };
                 damageable.TakeDamage(damage);
