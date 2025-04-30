@@ -50,6 +50,7 @@ public class Barrel : MonoBehaviour, IDamageable
         ApplyExplosionForce();
         ApplyRandomForce();
         SpawnExplosionEffect();
+        _hitCollidersList.Clear();
     }
 
     private void ApplyExplosionDamage()

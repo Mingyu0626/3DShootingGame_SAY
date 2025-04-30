@@ -21,6 +21,7 @@ public class EnemyDamagedState : IEnemyState
 
         _enemyController.Agent.ResetPath();
         _enemyController.Agent.isStopped = true;
+        SetEnemyMaterialsColor(Color.red);
     }
 
     public void Update()
@@ -36,6 +37,7 @@ public class EnemyDamagedState : IEnemyState
             _damagedCoroutine = null;
         }
         _enemyController.Agent.isStopped = false;
+        SetEnemyMaterialsColor(Color.white);
     }
 
     private IEnumerator DamagedCoroutine()
@@ -43,5 +45,13 @@ public class EnemyDamagedState : IEnemyState
         yield return new WaitForSeconds(_enemyController.EnemyData.DamagedTime);
         _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
         Debug.Log("DamagedState -> TraceState");
+    }
+
+    private void SetEnemyMaterialsColor(Color color)
+    {
+        foreach (var material in _enemyController.EnemyData.MaterialList)
+        {
+            material.color = color;
+        }
     }
 } 

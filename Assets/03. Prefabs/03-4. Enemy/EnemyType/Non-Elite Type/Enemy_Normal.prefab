@@ -594,8 +594,8 @@ MonoBehaviour:
   _attackDamage: 1
   _attackRange: 1.5
   _attackCoolTime: 3
-  _damagedTime: 0.5
-  _knockbackDistance: 2
+  _damagedTime: 0.2
+  _knockbackDistance: 1
   _knockbackSpeed: 10
   _maxHealthPoint: 5
   _patrolRadius: 3
@@ -628,6 +628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyHealthBar: {fileID: 5770160005949400315}
+  _refreshDelay: 0.5
 --- !u!114 &119271624747390566
 MonoBehaviour:
   m_ObjectHideFlags: 0
