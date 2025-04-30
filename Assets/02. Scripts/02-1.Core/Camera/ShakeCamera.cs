@@ -25,6 +25,7 @@ public class ShakeCamera : MonoBehaviour
 
     public void Shake(float duration, float magnitude)
     {
+        Debug.Log("ShakeCoroutine");
         StartCoroutine(ShakeCoroutine(duration, magnitude));
     }
 }
