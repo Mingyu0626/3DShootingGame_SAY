@@ -93,7 +93,9 @@ public class EnemyData : MonoBehaviour
     private GameObject _explosionEffect;
     public GameObject ExplosionEffect { get => _explosionEffect; set => _explosionEffect = value; }
 
-    // [Header("SFX")]
+    [Header("Materials")]
+    private List<Material> _materialList = new List<Material>();
+    public List<Material> MaterialList { get => _materialList; set => _materialList = value; }
 
     private void Awake()
     {

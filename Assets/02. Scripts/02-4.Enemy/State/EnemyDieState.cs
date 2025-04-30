@@ -11,7 +11,7 @@ public class EnemyDieState : IEnemyState
     [Header("Death Explosion")]
     private float _explosionRadius = 10f;
     private int _explosionDamage = 10;
-    private List<Collider> _hitCollidersList = new List<Collider>();
+    private Collider[] _reusableColliders = new Collider[50];
 
     public EnemyDieState(EnemyController enemyController)
     {
@@ -21,9 +21,10 @@ public class EnemyDieState : IEnemyState
 
     public void Enter()
     {
-        _enemyController.Agent.isStopped = true;
         _dieCoroutine = DieCoroutine();
         _enemyController.StartCoroutineInEnemyState(_dieCoroutine);
+        _enemyController.GetComponent<CharacterController>().enabled = false;
+        _enemyController.Agent.isStopped = true;
         if (_enemyController.EnemyData.EnemyType == EEnemyType.Elite)
         {
             _enemyController.ExplosionEffect();
@@ -50,28 +51,30 @@ public class EnemyDieState : IEnemyState
         EnemyPool.Instance.ReturnObject(_enemyController.GetComponent<Enemy>());
         _enemy.SpawnGold();
     }
-
     private void DeathExplosion()
     {
-        Collider[] hitColiiders = Physics.OverlapSphere(_enemyController.transform.position, _explosionRadius);
-        foreach (Collider hitCollider in hitColiiders)
-        {
-            if (hitCollider.CompareTag("Player") || hitCollider.CompareTag("Enemy"))
-            {
-                _hitCollidersList.Add(hitCollider);
-            }
-        }
+        int layerMask = LayerMask.GetMask("Player", "Enemy");
+        int count = Physics.OverlapSphereNonAlloc(
+            _enemyController.transform.position,
+            _explosionRadius,
+            _reusableColliders,
+            layerMask
+        );
 
-        foreach (Collider hitCollider in _hitCollidersList)
+        for (int i = 0; i < count; i++)
         {
+            Collider hitCollider = _reusableColliders[i];
+            if (hitCollider == _enemyController.GetComponent<CharacterController>())
+            {
+                continue;
+            }
             if (hitCollider.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                Damage damage = new Damage()
+                damageable.TakeDamage(new Damage
                 {
                     Value = _explosionDamage,
                     From = _enemyController.gameObject
-                };
-                damageable.TakeDamage(damage);
+                });
             }
         }
     }

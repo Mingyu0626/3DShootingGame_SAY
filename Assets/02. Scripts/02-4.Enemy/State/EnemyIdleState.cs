@@ -16,6 +16,7 @@ public class EnemyIdleState : IEnemyState
     {
         _idleCoroutine = IdleCoroutine();
         _enemyController.StartCoroutineInEnemyState(_idleCoroutine);
+        _enemyController.GetComponent<CharacterController>().enabled = true;
     }
 
     public void Update()
