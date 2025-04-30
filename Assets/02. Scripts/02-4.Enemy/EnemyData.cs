@@ -62,7 +62,11 @@ public class EnemyData : MonoBehaviour
     public int MaxHealthPoint { get => _maxHealthPoint; set => _maxHealthPoint = value; }
 
     private int _currentHealthPoint;
-    public int CurrentHealthPoint { get => _currentHealthPoint; set => _currentHealthPoint = value; }
+    public int CurrentHealthPoint 
+    {
+        get => _currentHealthPoint; 
+        set => _currentHealthPoint = value; 
+    }
 
     [Header("Patrol State")]
     [SerializeField] 

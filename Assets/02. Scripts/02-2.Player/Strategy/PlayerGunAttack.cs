@@ -91,7 +91,7 @@ public class PlayerGunAttack : IAttackStrategy
             {
                 Damage damage = new Damage()
                 {
-                    Value = 2,
+                    Value = 10,
                     From = _playerAttackController.gameObject
                 };
                 damageable.TakeDamage(damage);

@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public CharacterController CharacterController => _characterController;
     private EnemyData _enemyData;
     public EnemyData EnemyData => _enemyData;
-    private UI_Enemy _enemyHPBar;
+    private UI_Enemy _uiEnemy;
 
 
     [Header("References")]
@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         _player = GameObject.FindGameObjectWithTag("Player");
         _characterController = GetComponent<CharacterController>();
         _enemyData = GetComponent<EnemyData>();
-        _enemyHPBar = GetComponentInChildren<UI_Enemy>();
+        _uiEnemy = GetComponentInChildren<UI_Enemy>();
         _enemyStateContext = new EnemyStateContext(this);
 
         _agent = GetComponent<NavMeshAgent>();
@@ -65,7 +65,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         _enemyData.CurrentHealthPoint = _enemyData.MaxHealthPoint;
-        _enemyHPBar.InitSliderEnemyHealthPoint(_enemyData.MaxHealthPoint);
+        _uiEnemy.InitEnemyHP(_enemyData.MaxHealthPoint);
         _startPosition = transform.position;
         SetStartState();
     }
@@ -88,17 +88,25 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void TakeDamage(Damage damage)
     {
         _enemyData.CurrentHealthPoint -= damage.Value;
-        _enemyHPBar.SetSliderEnemyHealthPoint(_enemyData.CurrentHealthPoint);
+        if (_enemyData.EnemyType == EEnemyType.Elite)
+        {
+            _uiEnemy.RefreshEnemyHPOnDelay(_enemyData.CurrentHealthPoint);
+        }
+        else
+        {
+            _uiEnemy.RefreshEnemyHP(_enemyData.CurrentHealthPoint);
+        }
         if (_enemyData.CurrentHealthPoint <= 0)
         {
             _enemyStateContext.ChangeState(_dieState);
             _animator.SetTrigger("Die");
+            return;
         }
         else
         {
             _enemyStateContext.ChangeState(_damagedState);
             _animator.SetTrigger("Hit");
-            StartCoroutine(FlashRedCoroutine(0.5f));
+            // StartCoroutine(FlashRedCoroutine(0.5f));
             HitEffect();
             BloodEffect();
         }
@@ -130,7 +138,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     }
     public void ExplosionEffect()
     {
-        _enemyData.ExplosionEffect.GetComponent<ParticleSystem>().Play();
+        Debug.Log("Explosion Effect");
+        Instantiate(_enemyData.ExplosionEffect, transform.position, transform.rotation);
     }
     private IEnumerator FlashRedCoroutine(float duration)
     {

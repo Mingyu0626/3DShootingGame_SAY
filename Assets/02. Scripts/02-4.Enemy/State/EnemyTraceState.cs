@@ -31,11 +31,6 @@ public class EnemyTraceState : IEnemyState
         else
         {
             _enemyController.Agent.SetDestination(_enemyController.Player.transform.position);
-            Debug.Log($"isStopped: {_enemyController.Agent.isStopped}");
-            Debug.Log($"speed: {_enemyController.Agent.speed}");
-            Debug.Log($"updatePosition: {_enemyController.Agent.updatePosition}");
-            Debug.Log($"updateRotation: {_enemyController.Agent.updateRotation}");
-            Debug.Log($"velocity: {_enemyController.Agent.velocity}");
         }
     }
 

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,8 @@ public class UI_Enemy : MonoBehaviour
 {
     [SerializeField]
     private Slider _enemyHealthBar;
+    [SerializeField]
+    private float _refreshDelay = 0.5f;
 
     private void Update()
     {
@@ -17,7 +20,7 @@ public class UI_Enemy : MonoBehaviour
             _enemyHealthBar.gameObject.transform.forward = Camera.main.transform.forward;
         }
     }
-    public void InitSliderEnemyHealthPoint(float maxHealthPoint)
+    public void InitEnemyHP(float maxHealthPoint)
     {
         if (!ReferenceEquals(_enemyHealthBar, null))
         {
@@ -25,11 +28,15 @@ public class UI_Enemy : MonoBehaviour
             _enemyHealthBar.value = maxHealthPoint;
         }
     }
-    public void SetSliderEnemyHealthPoint(float healthPoint)
+    public void RefreshEnemyHP(float healthPoint)
     {
         if (!ReferenceEquals(_enemyHealthBar, null))
         {
             _enemyHealthBar.value = healthPoint;
         }
+    }
+    public void RefreshEnemyHPOnDelay(float healthPoint)
+    {
+        _enemyHealthBar.DOValue(healthPoint, _refreshDelay).SetEase(Ease.Linear);
     }
 }
