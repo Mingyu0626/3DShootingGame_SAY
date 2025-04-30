@@ -12,7 +12,7 @@ public class Barrel : MonoBehaviour, IDamageable
     [SerializeField] 
     private float _explosionRadius = 5f;
     [SerializeField] 
-    private int _explosionDamage = 1;
+    private int _explosionDamage = 5;
     [SerializeField] 
     private float _explosionForce = 10f;
     [SerializeField] 

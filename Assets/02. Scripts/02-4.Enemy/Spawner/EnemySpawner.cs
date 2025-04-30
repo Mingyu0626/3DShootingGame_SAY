@@ -23,8 +23,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] 
     private float _spawnRadius = 5f;
     [SerializeField] 
-    private int _maxSpawnCount = 10;
-    [SerializeField] 
     private bool _isSpawning = true;
 
     [Header("Enemy Probability")]
@@ -88,6 +86,6 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-        return EEnemyType.NormalEnemy; // 기본값
+        return EEnemyType.Normal; // 기본값
     }
 } 

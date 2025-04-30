@@ -18,9 +18,14 @@ public class EnemyReturnState : IEnemyState
 
     public void Update()
     {
-        float distance = Vector3.Distance(_enemyController.StartPosition, _enemyController.transform.position);
-        
-        if (distance <= 1f)
+        float distanceToPlayer = Vector3.Distance(_enemyController.Player.transform.position, _enemyController.transform.position);
+        float distanceToOrigin = Vector3.Distance(_enemyController.StartPosition, _enemyController.transform.position);
+        if (distanceToPlayer <= _enemyController.EnemyData.FindDistance)
+        {
+            _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
+            Debug.Log("ReturnState -> TraceState");
+        }
+        else if (distanceToOrigin <= 1f)
         {
             _enemyController.EnemyStateContext.ChangeState(_enemyController.IdleState);
             _enemyController.Animator.SetTrigger("MoveToIdle");

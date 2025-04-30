@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class EnemyAttackEvent : MonoBehaviour
 {
-    [SerializeField]
     private EnemyController _enemyController;
     private Player _player;
 
     private void Awake()
     {
+        _enemyController = GetComponent<EnemyController>();
         _player = FindFirstObjectByType<Player>();
     }
     public void AttackEvent()

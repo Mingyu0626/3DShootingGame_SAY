@@ -5,9 +5,13 @@ using UnityEngine;
 public class EnemyDieState : IEnemyState
 {
     private EnemyController _enemyController;
+    private Enemy _enemy;
     private IEnumerator _dieCoroutine;
 
-    private Enemy _enemy; 
+    [Header("Death Explosion")]
+    private float _explosionRadius = 10f;
+    private int _explosionDamage = 10;
+    private List<Collider> _hitCollidersList = new List<Collider>();
 
     public EnemyDieState(EnemyController enemyController)
     {
@@ -17,8 +21,14 @@ public class EnemyDieState : IEnemyState
 
     public void Enter()
     {
+        _enemyController.Agent.isStopped = true;
         _dieCoroutine = DieCoroutine();
         _enemyController.StartCoroutineInEnemyState(_dieCoroutine);
+        if (_enemyController.EnemyData.EnemyType == EEnemyType.Elite)
+        {
+            _enemyController.ExplosionEffect();
+            DeathExplosion();
+        }
     }
 
     public void Update()
@@ -39,5 +49,30 @@ public class EnemyDieState : IEnemyState
         yield return new WaitForSeconds(2f);
         EnemyPool.Instance.ReturnObject(_enemyController.GetComponent<Enemy>());
         _enemy.SpawnGold();
+    }
+
+    private void DeathExplosion()
+    {
+        Collider[] hitColiiders = Physics.OverlapSphere(_enemyController.transform.position, _explosionRadius);
+        foreach (Collider hitCollider in hitColiiders)
+        {
+            if (hitCollider.CompareTag("Player") || hitCollider.CompareTag("Enemy"))
+            {
+                _hitCollidersList.Add(hitCollider);
+            }
+        }
+
+        foreach (Collider hitCollider in _hitCollidersList)
+        {
+            if (hitCollider.TryGetComponent<IDamageable>(out IDamageable damageable))
+            {
+                Damage damage = new Damage()
+                {
+                    Value = _explosionDamage,
+                    From = _enemyController.gameObject
+                };
+                damageable.TakeDamage(damage);
+            }
+        }
     }
 } 

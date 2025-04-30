@@ -28,12 +28,12 @@ public class EnemyData : MonoBehaviour
 
     [Header("Attack State")]
     [SerializeField]
-    private float _attackDamage = 1f;
-    public float AttackDamage { get => _attackDamage; set => _attackDamage = value; }
-
-    [SerializeField] 
     private float _attackDistance = 2.5f;
     public float AttackDistance { get => _attackDistance; set => _attackDistance = value; }
+
+    [SerializeField]
+    private float _attackDamage = 1f;
+    public float AttackDamage { get => _attackDamage; set => _attackDamage = value; }
 
     [SerializeField]
     private float _attackRange = 1.5f;
@@ -85,10 +85,9 @@ public class EnemyData : MonoBehaviour
     private GameObject _bloodEffect;
     public GameObject BloodEffect { get => _bloodEffect; set => _bloodEffect = value; }
 
-    [Header("Material")]
     [SerializeField]
-    private GameObject _enemyGOToAccessMaterial;
-    public GameObject EnemyGOToAccessMaterial { get => _enemyGOToAccessMaterial; set => _enemyGOToAccessMaterial = value; }
+    private GameObject _explosionEffect;
+    public GameObject ExplosionEffect { get => _explosionEffect; set => _explosionEffect = value; }
 
     // [Header("SFX")]
 

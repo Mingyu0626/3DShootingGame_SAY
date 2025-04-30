@@ -2,8 +2,9 @@ using UnityEngine;
 
 public enum EEnemyType
 {
-    NormalEnemy,
-    AlwaysTraceEnemy
+    Normal,
+    AlwaysTrace,
+    Elite
 }
 
 public class EnemyFactory : Factory<Enemy>

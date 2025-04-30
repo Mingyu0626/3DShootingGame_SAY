@@ -108,10 +108,10 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         switch (_enemyData.EnemyType)
         {
-            case EEnemyType.NormalEnemy:
+            case EEnemyType.Normal:
                 _enemyStateContext.ChangeState(_idleState);
                 break;
-            case EEnemyType.AlwaysTraceEnemy:
+            case EEnemyType.AlwaysTrace:
                 _enemyStateContext.ChangeState(_traceState);
                 break;
             default:
@@ -127,6 +127,10 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void BloodEffect()
     {
         _enemyData.BloodEffect.GetComponent<ParticleSystem>().Play();
+    }
+    public void ExplosionEffect()
+    {
+        _enemyData.ExplosionEffect.GetComponent<ParticleSystem>().Play();
     }
     private IEnumerator FlashRedCoroutine(float duration)
     {

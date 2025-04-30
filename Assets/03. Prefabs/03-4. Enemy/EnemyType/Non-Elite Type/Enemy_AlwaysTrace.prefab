@@ -160,6 +160,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 1be39125beaccf8449d5d42a93250fd3, type: 2}
+    - target: {fileID: -6057140222963153312, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -5649415677901578671, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -491,11 +495,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 119271624747390566}
   m_SourcePrefab: {fileID: 100100000, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
---- !u!1 &987426749825751981 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2404743527770886441, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
-  m_PrefabInstance: {fileID: 3236775430583290500}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6902535042127254413 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
@@ -525,7 +524,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!195 &6884275132404299197
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -544,7 +543,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.8
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -575,12 +574,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyType: 1
-  _moveSpeed: 2
+  _moveSpeed: 2.5
   _findDistance: 7
   _idleToPatrolWaitTime: 5
   _returnDistance: 5
-  _attackDamage: 1
   _attackDistance: 2.5
+  _attackDamage: 1
   _attackRange: 1.5
   _attackCoolTime: 3
   _damagedTime: 0.5
@@ -591,7 +590,7 @@ MonoBehaviour:
   _patrolWaitTime: 2
   _hitEffect: {fileID: 9108728777366805350}
   _bloodEffect: {fileID: 1357136124824058936}
-  _enemyGOToAccessMaterial: {fileID: 987426749825751981}
+  _explosionEffect: {fileID: 1121192042590650, guid: 17341cf0f9bb619448d4d8abe8ef4340, type: 3}
 --- !u!114 &-6551232717703310997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,7 +628,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 602fb0985eaae914785018283d7bc3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyController: {fileID: -6551232717703310997}
 --- !u!4 &7607110647313637790 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
@@ -807,7 +805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3007303900951276962, guid: 3474d79f5166f7d429ba1f264d033997, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3007303900951276962, guid: 3474d79f5166f7d429ba1f264d033997, type: 3}
       propertyPath: m_LocalPosition.z

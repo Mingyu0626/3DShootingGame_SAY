@@ -47,7 +47,7 @@ public class EnemyAttackState : IEnemyState
         while (true)
         {
             Collider[] hitColliders = Physics.OverlapSphere
-                (_enemyController.transform.position, _enemyData.AttackDistance, _playerLayer);
+                (_enemyController.transform.position, _enemyData.AttackRange, _playerLayer);
             foreach (Collider collider in hitColliders)
             {
                 if (collider.TryGetComponent<IDamageable>(out IDamageable damageable))
