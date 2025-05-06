@@ -12114,7 +12114,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiCrossHair: {fileID: 810115882}
   _uiSniperZoom: {fileID: 1472363082}
-  _imageWeaponMode: {fileID: 1490217538}
+  _imageAttackMode: {fileID: 1490217538}
+  _attackModeImageSprites:
+  - {fileID: 21300000, guid: 364139618acf0c3489f74a85036bab01, type: 3}
+  - {fileID: 21300000, guid: c9363e8437717b74dbd731d102ecd664, type: 3}
+  - {fileID: 21300000, guid: 70165f5b675a201459a00e7c250460dc, type: 3}
+  _attackModeCrossHairSprites:
+  - {fileID: 21300000, guid: 9868a19e4ae4eda48bef6d158ac6abac, type: 3}
+  - {fileID: -1633533908, guid: cb4032571444bfd468a18b2a29555d7d, type: 3}
+  - {fileID: -1437490524, guid: cb4032571444bfd468a18b2a29555d7d, type: 3}
 --- !u!1001 &798499062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12239,7 +12247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544973160901231479, guid: 9d0b55a71c00ee848ad0e8314aa1f5da, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26912,7 +26920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544973160901231479, guid: 72b4660e055351a4e90aaa88021b368a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27128,6 +27136,10 @@ PrefabInstance:
     - target: {fileID: 4894474358322391777, guid: 123d54f53dde32b4796e6d1bd1f51f72, type: 3}
       propertyPath: m_Name
       value: Image_Crosshair
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533251886661458958, guid: 123d54f53dde32b4796e6d1bd1f51f72, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7014896318022331831, guid: 123d54f53dde32b4796e6d1bd1f51f72, type: 3}
       propertyPath: m_Pivot.x
