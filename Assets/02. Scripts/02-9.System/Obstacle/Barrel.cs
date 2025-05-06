@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,9 +21,13 @@ public class Barrel : MonoBehaviour, IDamageable
 
     [Header("Physics")]
     [SerializeField] 
-    private float _randomForceMin = 5f;
+    private float _randomForceMin = 10f;
     [SerializeField] 
-    private float _randomForceMax = 15f;
+    private float _randomForceMax = 20f;
+    [SerializeField]
+    private float _randomTorqueMin = 10f;
+    [SerializeField]
+    private float _randomTorqueMax = 20f;
     private Rigidbody _rigidbody;
 
     private List<Collider> _hitCollidersList = new List<Collider>();
@@ -49,8 +54,7 @@ public class Barrel : MonoBehaviour, IDamageable
         ApplyExplosionDamage();
         ApplyExplosionForce();
         ApplyRandomForce();
-        SpawnExplosionEffect();
-        _hitCollidersList.Clear();
+        InstantiateExplosionVFX();
     }
 
     private void ApplyExplosionDamage()
@@ -76,6 +80,7 @@ public class Barrel : MonoBehaviour, IDamageable
                 damageable.TakeDamage(damage);
             }
         }
+        _hitCollidersList.Clear();
     }
 
     private void ApplyExplosionForce()
@@ -90,21 +95,22 @@ public class Barrel : MonoBehaviour, IDamageable
             }
         }
     }
-
     private void ApplyRandomForce()
     {
-        Vector3 randomDirection = new Vector3(
-            Random.Range(-1f, 1f),
-            Random.Range(0.5f, 1f),
-            Random.Range(-1f, 1f)
-        ).normalized;
-        
-        float randomForce = Random.Range(_randomForceMin, _randomForceMax);
-        _rigidbody.AddForce(randomDirection * randomForce, ForceMode.Impulse);
-        _rigidbody.AddTorque(Vector3.up, ForceMode.Impulse);
+        _rigidbody.constraints = RigidbodyConstraints.None;
+
+        Vector3 randomForce = (Vector3.up + new Vector3(
+            Random.Range(-0.3f, 0.3f), 0f, Random.Range(-0.3f, 0.3f))).normalized
+            * Random.Range(_randomForceMin, _randomForceMax);
+        _rigidbody.AddForce(randomForce, ForceMode.Impulse);
+
+        Vector3 randomTorque = new Vector3(
+            Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), Random.Range(0.5f, 1f)).normalized 
+            * Random.Range(_randomTorqueMin, _randomTorqueMax);
+        _rigidbody.AddTorque(randomTorque, ForceMode.Impulse);
     }
 
-    private void SpawnExplosionEffect()
+    private void InstantiateExplosionVFX()
     {
         if (!ReferenceEquals(_explosionEffect, null))
         {

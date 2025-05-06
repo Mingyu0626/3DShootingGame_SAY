@@ -120,7 +120,6 @@ public class PlayerGunAttack : IAttackStrategy
         _playerData.BulletVFX.transform.forward = hitInfo.normal;
         _playerData.BulletVFX.Play();
     }
-
     private void CreateTracer(Vector3 start, Vector3 end)
     {
         TrailRenderer trail =
@@ -130,7 +129,6 @@ public class PlayerGunAttack : IAttackStrategy
         float duration = distance / _playerData.TracerSpeed;
         _playerAttackController.StartCoroutineInPlayerAttackState(MoveTracer(trail, start, end, duration));
     }
-
     private IEnumerator MoveTracer(TrailRenderer trail, Vector3 start, Vector3 end, float duration)
     {
         float time = 0f;
