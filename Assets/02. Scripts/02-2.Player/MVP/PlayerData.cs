@@ -98,7 +98,20 @@ public class PlayerData : MonoBehaviour
     public bool IsClimbing { get => _isClimbing; set => _isClimbing = value; }
 
 
-    [Header("Bullet")]
+    [Header("Gun Attack")]
+    private int _maxBulletCount = 50;
+    public int MaxBulletCount { get => _maxBulletCount; set => _maxBulletCount = value; }
+
+    private int _currentBulletCount = 50;
+    public int CurrentBulletCount
+    {
+        get => _currentBulletCount;
+        set
+        {
+            _currentBulletCount = value;
+            PlayerBulletCountChanged?.Invoke(_currentBulletCount, _maxBulletCount);
+        }
+    }
     [SerializeField]
     private ParticleSystem _bulletVFX;
     public ParticleSystem BulletVFX { get => _bulletVFX; set => _bulletVFX = value; }
@@ -111,36 +124,22 @@ public class PlayerData : MonoBehaviour
     public float TracerSpeed { get => _tracerSpeed; set => _tracerSpeed = value; }
 
     [SerializeField]
-    private GameObject _firePosition;
-    public GameObject FirePosition { get => _firePosition; set => _firePosition = value; }
+    private GameObject _shootPosition;
+    public GameObject ShootPosition { get => _shootPosition; set => _shootPosition = value; }
 
-    private bool _isBulletFiring = false;
-    public bool IsBulletFiring { get => _isBulletFiring; set => _isBulletFiring = value; }
-
-    private int _maxBulletCount = 50;
-    public int MaxBulletCount { get => _maxBulletCount; set => _maxBulletCount = value; }
-
-    private int _currentBulletCount = 50;
-    public int CurrentBulletCount 
-    { 
-        get => _currentBulletCount;
-        set
-        {
-            _currentBulletCount = value;
-            PlayerBulletCountChanged?.Invoke(_currentBulletCount, _maxBulletCount);
-        }
-    }
+    private bool _isShooting = false;
+    public bool IsShooting { get => _isShooting; set => _isShooting = value; }
 
     [SerializeField]
-    private float _bulletFireInterval = 0.2f;
-    public float BulletFireInterval { get => _bulletFireInterval; set => _bulletFireInterval = value; }
+    private float _shootingInterval = 0.2f;
+    public float ShootingInterval { get => _shootingInterval; set => _shootingInterval = value; }
 
     [SerializeField]
-    private float _bulletFireCooldown = 5f;
-    public float BulletFireCooldown { get => _bulletFireCooldown; set => _bulletFireCooldown = value; }
+    private float _continuousShootingCooldown = 5f;
+    public float ContinuousShootingCooldown { get => _continuousShootingCooldown; set => _continuousShootingCooldown = value; }
 
 
-    [Header("Bomb")]
+    [Header("Bomb Attack")]
     [SerializeField]
     private GameObject _bombPrefab;
     public GameObject BombPrefab { get => _bombPrefab; set => _bombPrefab = value; }

@@ -227,13 +227,13 @@ MonoBehaviour:
   _rollingPower: 10
   _staminaCostForRolling: 20
   _rollDuration: 0.1
-  _staminaCostForClimbing: 0
+  _staminaCostForClimbing: 20
   _bulletVFX: {fileID: 484368387861551534, guid: ae181241c0c21b040a49290718aeee61, type: 3}
   _bulletTrailPrefab: {fileID: 8580181880120533452, guid: 05b7eeb8ceec03c408d0cde6c8d92aae, type: 3}
   _tracerSpeed: 200
-  _firePosition: {fileID: 4794626987173978739}
-  _bulletFireInterval: 0.2
-  _bulletFireCooldown: 5
+  _shootPosition: {fileID: 4794626987173978739}
+  _shootingInterval: 0.2
+  _continuousShootingCooldown: 3
   _bombPrefab: {fileID: 2177233979882235531, guid: 20fa31d85da11ab4dbfda5919d5ba814, type: 3}
   _minBombPower: 10
   _maxBombPower: 40
@@ -241,7 +241,7 @@ MonoBehaviour:
   _reloadDuration: 2
   _muzzleEffect: {fileID: 1336949550903370, guid: 5846385f616f1e24a92a9d1cff25f8af, type: 3}
   _bladeEffect: {fileID: 1171201465392465800, guid: 4e5647e2ccb127b42bbef721b406d63f, type: 3}
-  _bombEffect: {fileID: 1121192042590650, guid: ac4769147273093469b2618c1591d422, type: 3}
+  _bombEffect: {fileID: 1828176872806910, guid: 6d037d7fe13d5a34ab26ceedb64a57d2, type: 3}
 --- !u!114 &-5319079965397104100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4668645390439688760}
   m_Layer: 0
-  m_Name: FirePosition
+  m_Name: ShootPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -23,7 +23,7 @@ public class PlayerReload : MonoBehaviour
     {
         // R 키를 눌렀을 때 재장전 시도
         if (Input.GetKeyDown(KeyCode.R) && !_isReloading && _playerData.CurrentBulletCount < _playerData.MaxBulletCount
-            && !_playerData.IsBulletFiring)
+            && !_playerData.IsShooting)
         {
             _reloadCoroutine = StartCoroutine(ReloadCoroutine());
         }
@@ -36,7 +36,7 @@ public class PlayerReload : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < _playerData.ReloadDuration)
         {
-            if (_playerData.IsBulletFiring)
+            if (_playerData.IsShooting)
             {
                 CancelReload();
                 yield break;

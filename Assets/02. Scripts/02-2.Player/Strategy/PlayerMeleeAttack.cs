@@ -29,7 +29,7 @@ public class PlayerMeleeAttack : IAttackStrategy
         }
         if (Input.GetMouseButtonDown(0))
         {
-            AttackAnimation();
+            ShootAnimation();
         }
     }
 
@@ -65,7 +65,7 @@ public class PlayerMeleeAttack : IAttackStrategy
     }
     public void AttackVFX()
     {
-        Vector3 basePos = _playerData.FirePosition.transform.position;
+        Vector3 basePos = _playerData.ShootPosition.transform.position;
         Vector3 heightOffset = new Vector3(0f, 0.5f, 0f);
         Vector3 vfxPosition = basePos - heightOffset;
 
@@ -76,7 +76,7 @@ public class PlayerMeleeAttack : IAttackStrategy
             vfxPosition,
             rotation);
     }
-    public void AttackAnimation()
+    public void ShootAnimation()
     {
         Debug.Log("MeleeAttack Animation");
         _playerAttackController.Animator.SetTrigger("MeleeAttack");

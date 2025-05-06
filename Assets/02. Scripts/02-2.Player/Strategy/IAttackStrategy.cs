@@ -4,6 +4,5 @@ public interface IAttackStrategy
 {
     public void Enter();
     public void Attack();
-
-    public void AttackAnimation();
+    public void ShootAnimation();
 }

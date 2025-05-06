@@ -8,9 +8,9 @@ public class PlayerGunAttack : IAttackStrategy
 
     [Header("Bullet")]
     private float _maxFireDistance = 100f;
-    private float _lastBulletFireTime = -Mathf.Infinity;
-    private bool _isContinuousFiring = false;
-    private bool _isContinousFireCoolDown = false;
+    private float _lastShootTime = -Mathf.Infinity;
+    private bool _isContinuousShooting = false;
+    private bool _isContinousShootingCoolDown = false;
     private Camera _mainCamera;
 
     private bool _zoomMode = false;
@@ -33,29 +33,30 @@ public class PlayerGunAttack : IAttackStrategy
             return;
         }
 
-        if (Input.GetMouseButtonDown(0) && 0 < _playerData.CurrentBulletCount)
+        // 총알 발사(단발 및 연사)
+        if (Input.GetMouseButtonDown(0) && 0 < _playerData.CurrentBulletCount
+            && _lastShootTime + _playerData.ShootingInterval <= Time.time)
         {
-            FireBullet();
-            AttackAnimation();
+            Shoot();
         }
-        if (Input.GetMouseButton(0) && !_isContinousFireCoolDown
-            && _lastBulletFireTime + _playerData.BulletFireInterval <= Time.time
-            && 0 < _playerData.CurrentBulletCount)
+        if (Input.GetMouseButton(0) && 0 < _playerData.CurrentBulletCount
+            && _lastShootTime + _playerData.ShootingInterval <= Time.time
+            && !_isContinousShootingCoolDown)
         {
-            _isContinuousFiring = true;
-            FireBullet();
-            AttackAnimation();
+            _isContinuousShooting = true;
+            Shoot();
         }
-        if (Input.GetMouseButtonUp(0) && !_isContinousFireCoolDown)
+        if (Input.GetMouseButtonUp(0))
         {
-            if (_isContinuousFiring)
+            if (_isContinuousShooting)
             {
-                _isContinuousFiring = false;
+                _isContinuousShooting = false;
                 _playerAttackController.StartCoroutineInPlayerAttackState(CooldownCoroutine());
             }
-            _playerData.IsBulletFiring = false;
+            _playerData.IsShooting = false;
         }
 
+        // 줌인 / 줌아웃
         if (Input.GetMouseButtonDown(1))
         {
             _zoomMode = !_zoomMode;
@@ -71,21 +72,21 @@ public class PlayerGunAttack : IAttackStrategy
             }
         }
     }
-    private void FireBullet()
+    private void Shoot()
     {
-        AttackVFX();
-        AttackAnimation();
-        _lastBulletFireTime = Time.time;
-        _playerData.IsBulletFiring = true;
+        InstantiateMuzzleVFX();
+        ShootAnimation();
+        _lastShootTime = Time.time;
+        _playerData.IsShooting = true;
         _playerData.CurrentBulletCount -= 1;
 
-        Ray ray = new Ray(_playerData.FirePosition.transform.position, _mainCamera.transform.forward);
+        Ray ray = new Ray(_playerData.ShootPosition.transform.position, _mainCamera.transform.forward);
         RaycastHit hitInfo = new RaycastHit();
         int layerMask = LayerMask.GetMask("Enemy", "Obstacle", "Default");
         if (Physics.Raycast(ray, out hitInfo, _maxFireDistance, layerMask))
         {
-            CreateHitEffect(hitInfo);
-            CreateTracer(_playerData.FirePosition.transform.position, hitInfo.point);
+            InstantiateHitVFX(hitInfo);
+            CreateTracer(_playerData.ShootPosition.transform.position, hitInfo.point);
 
             if (hitInfo.collider.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
@@ -98,18 +99,26 @@ public class PlayerGunAttack : IAttackStrategy
             }
         }
     }
-    private void CreateHitEffect(RaycastHit hitInfo)
+    private IEnumerator CooldownCoroutine()
+    {
+        _isContinousShootingCoolDown = true;
+        yield return new WaitForSeconds(_playerData.ContinuousShootingCooldown);
+        _isContinousShootingCoolDown = false;
+    }
+    private void InstantiateMuzzleVFX()
+    {
+        _playerAttackController.InstantiateObject
+            (_playerData.MuzzleEffect, _playerData.ShootPosition.transform.position, Quaternion.identity);
+    }
+    public void ShootAnimation()
+    {
+        _playerAttackController.Animator.SetTrigger("Shot");
+    }
+    private void InstantiateHitVFX(RaycastHit hitInfo)
     {
         _playerData.BulletVFX.transform.position = hitInfo.point;
         _playerData.BulletVFX.transform.forward = hitInfo.normal;
         _playerData.BulletVFX.Play();
-    }
-
-    private IEnumerator CooldownCoroutine()
-    {
-        _isContinousFireCoolDown = true;
-        yield return new WaitForSeconds(_playerData.BulletFireCooldown);
-        _isContinousFireCoolDown = false;
     }
 
     private void CreateTracer(Vector3 start, Vector3 end)
@@ -135,14 +144,5 @@ public class PlayerGunAttack : IAttackStrategy
 
         trail.transform.position = end;
         _playerAttackController.DestroyObject(trail.gameObject);
-    }
-    private void AttackVFX()
-    {
-        _playerAttackController.InstantiateObject
-            (_playerData.MuzzleEffect, _playerData.FirePosition.transform.position, Quaternion.identity);
-    }
-    public void AttackAnimation()
-    {
-        _playerAttackController.Animator.SetTrigger("Shot");
     }
 }

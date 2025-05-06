@@ -39,11 +39,11 @@ public class PlayerBombAttack : IAttackStrategy
             _fireBombPower = Mathf.Lerp(_playerData.MinBombPower, _playerData.MaxBombPower, normalizedHoldTime);
             _playerData.CurrentBombCount -= 1;
             _isHoldingBomb = false;
-            AttackAnimation();
+            ShootAnimation();
         }
     }
 
-    public void AttackAnimation()
+    public void ShootAnimation()
     {
         Debug.Log("ThrowBomb Animation");
         _playerAttackController.Animator.SetTrigger("ThrowBomb");
@@ -51,7 +51,7 @@ public class PlayerBombAttack : IAttackStrategy
 
     public void FireBomb()
     {
-        Bomb bomb = BombPool.Instance.GetObject(BombType.NormalBomb, _playerData.FirePosition.transform.position);
+        Bomb bomb = BombPool.Instance.GetObject(BombType.NormalBomb, _playerData.ShootPosition.transform.position);
         Rigidbody bombRigidbody = bomb.gameObject.GetComponent<Rigidbody>();
         bombRigidbody.AddForce(_playerAttackController.MainCamera.transform.forward * _fireBombPower, ForceMode.Impulse);
         bombRigidbody.AddTorque(Vector3.one);
