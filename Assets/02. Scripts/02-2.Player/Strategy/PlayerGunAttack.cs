@@ -80,7 +80,12 @@ public class PlayerGunAttack : IAttackStrategy
         _playerData.IsShooting = true;
         _playerData.CurrentBulletCount -= 1;
 
-        Ray ray = new Ray(_playerData.ShootPosition.transform.position, _mainCamera.transform.forward);
+        Ray ray = new Ray(_playerData.ShootPosition.transform.position, Camera.main.transform.forward);
+        if (_playerAttackController.CameraController.CurrentCameraMode == CameraMode.Quarter)
+        {
+            ray.direction = _playerData.ShootPosition.transform.right;
+        }
+
         RaycastHit hitInfo = new RaycastHit();
         int layerMask = LayerMask.GetMask("Enemy", "Obstacle", "Default");
         if (Physics.Raycast(ray, out hitInfo, _maxFireDistance, layerMask))

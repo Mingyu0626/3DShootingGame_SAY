@@ -42,6 +42,10 @@ public class PlayerAttackController : MonoBehaviour
     private float _zoomOutSize = 60f;
     public float ZoomOutSize { get => _zoomOutSize; set => _zoomOutSize = value; }
 
+    [SerializeField]
+    private CameraController _cameraController;
+    public CameraController CameraController { get => _cameraController; }
+
 
     private void Awake()
     {

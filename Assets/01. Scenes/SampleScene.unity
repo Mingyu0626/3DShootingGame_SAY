@@ -27472,12 +27472,16 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4668645390439688760, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4668645390439688760, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 4668645390439688760, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5159659518756239006, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: _uiWeapon
@@ -27499,6 +27503,10 @@ PrefabInstance:
       propertyPath: _uiSniperZoom
       value: 
       objectReference: {fileID: 1472363082}
+    - target: {fileID: 5159659518756239006, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: _cameraController
+      value: 
+      objectReference: {fileID: 1758956209}
     - target: {fileID: 5159659518756239006, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: _bulletTrailPrefab
       value: 

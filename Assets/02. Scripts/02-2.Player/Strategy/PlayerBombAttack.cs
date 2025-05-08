@@ -53,7 +53,12 @@ public class PlayerBombAttack : IAttackStrategy
     {
         Bomb bomb = BombPool.Instance.GetObject(BombType.NormalBomb, _playerData.ShootPosition.transform.position);
         Rigidbody bombRigidbody = bomb.gameObject.GetComponent<Rigidbody>();
-        bombRigidbody.AddForce(_playerAttackController.MainCamera.transform.forward * _fireBombPower, ForceMode.Impulse);
+        Vector3 force = _playerAttackController.MainCamera.transform.forward * _fireBombPower;
+        if (_playerAttackController.CameraController.CurrentCameraMode == CameraMode.Quarter)
+        {
+            force = _playerData.ShootPosition.transform.right * _fireBombPower;
+        }
+        bombRigidbody.AddForce(force * _fireBombPower, ForceMode.Impulse);
         bombRigidbody.AddTorque(Vector3.one);
     }
 }
