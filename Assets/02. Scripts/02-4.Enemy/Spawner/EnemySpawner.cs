@@ -57,8 +57,8 @@ public class EnemySpawner : MonoBehaviour
     {
         while (_isSpawning)
         {
-            SpawnEnemy();
             yield return new WaitForSeconds(_spawnInterval);
+            SpawnEnemy();
         }
     }
 
