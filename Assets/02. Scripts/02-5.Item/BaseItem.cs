@@ -15,6 +15,8 @@ public abstract class BaseItem : MonoBehaviour
     private PlayerData _playerData;
     protected PlayerData PlayerData { get => _playerData; }
 
+    private Collider _collider;
+    private Rigidbody _rigidbody;
 
     [Header("Amount")]
     [SerializeField]
@@ -48,6 +50,8 @@ public abstract class BaseItem : MonoBehaviour
     {
         _playerData = GameObject.FindGameObjectWithTag("Player")
             .GetComponent<PlayerData>();
+        _collider = GetComponent<Collider>();
+        _rigidbody = GetComponent<Rigidbody>();
         StartCoroutine(RotateCoroutine());
         Destroy(gameObject, _disappearTime);
     }
@@ -81,6 +85,8 @@ public abstract class BaseItem : MonoBehaviour
     }
     public void GoToPlayer()
     {
+        _collider.isTrigger = true;
+        _rigidbody.useGravity = false;
         StartCoroutine(GoToPlayerCoroutine());
     }
     private IEnumerator GoToPlayerCoroutine()

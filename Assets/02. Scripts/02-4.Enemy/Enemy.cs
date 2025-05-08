@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour, IProduct
     [SerializeField]
     private GameObject _goldPrefab;
 
+    private Vector3 _spawnPositionOffset = new Vector3(0f, 0.5f, 0f);
+
     public void Init()
     {
         if (!ReferenceEquals(_canvasForEnemyHPBar, null) && _canvasForEnemyHPBar.renderMode == RenderMode.WorldSpace)
@@ -19,7 +21,7 @@ public class Enemy : MonoBehaviour, IProduct
     }
     public void SpawnGold()
     {
-        Instantiate(_goldPrefab, transform.position, Quaternion.Euler(90f, 0f, 0f));
+        Instantiate(_goldPrefab, transform.position + _spawnPositionOffset, Quaternion.Euler(90f, 0f, 0f));
     }
     public void SpawnRandomItem()
     {
