@@ -26,7 +26,7 @@ public class PlayerGunAttack : IAttackStrategy
         _playerAttackController.UiWeapon.RefreshUIOnZoomOut();
         Camera.main.fieldOfView = _playerAttackController.ZoomOutSize;
     }
-    public void Attack()
+    public void Update()
     {
         if (GameManager.Instance.IsInputBlocked)
         {
@@ -37,14 +37,14 @@ public class PlayerGunAttack : IAttackStrategy
         if (Input.GetMouseButtonDown(0) && 0 < _playerData.CurrentBulletCount
             && _lastShootTime + _playerData.ShootingInterval <= Time.time)
         {
-            Shoot();
+            Attack();
         }
         if (Input.GetMouseButton(0) && 0 < _playerData.CurrentBulletCount
             && _lastShootTime + _playerData.ShootingInterval <= Time.time
             && !_isContinousShootingCoolDown)
         {
             _isContinuousShooting = true;
-            Shoot();
+            Attack();
         }
         if (Input.GetMouseButtonUp(0))
         {
@@ -57,7 +57,8 @@ public class PlayerGunAttack : IAttackStrategy
         }
 
         // 줌인 / 줌아웃
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && 
+            _playerAttackController.CameraController.CurrentCameraMode != CameraMode.Quarter)
         {
             _zoomMode = !_zoomMode;
             if (_zoomMode)
@@ -72,10 +73,18 @@ public class PlayerGunAttack : IAttackStrategy
             }
         }
     }
+    public void Attack()
+    {
+        Shoot();
+    }
+    public void AttackAnimation()
+    {
+        _playerAttackController.Animator.SetTrigger("Shot");
+    }
     private void Shoot()
     {
         InstantiateMuzzleVFX();
-        ShootAnimation();
+        AttackAnimation();
         _lastShootTime = Time.time;
         _playerData.IsShooting = true;
         _playerData.CurrentBulletCount -= 1;
@@ -118,10 +127,6 @@ public class PlayerGunAttack : IAttackStrategy
     {
         _playerAttackController.InstantiateObject
             (_playerData.MuzzleEffect, _playerData.ShootPosition.transform.position, Quaternion.identity);
-    }
-    public void ShootAnimation()
-    {
-        _playerAttackController.Animator.SetTrigger("Shot");
     }
     private void InstantiateHitVFX(RaycastHit hitInfo)
     {

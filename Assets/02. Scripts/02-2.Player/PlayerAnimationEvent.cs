@@ -8,16 +8,16 @@ public class PlayerAnimationEvent : MonoBehaviour
     public void GunAttackEvent()
     {
         Debug.Log("GunAttack Event");
+        _playerAttackController.AttackStrategyDict[EAttackMode.Gun].Attack();
     }
     public void MeleeAttackEvent()
     {
         Debug.Log("MeleeAttack Event");
-        _playerAttackController.MeleeAttack.MeleeAttack();
-        _playerAttackController.MeleeAttack.AttackVFX();
+        _playerAttackController.AttackStrategyDict[EAttackMode.Melee].Attack();
     }
     public void ThrowBombEvent()
     {
         Debug.Log("ThrowBomb Event");
-        _playerAttackController.BombAttack.FireBomb();
+        _playerAttackController.AttackStrategyDict[EAttackMode.Bomb].Attack();
     }
 }

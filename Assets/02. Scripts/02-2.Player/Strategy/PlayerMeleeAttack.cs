@@ -21,7 +21,7 @@ public class PlayerMeleeAttack : IAttackStrategy
         _playerAttackController.UiWeapon.RefreshUIOnZoomOut();
         Camera.main.fieldOfView = _playerAttackController.ZoomOutSize;
     }
-    public void Attack()
+    public void Update()
     {
         if (GameManager.Instance.IsInputBlocked)
         {
@@ -29,11 +29,20 @@ public class PlayerMeleeAttack : IAttackStrategy
         }
         if (Input.GetMouseButtonDown(0))
         {
-            ShootAnimation();
+            AttackAnimation();
         }
     }
-
-    public void MeleeAttack()
+    public void Attack()
+    {
+        MeleeAttack();
+        InstantiateMeleeAttackVFX();
+    }
+    public void AttackAnimation()
+    {
+        Debug.Log("MeleeAttack Animation");
+        _playerAttackController.Animator.SetTrigger("MeleeAttack");
+    }
+    private void MeleeAttack()
     {
         Vector3 center = _playerAttackController.transform.position;
         Vector3 forward = _playerAttackController.transform.right;
@@ -63,7 +72,7 @@ public class PlayerMeleeAttack : IAttackStrategy
             }
         }
     }
-    public void AttackVFX()
+    private void InstantiateMeleeAttackVFX()
     {
         Vector3 basePos = _playerData.ShootPosition.transform.position;
         Vector3 heightOffset = new Vector3(0f, 0.5f, 0f);
@@ -75,10 +84,5 @@ public class PlayerMeleeAttack : IAttackStrategy
             _playerData.BladeEffect,
             vfxPosition,
             rotation);
-    }
-    public void ShootAnimation()
-    {
-        Debug.Log("MeleeAttack Animation");
-        _playerAttackController.Animator.SetTrigger("MeleeAttack");
     }
 }

@@ -13,22 +13,18 @@ public enum EAttackMode
 public class PlayerAttackController : MonoBehaviour
 {
     private PlayerData _playerData;
-    private Camera _mainCamera;
-    public Camera MainCamera { get => _mainCamera; set => _mainCamera = value; }
-
-    private PlayerGunAttack _gunAttack;
-    public PlayerGunAttack GunAttack { get => _gunAttack; }
-
-    private PlayerMeleeAttack _meleeAttack;
-    public PlayerMeleeAttack MeleeAttack { get => _meleeAttack; }
-
     private PlayerAttackContext _playerAttackContext;
 
-    private PlayerBombAttack _bombAttack;
-    public PlayerBombAttack BombAttack { get => _bombAttack; set => _bombAttack = value; }
+    private Dictionary<EAttackMode, IAttackStrategy> _attackStrategyDict;
+    public Dictionary<EAttackMode, IAttackStrategy> AttackStrategyDict 
+    { get => _attackStrategyDict; set => _attackStrategyDict = value; }
 
     private Animator _animator;
     public Animator Animator { get => _animator; set => _animator = value; }
+
+    [SerializeField]
+    private CameraController _cameraController;
+    public CameraController CameraController { get => _cameraController; }
 
     [SerializeField]
     private UI_Weapon _uiWeapon;
@@ -42,21 +38,17 @@ public class PlayerAttackController : MonoBehaviour
     private float _zoomOutSize = 60f;
     public float ZoomOutSize { get => _zoomOutSize; set => _zoomOutSize = value; }
 
-    [SerializeField]
-    private CameraController _cameraController;
-    public CameraController CameraController { get => _cameraController; }
-
-
     private void Awake()
     {
         _playerData = GetComponent<PlayerData>();
-        _mainCamera = Camera.main;
-
-        _gunAttack = new PlayerGunAttack(this, _playerData);
-        _meleeAttack = new PlayerMeleeAttack(this, _playerData);
-        _bombAttack = new PlayerBombAttack(this, _playerData);
         _playerAttackContext = GetComponent<PlayerAttackContext>();
-        _playerAttackContext.ChangeAttackStrategy(_gunAttack);
+        _attackStrategyDict = new Dictionary<EAttackMode, IAttackStrategy>
+        {
+            { EAttackMode.Gun, new PlayerGunAttack(this, _playerData) },
+            { EAttackMode.Melee, new PlayerMeleeAttack(this, _playerData) },
+            { EAttackMode.Bomb, new PlayerBombAttack(this, _playerData) }
+        };
+        _playerAttackContext.ChangeAttackStrategy(_attackStrategyDict[EAttackMode.Gun]);
 
         _animator = GetComponentInChildren<Animator>();
     }
@@ -69,19 +61,19 @@ public class PlayerAttackController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _playerAttackContext.ChangeAttackStrategy(_gunAttack);
+            _playerAttackContext.ChangeAttackStrategy(_attackStrategyDict[EAttackMode.Gun]);
             _uiWeapon.RefreshWeaponUI((int)EAttackMode.Gun);
             _uiWeapon.RefreshWeaponCrossHair((int)EAttackMode.Gun);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            _playerAttackContext.ChangeAttackStrategy(_meleeAttack);
+            _playerAttackContext.ChangeAttackStrategy(_attackStrategyDict[EAttackMode.Melee]);
             _uiWeapon.RefreshWeaponUI((int)EAttackMode.Melee);
             _uiWeapon.RefreshWeaponCrossHair((int)EAttackMode.Melee);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            _playerAttackContext.ChangeAttackStrategy(_bombAttack);
+            _playerAttackContext.ChangeAttackStrategy(_attackStrategyDict[EAttackMode.Bomb]);
             _uiWeapon.RefreshWeaponUI((int)EAttackMode.Bomb);
             _uiWeapon.RefreshWeaponCrossHair((int)EAttackMode.Bomb);
         }

@@ -19,7 +19,7 @@ public class PlayerBombAttack : IAttackStrategy
         _playerAttackController.UiWeapon.RefreshUIOnZoomOut();
         Camera.main.fieldOfView = _playerAttackController.ZoomOutSize;
     }
-    public void Attack()
+    public void Update()
     {
         if (GameManager.Instance.IsInputBlocked)
         {
@@ -39,21 +39,25 @@ public class PlayerBombAttack : IAttackStrategy
             _fireBombPower = Mathf.Lerp(_playerData.MinBombPower, _playerData.MaxBombPower, normalizedHoldTime);
             _playerData.CurrentBombCount -= 1;
             _isHoldingBomb = false;
-            ShootAnimation();
+            AttackAnimation();
         }
     }
+    public void Attack()
+    {
+        FireBomb();
+    }
 
-    public void ShootAnimation()
+    public void AttackAnimation()
     {
         Debug.Log("ThrowBomb Animation");
         _playerAttackController.Animator.SetTrigger("ThrowBomb");
     }
 
-    public void FireBomb()
+    private void FireBomb()
     {
         Bomb bomb = BombPool.Instance.GetObject(BombType.NormalBomb, _playerData.ShootPosition.transform.position);
         Rigidbody bombRigidbody = bomb.gameObject.GetComponent<Rigidbody>();
-        Vector3 force = _playerAttackController.MainCamera.transform.forward * _fireBombPower;
+        Vector3 force = Camera.main.transform.forward * _fireBombPower;
         if (_playerAttackController.CameraController.CurrentCameraMode == CameraMode.Quarter)
         {
             force = _playerData.ShootPosition.transform.right * _fireBombPower;

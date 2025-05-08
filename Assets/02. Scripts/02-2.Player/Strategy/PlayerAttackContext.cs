@@ -8,7 +8,7 @@ public class PlayerAttackContext : MonoBehaviour
 
     private void Update()
     {
-        _currentAttackStrategy.Attack();
+        _currentAttackStrategy.Update();
     }
 
     public void ChangeAttackStrategy(IAttackStrategy attack)
