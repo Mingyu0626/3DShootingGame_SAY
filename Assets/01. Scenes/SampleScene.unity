@@ -24380,6 +24380,7 @@ MonoBehaviour:
   - {fileID: 2127927032}
   - {fileID: 6140187147841336327}
   - {fileID: 6140187147841336326}
+  _uiWeapon: {fileID: 793532825}
   _rotationSpeed: 100
 --- !u!1001 &1764669300
 PrefabInstance:

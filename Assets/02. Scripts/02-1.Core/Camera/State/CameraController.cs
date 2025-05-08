@@ -21,6 +21,10 @@ public class CameraController : MonoBehaviour
     public Transform CurrentTargetTransform { get => _currentTargetTransform; set => _currentTargetTransform = value; }
 
     [SerializeField]
+    private UI_Weapon _uiWeapon;
+    public UI_Weapon UiWeapon { get => _uiWeapon; }
+
+    [SerializeField]
     private float _rotationSpeed; // 카메라 회전 속도
     public float RotationSpeed { get => _rotationSpeed; set => _rotationSpeed = value; }
     

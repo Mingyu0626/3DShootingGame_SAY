@@ -10,6 +10,7 @@ public class CameraQuarterState : ICameraState, IRotate
         _cameraController = cameraController;
         _cameraController.CurrentCameraMode = ECameraMode.Quarter;
         _cameraController.CurrentTargetTransform = _cameraController.TargetTransforms[(int)ECameraMode.Quarter];
+        _cameraController.UiWeapon.UiCrossHair.SetActive(false);
     }
     public void Update()
     {
@@ -25,7 +26,7 @@ public class CameraQuarterState : ICameraState, IRotate
     }
     public void Exit()
     {
-
+        _cameraController.UiWeapon.UiCrossHair.SetActive(true);
     }
 
     public void Rotate()
