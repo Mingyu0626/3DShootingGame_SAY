@@ -8,8 +8,8 @@ public class CameraTPSState : ICameraState, IRotate
     public void Enter(CameraController cameraController)
     {
         _cameraController = cameraController;
-        _cameraController.CurrentCameraMode = CameraMode.TPS;
-        _cameraController.CurrentTargetTransform = _cameraController.TargetTransforms[(int)CameraMode.TPS];
+        _cameraController.CurrentCameraMode = ECameraMode.TPS;
+        _cameraController.CurrentTargetTransform = _cameraController.TargetTransforms[(int)ECameraMode.TPS];
     }
     public void Update()
     {

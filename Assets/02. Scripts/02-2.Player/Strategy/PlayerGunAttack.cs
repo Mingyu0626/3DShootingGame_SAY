@@ -58,7 +58,7 @@ public class PlayerGunAttack : IAttackStrategy
 
         // 줌인 / 줌아웃
         if (Input.GetMouseButtonDown(1) && 
-            _playerAttackController.CameraController.CurrentCameraMode != CameraMode.Quarter)
+            _playerAttackController.CameraController.CurrentCameraMode != ECameraMode.Quarter)
         {
             _zoomMode = !_zoomMode;
             if (_zoomMode)
@@ -90,7 +90,7 @@ public class PlayerGunAttack : IAttackStrategy
         _playerData.CurrentBulletCount -= 1;
 
         Ray ray = new Ray(_playerData.ShootPosition.transform.position, Camera.main.transform.forward);
-        if (_playerAttackController.CameraController.CurrentCameraMode == CameraMode.Quarter)
+        if (_playerAttackController.CameraController.CurrentCameraMode == ECameraMode.Quarter)
         {
             ray.direction = _playerData.ShootPosition.transform.right;
         }

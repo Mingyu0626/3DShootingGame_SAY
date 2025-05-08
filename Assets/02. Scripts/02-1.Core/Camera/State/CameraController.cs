@@ -1,11 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-public enum CameraMode
-{
-    FPS, // default
-    TPS,
-    Quarter
-}
+
 public class CameraController : MonoBehaviour
 {
     private ICameraState _fpsState, _tpsState, _quarterState;
@@ -13,8 +8,8 @@ public class CameraController : MonoBehaviour
     public ICameraState TpsState { get => _tpsState; set => _tpsState = value; }
     public ICameraState QuarterState { get => _quarterState; set => _quarterState = value; }
 
-    private CameraMode _currentCameraMode;
-    public CameraMode CurrentCameraMode { get => _currentCameraMode; set => _currentCameraMode = value; }
+    private ECameraMode _currentCameraMode;
+    public ECameraMode CurrentCameraMode { get => _currentCameraMode; set => _currentCameraMode = value; }
 
     [SerializeField]
     private List<Transform> _targetTransforms = new List<Transform>();

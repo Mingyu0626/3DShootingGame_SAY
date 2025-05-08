@@ -8,8 +8,8 @@ public class CameraFPSState : ICameraState, IRotate
     public void Enter(CameraController cameraController)
     {
         _cameraController = cameraController;
-        _cameraController.CurrentCameraMode = CameraMode.FPS;
-        _cameraController.CurrentTargetTransform = _cameraController.TargetTransforms[(int)CameraMode.FPS];
+        _cameraController.CurrentCameraMode = ECameraMode.FPS;
+        _cameraController.CurrentTargetTransform = _cameraController.TargetTransforms[(int)ECameraMode.FPS];
     }
     public void Update()
     {

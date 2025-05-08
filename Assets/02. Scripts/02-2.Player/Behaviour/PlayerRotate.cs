@@ -17,7 +17,7 @@ public class PlayerRotate : MonoBehaviour
     }
     private void Rotate()
     {
-        if (_cameraController.CurrentCameraMode == CameraMode.Quarter)
+        if (_cameraController.CurrentCameraMode == ECameraMode.Quarter)
         {
             return;
         }

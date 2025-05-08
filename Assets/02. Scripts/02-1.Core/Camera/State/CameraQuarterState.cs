@@ -8,8 +8,8 @@ public class CameraQuarterState : ICameraState, IRotate
     public void Enter(CameraController cameraController)
     {
         _cameraController = cameraController;
-        _cameraController.CurrentCameraMode = CameraMode.Quarter;
-        _cameraController.CurrentTargetTransform = _cameraController.TargetTransforms[(int)CameraMode.Quarter];
+        _cameraController.CurrentCameraMode = ECameraMode.Quarter;
+        _cameraController.CurrentTargetTransform = _cameraController.TargetTransforms[(int)ECameraMode.Quarter];
     }
     public void Update()
     {

@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum EAttackMode
-{
-    Gun,
-    Melee,
-    Bomb
-}
-
 public class PlayerAttackController : MonoBehaviour
 {
     private PlayerData _playerData;
