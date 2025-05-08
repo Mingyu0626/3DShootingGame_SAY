@@ -6,7 +6,7 @@ public class PlayerBombAttack : IAttackStrategy
     private PlayerData _playerData;
 
     private float _bombHoldStartTime;
-    private float _fireBombPower;
+    private float _bombThrowingPower;
     private bool _isHoldingBomb;
 
     public PlayerBombAttack(PlayerAttackController playerAttack, PlayerData playerData)
@@ -36,7 +36,7 @@ public class PlayerBombAttack : IAttackStrategy
         {
             float heldTime = Time.time - _bombHoldStartTime;
             float normalizedHoldTime = Mathf.Clamp01(heldTime / _playerData.MaxHoldTime);
-            _fireBombPower = Mathf.Lerp(_playerData.MinBombPower, _playerData.MaxBombPower, normalizedHoldTime);
+            _bombThrowingPower = Mathf.Lerp(_playerData.MinBombPower, _playerData.MaxBombPower, normalizedHoldTime);
             _playerData.CurrentBombCount -= 1;
             _isHoldingBomb = false;
             AttackAnimation();
@@ -57,12 +57,12 @@ public class PlayerBombAttack : IAttackStrategy
     {
         Bomb bomb = BombPool.Instance.GetObject(BombType.NormalBomb, _playerData.ShootPosition.transform.position);
         Rigidbody bombRigidbody = bomb.gameObject.GetComponent<Rigidbody>();
-        Vector3 force = Camera.main.transform.forward * _fireBombPower;
+        Vector3 force = Camera.main.transform.forward * _bombThrowingPower;
         if (_playerAttackController.CameraController.CurrentCameraMode == ECameraMode.Quarter)
         {
-            force = _playerData.ShootPosition.transform.right * _fireBombPower;
+            force = _playerData.ShootPosition.transform.right * _bombThrowingPower;
         }
-        bombRigidbody.AddForce(force * _fireBombPower, ForceMode.Impulse);
+        bombRigidbody.AddForce(force, ForceMode.Impulse);
         bombRigidbody.AddTorque(Vector3.one);
     }
 }
