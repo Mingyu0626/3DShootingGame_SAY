@@ -17,10 +17,10 @@ public class PlayerRotate : MonoBehaviour
     }
     private void Rotate()
     {
-        if (_cameraController.CurrentCameraMode == ECameraMode.Quarter)
-        {
-            return;
-        }
+        //if (_cameraController.CurrentCameraMode == ECameraMode.Quarter)
+        //{
+        //    return;
+        //}
         // 1. 마우스 입력을 받는다.
         float mouseX = Input.GetAxis("Mouse X");
         // 2. 회전한 양만큼 누적시켜 나간다.

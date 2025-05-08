@@ -58,11 +58,6 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-    private void ConfineMouseCursor()
-    {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
-    }
     private void FollowTarget()
     {
         transform.position = _currentTargetTransform.position;
