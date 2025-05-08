@@ -92,7 +92,6 @@ public class PlayerGunAttack : IAttackStrategy
         {
             InstantiateHitVFX(hitInfo);
             CreateTracer(_playerData.ShootPosition.transform.position, hitInfo.point);
-
             if (hitInfo.collider.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
                 Damage damage = new Damage()
@@ -102,6 +101,11 @@ public class PlayerGunAttack : IAttackStrategy
                 };
                 damageable.TakeDamage(damage);
             }
+        }
+        else
+        {
+            Vector3 endPoint = ray.origin + ray.direction * _maxFireDistance;
+            CreateTracer(_playerData.ShootPosition.transform.position, endPoint);
         }
     }
     private IEnumerator CooldownCoroutine()
