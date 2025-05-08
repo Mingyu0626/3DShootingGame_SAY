@@ -29800,6 +29800,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 259540716}
     - target: {fileID: 7110149192143653485, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: _gunDamage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7110149192143653485, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: _jumpPower
       value: 2
       objectReference: {fileID: 0}
