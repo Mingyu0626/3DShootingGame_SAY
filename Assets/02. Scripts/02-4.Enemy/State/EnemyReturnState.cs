@@ -22,12 +22,12 @@ public class EnemyReturnState : IEnemyState
         float distanceToOrigin = Vector3.Distance(_enemyController.StartPosition, _enemyController.transform.position);
         if (distanceToPlayer <= _enemyController.EnemyData.FindDistance)
         {
-            _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
+            _enemyController.EnemyStateContext.ChangeState(_enemyController.EnemyStateDict[EEnemyState.Trace]);
             Debug.Log("ReturnState -> TraceState");
         }
         else if (distanceToOrigin <= 1f)
         {
-            _enemyController.EnemyStateContext.ChangeState(_enemyController.IdleState);
+            _enemyController.EnemyStateContext.ChangeState(_enemyController.EnemyStateDict[EEnemyState.Idle]);
             _enemyController.Animator.SetTrigger("MoveToIdle");
             Debug.Log("ReturnState -> IdleState");
         }

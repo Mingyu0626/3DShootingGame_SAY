@@ -24,7 +24,7 @@ public class EnemyIdleState : IEnemyState
         float distance = Vector3.Distance(_enemyController.Player.transform.position, _enemyController.transform.position);
         if (distance <= _enemyController.EnemyData.FindDistance)
         {
-            _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
+            _enemyController.EnemyStateContext.ChangeState(_enemyController.EnemyStateDict[EEnemyState.Trace]);
             _enemyController.Animator.SetTrigger("IdleToMove");
             Debug.Log("IdleState -> TraceState");
         }
@@ -42,7 +42,7 @@ public class EnemyIdleState : IEnemyState
     private IEnumerator IdleCoroutine()
     {
         yield return new WaitForSeconds(_enemyController.EnemyData.IdleToPatrolWaitTime);
-        _enemyController.EnemyStateContext.ChangeState(_enemyController.PatrolState);
+        _enemyController.EnemyStateContext.ChangeState(_enemyController.EnemyStateDict[EEnemyState.Patrol]);
         _enemyController.Animator.SetTrigger("IdleToMove");
         Debug.Log("IdleState -> PatrolState");
     }

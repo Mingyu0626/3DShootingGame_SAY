@@ -25,7 +25,7 @@ public class EnemyPatrolState : IEnemyState
         if (Vector3.Distance(_enemyController.Player.transform.position, _enemyController.transform.position) 
         <= _enemyController.EnemyData.FindDistance)
         {
-            _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
+            _enemyController.EnemyStateContext.ChangeState(_enemyController.EnemyStateDict[EEnemyState.Trace]);
             Debug.Log("PatrolState -> TraceState");
         }
     }

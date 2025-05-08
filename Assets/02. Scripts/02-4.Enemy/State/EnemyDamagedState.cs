@@ -43,7 +43,7 @@ public class EnemyDamagedState : IEnemyState
     private IEnumerator DamagedCoroutine()
     {
         yield return new WaitForSeconds(_enemyController.EnemyData.DamagedTime);
-        _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
+        _enemyController.EnemyStateContext.ChangeState(_enemyController.EnemyStateDict[EEnemyState.Trace]);
         Debug.Log("DamagedState -> TraceState");
     }
 

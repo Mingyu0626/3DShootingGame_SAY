@@ -19,12 +19,12 @@ public class EnemyTraceState : IEnemyState
         
         if (_enemyController.EnemyData.FindDistance < distance)
         {
-            _enemyController.EnemyStateContext.ChangeState(_enemyController.ReturnState);
+            _enemyController.EnemyStateContext.ChangeState(_enemyController.EnemyStateDict[EEnemyState.Return]);
             Debug.Log("TraceState -> ReturnState");
         }
         else if (distance <= _enemyController.EnemyData.AttackDistance)
         {
-            _enemyController.EnemyStateContext.ChangeState(_enemyController.AttackState);
+            _enemyController.EnemyStateContext.ChangeState(_enemyController.EnemyStateDict[EEnemyState.Attack]);
             _enemyController.Animator.SetTrigger("MoveToAttackDelay");
             Debug.Log("TraceState -> AttackState");
         }

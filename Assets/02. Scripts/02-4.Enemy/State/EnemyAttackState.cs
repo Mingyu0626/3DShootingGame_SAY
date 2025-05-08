@@ -5,14 +5,12 @@ using UnityEngine;
 public class EnemyAttackState : IEnemyState
 {
     private EnemyController _enemyController;
-    private EnemyData _enemyData;
     private IEnumerator _attackCoroutine;
-    private LayerMask _playerLayer;
+    private int _playerLayer;
 
     public EnemyAttackState(EnemyController enemyController)
     {
         _enemyController = enemyController;
-        _enemyData = enemyController.EnemyData;
         _playerLayer = LayerMask.GetMask("Player");
     }
 
@@ -27,7 +25,7 @@ public class EnemyAttackState : IEnemyState
         if (_enemyController.EnemyData.AttackDistance < 
         Vector3.Distance(_enemyController.Player.transform.position, _enemyController.transform.position))
         {
-            _enemyController.EnemyStateContext.ChangeState(_enemyController.TraceState);
+            _enemyController.EnemyStateContext.ChangeState(_enemyController.EnemyStateDict[EEnemyState.Trace]);
             _enemyController.Animator.SetTrigger("AttackDelayToMove");
             Debug.Log("AttackState -> TraceState");
         }
@@ -47,7 +45,7 @@ public class EnemyAttackState : IEnemyState
         while (true)
         {
             Collider[] hitColliders = Physics.OverlapSphere
-                (_enemyController.transform.position, _enemyData.AttackRange, _playerLayer);
+                (_enemyController.transform.position, _enemyController.EnemyData.AttackRange, _playerLayer);
             foreach (Collider collider in hitColliders)
             {
                 if (collider.TryGetComponent<IDamageable>(out IDamageable damageable))

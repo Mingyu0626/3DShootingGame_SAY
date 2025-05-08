@@ -71,7 +71,7 @@ public class EnemySpawner : MonoBehaviour
         EEnemyType enemyType = PickSpawnEnemyType();
         Enemy enemy = EnemyPool.Instance.GetObject(enemyType, spawnPosition);
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
-        enemyController.EnemyStateContext.ChangeState(enemyController.IdleState);
+        enemyController.EnemyStateContext.ChangeState(enemyController.EnemyStateDict[EEnemyState.Idle]);
     }
 
     private EEnemyType PickSpawnEnemyType()
