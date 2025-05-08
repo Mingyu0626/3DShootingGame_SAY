@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IPoolObject
+public class EnemyDemo : MonoBehaviour, IPoolObject
 {
     public enum State { Alive, Died }
     public int Health { get; private set; }
