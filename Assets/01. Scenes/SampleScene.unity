@@ -19165,7 +19165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1441115034
 Transform:
   m_ObjectHideFlags: 0
@@ -27459,6 +27459,10 @@ PrefabInstance:
       propertyPath: _rotationSpeed
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 4508800623132309206, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: _cameraController
+      value: 
+      objectReference: {fileID: 1758956209}
     - target: {fileID: 4566557679951068972, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -27575,6 +27579,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8762288208691459073, guid: 60be9673240058041829509e809be47e, type: 3}
+      propertyPath: _cameraController
+      value: 
+      objectReference: {fileID: 1758956209}
     - target: {fileID: 8867971403864202197, guid: 60be9673240058041829509e809be47e, type: 3}
       propertyPath: _playerAttackController
       value: 

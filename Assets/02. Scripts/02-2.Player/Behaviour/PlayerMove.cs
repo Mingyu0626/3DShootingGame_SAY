@@ -18,7 +18,7 @@ public class PlayerMove : MonoBehaviour
     }
 
     private void Move()
-    {
+    { 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector3 moveDirectionRaw = new Vector3(horizontal, 0f, vertical);

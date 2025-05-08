@@ -4,7 +4,7 @@ public class CameraTPSState : ICameraState, IRotate
 {
     private CameraController _cameraController;
     private float _rotationYPositiveLimit = 10f;
-    private float _rotationYNegativeLimit = -15f;
+    private float _rotationYNegativeLimit = -5f;
     public void Enter(CameraController cameraController)
     {
         _cameraController = cameraController;
