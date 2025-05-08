@@ -585,7 +585,7 @@ MonoBehaviour:
   _damagedTime: 0.2
   _knockbackDistance: 1
   _knockbackSpeed: 10
-  _maxHealthPoint: 5
+  _maxHealthPoint: 10
   _patrolRadius: 3
   _patrolWaitTime: 2
   _hitEffect: {fileID: 9108728777366805350}

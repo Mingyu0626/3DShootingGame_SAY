@@ -65,7 +65,7 @@ public class PlayerMeleeAttack : IAttackStrategy
             {
                 Damage damage = new Damage()
                 {
-                    Value = 10,
+                    Value = _playerData.MeleeDamage,
                     From = _playerAttackController.gameObject
                 };
                 damageable.TakeDamage(damage);

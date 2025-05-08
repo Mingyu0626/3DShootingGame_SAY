@@ -99,6 +99,9 @@ public class PlayerData : MonoBehaviour
 
 
     [Header("Gun Attack")]
+    [SerializeField]
+    private int _gunDamage = 2;
+    public int GunDamage { get => _gunDamage; set => _gunDamage = value; }
     private int _maxBulletCount = 50;
     public int MaxBulletCount { get => _maxBulletCount; set => _maxBulletCount = value; }
 
@@ -137,7 +140,11 @@ public class PlayerData : MonoBehaviour
     [SerializeField]
     private float _continuousShootingCooldown = 5f;
     public float ContinuousShootingCooldown { get => _continuousShootingCooldown; set => _continuousShootingCooldown = value; }
-
+    
+    [Header("Melee Attack")]
+    [SerializeField]
+    private int _meleeDamage = 5;
+    public int MeleeDamage { get => _meleeDamage; set => _meleeDamage = value; }
 
     [Header("Bomb Attack")]
     [SerializeField]

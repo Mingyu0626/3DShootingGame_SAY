@@ -11,7 +11,6 @@ public class PlayerGunAttack : IAttackStrategy
     private float _lastShootTime = -Mathf.Infinity;
     private bool _isContinuousShooting = false;
     private bool _isContinousShootingCoolDown = false;
-    private Camera _mainCamera;
 
     private bool _zoomMode = false;
 
@@ -19,7 +18,6 @@ public class PlayerGunAttack : IAttackStrategy
     {
         _playerAttackController = playerAttack;
         _playerData = playerData;
-        _mainCamera = Camera.main;
     }
     public void Enter()
     {
@@ -105,7 +103,7 @@ public class PlayerGunAttack : IAttackStrategy
             {
                 Damage damage = new Damage()
                 {
-                    Value = 10,
+                    Value = _playerData.GunDamage,
                     From = _playerAttackController.gameObject
                 };
                 damageable.TakeDamage(damage);
