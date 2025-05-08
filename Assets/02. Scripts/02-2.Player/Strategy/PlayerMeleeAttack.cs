@@ -8,13 +8,13 @@ public class PlayerMeleeAttack : IAttackStrategy
 
     private float _attackRange = 4f;
     private float _attackAngle = 120f;
-    private LayerMask _enemyLayer;
+    private LayerMask _attackableLayer;
 
     public PlayerMeleeAttack(PlayerAttackController playerAttack, PlayerData playerData)
     {
         _playerAttackController = playerAttack;
         _playerData = playerData;
-        _enemyLayer = LayerMask.GetMask("Enemy");
+        _attackableLayer = LayerMask.GetMask("Enemy", "Obstacle", "Default");
     }
     public void Enter()
     {
@@ -47,7 +47,7 @@ public class PlayerMeleeAttack : IAttackStrategy
         Vector3 center = _playerAttackController.transform.position;
         Vector3 forward = _playerAttackController.transform.right;
         List<Collider> targetsInCircularSectorArea = new List<Collider>();
-        Collider[] hitColliders = Physics.OverlapSphere(center, _attackRange, _enemyLayer);
+        Collider[] hitColliders = Physics.OverlapSphere(center, _attackRange, _attackableLayer);
         foreach (Collider hitCollider in hitColliders)
         {
             Vector3 dirToTarget = (hitCollider.transform.position - center).normalized;
