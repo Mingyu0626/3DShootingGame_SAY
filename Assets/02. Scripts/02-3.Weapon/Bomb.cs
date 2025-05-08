@@ -9,7 +9,7 @@ public class Bomb : MonoBehaviour, IProduct
     [SerializeField]
     private ShakeCamera _shakeCamera;
     [SerializeField] 
-    private float _explosionRadius = 5f;
+    private float _explosionRadius = 10f;
     [SerializeField] 
     private int _explosionDamage = 20;
     [SerializeField] 
