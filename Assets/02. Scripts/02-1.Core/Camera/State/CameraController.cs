@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 public class CameraController : MonoBehaviour
 {
-    private ICameraState _fpsState, _tpsState, _quarterState;
-    public ICameraState FpsState { get => _fpsState; set => _fpsState = value; }
-    public ICameraState TpsState { get => _tpsState; set => _tpsState = value; }
-    public ICameraState QuarterState { get => _quarterState; set => _quarterState = value; }
+    private Dictionary<ECameraMode, ICameraState> _cameraStateDict;
+    public Dictionary<ECameraMode, ICameraState> CameraStateDict 
+    { get => _cameraStateDict; set => _cameraStateDict = value; }
+
+    private CameraStateContext _cameraStateContext;
+    public CameraStateContext CameraStateContext { get => _cameraStateContext; set => _cameraStateContext = value; }
 
     private ECameraMode _currentCameraMode;
     public ECameraMode CurrentCameraMode { get => _currentCameraMode; set => _currentCameraMode = value; }
@@ -17,9 +19,6 @@ public class CameraController : MonoBehaviour
 
     private Transform _currentTargetTransform;
     public Transform CurrentTargetTransform { get => _currentTargetTransform; set => _currentTargetTransform = value; }
-
-    private CameraStateContext _cameraStateContext;
-    public CameraStateContext CameraStateContext { get => _cameraStateContext; set => _cameraStateContext = value; }
 
     [SerializeField]
     private float _rotationSpeed; // 카메라 회전 속도
@@ -36,11 +35,14 @@ public class CameraController : MonoBehaviour
     }
     private void Start()
     {
-        _fpsState = new CameraFPSState();
-        _tpsState = new CameraTPSState();
-        _quarterState = new CameraQuarterState();
+        _cameraStateDict = new Dictionary<ECameraMode, ICameraState>
+        { 
+            {ECameraMode.FPS, new CameraFPSState() },
+            {ECameraMode.TPS, new CameraTPSState() },
+            {ECameraMode.Quarter, new CameraQuarterState() }
+        };
         _cameraStateContext = new CameraStateContext(this);
-        _cameraStateContext.ChangeState(_fpsState);
+        _cameraStateContext.ChangeState(_cameraStateDict[ECameraMode.FPS]);
     }
     private void LateUpdate()
     {

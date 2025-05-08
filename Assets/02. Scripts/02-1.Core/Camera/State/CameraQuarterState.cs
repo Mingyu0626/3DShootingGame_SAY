@@ -15,11 +15,11 @@ public class CameraQuarterState : ICameraState, IRotate
     {
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            _cameraController.CameraStateContext.ChangeState(_cameraController.FpsState);
+            _cameraController.CameraStateContext.ChangeState(_cameraController.CameraStateDict[ECameraMode.FPS]);
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            _cameraController.CameraStateContext.ChangeState(_cameraController.TpsState);
+            _cameraController.CameraStateContext.ChangeState(_cameraController.CameraStateDict[ECameraMode.TPS]);
         }
         Rotate();
     }

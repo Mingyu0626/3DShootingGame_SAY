@@ -15,11 +15,11 @@ public class CameraFPSState : ICameraState, IRotate
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            _cameraController.CameraStateContext.ChangeState(_cameraController.TpsState);
+            _cameraController.CameraStateContext.ChangeState(_cameraController.CameraStateDict[ECameraMode.TPS]);
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            _cameraController.CameraStateContext.ChangeState(_cameraController.QuarterState);
+            _cameraController.CameraStateContext.ChangeState(_cameraController.CameraStateDict[ECameraMode.Quarter]);
         }
         Rotate();
     }
