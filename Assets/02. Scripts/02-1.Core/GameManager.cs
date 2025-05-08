@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -21,6 +22,22 @@ public class GameManager : Singleton<GameManager>
     private bool _isInputBlocked = true;
     public bool IsInputBlocked { get => _isInputBlocked; set => _isInputBlocked = value; }
 
+    [SerializeField]
+    private UI_OptionPopup _optionPopup;
+    private EGameState _gameState = EGameState.Ready;
+    public EGameState GameState
+    {
+        get => _gameState;
+        set
+        {
+            _gameState = value;
+            if (_gameState == EGameState.Over)
+            {
+                GameOver();
+            }
+        }
+    }
+
     protected override void Awake()
     {
         base.Awake();
@@ -30,6 +47,7 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator GameStartFlow()
     {
         Time.timeScale = 0f;
+        _readyTMP.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(_waitTimeBeforeReadyTMPOff);
         _readyTMP.DOFade(0f, 0.05f)
             .SetUpdate(true)
@@ -40,7 +58,36 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSecondsRealtime(_waitTimeBeforeGoTMPOff);
         _isInputBlocked = false;
         Time.timeScale = 1f;
+        _gameState = EGameState.Run;
         _goTMP.DOFade(0f, 0.05f);
+    }
+    public void Pause()
+    {
+        _gameState = EGameState.Pause;
+        Time.timeScale = 0f;
+        _isInputBlocked = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        PopupManager.Instance.OpenPopup(EPopupType.UI_OptionPopup, closeCallback: Continue);
+    }
+    public void Continue()
+    {
+        _gameState = EGameState.Run;
+        Time.timeScale = 1f;
+        _isInputBlocked = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+    public void Restart()
+    {
+        _gameState = EGameState.Run;
+        Time.timeScale = 1f;
+        _isInputBlocked = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        PopupManager.Instance.ClosePopup();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void GameOver()
     {
