@@ -93,7 +93,6 @@ public class UI_LoginScene : MonoBehaviour
             Id = id,
             Password = password
         };
-
         string json = JsonUtility.ToJson(accountInfo);
         PlayerPrefs.SetString("PlayerAccountInfo", json);
         PlayerPrefs.Save();
