@@ -80,11 +80,6 @@ public class PlayerMeleeAttack : IAttackStrategy
         Vector3 vfxPosition = basePos - heightOffset;
         Quaternion rotation = Quaternion.LookRotation(_playerAttackController.transform.forward);
         rotation *= Quaternion.Euler(0f, 45f, 0f);
-        //_playerAttackController.InstantiateObject(
-        //    _playerData.BladeEffect,
-        //    vfxPosition,
-        //    rotation);
-
         VFX vfx = PoolManager.Instance.GetFromPool<VFX>(EPoolObjectName.VFX_Melee.ToString());
         vfx.OnGetFromPool(vfxPosition, rotation);
     }
