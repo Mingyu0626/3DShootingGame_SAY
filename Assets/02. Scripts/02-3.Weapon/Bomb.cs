@@ -24,21 +24,16 @@ public class Bomb : MonoBehaviour, IProduct
     public void Init() {}
     private void OnCollisionEnter(Collision collision)
     {
-        StartCoroutine(ExplosionVFXCoroutine());
+        PlayExplosionVFX();
         DealExplosionDamage();
         _shakeCamera.Shake(0.5f, 1f);
-    }
-    private IEnumerator ExplosionVFXCoroutine()
-    {
-        ParticleSystem particleSystem = PoolManager.Instance.GetFromPool<ParticleSystem>(EPoolObjectName.VFX_BombEffect.ToString());
-        particleSystem.transform.position = transform.position;
-        particleSystem.Play();
-        while (particleSystem.IsAlive())
-        {
-            yield return null;
-        }
-        PoolManager.Instance.TakeToPool<ParticleSystem>(EPoolObjectName.VFX_BombEffect.ToString(), particleSystem);
+
         PoolManager.Instance.TakeToPool<Bomb>(EPoolObjectName.Bomb.ToString(), this);
+    }
+    private void PlayExplosionVFX()
+    {
+        VFX vfx = PoolManager.Instance.GetFromPool<VFX>(EPoolObjectName.VFX_BombExplosion.ToString());
+        vfx.OnGetFromPool(transform.position);
     }
     private void DealExplosionDamage()
     {

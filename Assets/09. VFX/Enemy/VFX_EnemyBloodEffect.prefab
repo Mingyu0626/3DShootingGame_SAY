@@ -4887,6 +4887,7 @@ GameObject:
   - component: {fileID: 4000011382548710}
   - component: {fileID: 2698634468239793769}
   - component: {fileID: 1194293186073646348}
+  - component: {fileID: -3123352414728836687}
   m_Layer: 0
   m_Name: VFX_EnemyBloodEffect
   m_TagString: Untagged
@@ -9724,6 +9725,19 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &-3123352414728836687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013355911406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b82b00e5e6c2764c9d596c7175121f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolObjectName: 0
 --- !u!1 &1000013555257782
 GameObject:
   m_ObjectHideFlags: 0

@@ -82,7 +82,7 @@ public class PlayerGunAttack : IAttackStrategy
     }
     private void Shoot()
     {
-        _playerAttackController.StartCoroutineInPlayerAttackState(MuzzleVFXCoroutine());
+        PlayMuzzleVFX();
         AttackAnimation();
         _lastShootTime = Time.time;
         _playerData.IsShooting = true;
@@ -98,7 +98,7 @@ public class PlayerGunAttack : IAttackStrategy
         int layerMask = LayerMask.GetMask("Enemy", "Obstacle", "Default");
         if (Physics.Raycast(ray, out hitInfo, _maxFireDistance, layerMask))
         {
-            _playerAttackController.StartCoroutineInPlayerAttackState(HitVFXCoroutine(hitInfo));
+            PlayGunHitVFX(hitInfo);
             CreateTracer(_playerData.ShootPosition.transform.position, hitInfo.point);
             if (hitInfo.collider.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
@@ -122,32 +122,15 @@ public class PlayerGunAttack : IAttackStrategy
         yield return new WaitForSeconds(_playerData.ContinuousShootingCooldown);
         _isContinousShootingCoolDown = false;
     }
-    private IEnumerator MuzzleVFXCoroutine()
+    private void PlayMuzzleVFX()
     {
-        ParticleSystem particleSystem =
-            PoolManager.Instance.GetFromPool<ParticleSystem>(EPoolObjectName.VFX_MuzzleEffect.ToString());
-        particleSystem.transform.position = _playerData.ShootPosition.transform.position;
-        particleSystem.transform.rotation = Quaternion.identity;
-        particleSystem.Play();
-        while (particleSystem.IsAlive())
-        {
-            yield return null;
-        }
-        PoolManager.Instance.TakeToPool<ParticleSystem>(EPoolObjectName.VFX_MuzzleEffect.ToString(), particleSystem);
+        VFX vfx = PoolManager.Instance.GetFromPool<VFX>(EPoolObjectName.VFX_Muzzle.ToString());
+        vfx.OnGetFromPool(_playerData.ShootPosition.transform.position, Quaternion.identity);
     }
-    private IEnumerator HitVFXCoroutine(RaycastHit hitInfo)
+    private void PlayGunHitVFX(RaycastHit hitinfo)
     {
-        ParticleSystem particleSystem = 
-            PoolManager.Instance.GetFromPool<ParticleSystem>(EPoolObjectName.VFX_GunHitEffect.ToString());
-        particleSystem.transform.position = hitInfo.point;
-        particleSystem.transform.forward = hitInfo.normal;
-
-        particleSystem.Play();
-        while (particleSystem.IsAlive())
-        {
-            yield return null;
-        }
-        PoolManager.Instance.TakeToPool<ParticleSystem>(EPoolObjectName.VFX_GunHitEffect.ToString(), particleSystem);
+        VFX vfx = PoolManager.Instance.GetFromPool<VFX>(EPoolObjectName.VFX_GunHit.ToString());
+        vfx.OnGetFromPool(hitinfo.point, Quaternion.identity);
     }
     private void CreateTracer(Vector3 start, Vector3 end)
     {

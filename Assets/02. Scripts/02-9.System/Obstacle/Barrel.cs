@@ -1,3 +1,5 @@
+
+using Redcode.Pools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +18,6 @@ public class Barrel : MonoBehaviour, IDamageable
     private int _explosionDamage = 5;
     [SerializeField] 
     private float _explosionForce = 10f;
-    [SerializeField] 
-    private GameObject _explosionEffect;
 
     [Header("Physics")]
     [SerializeField] 
@@ -54,7 +54,7 @@ public class Barrel : MonoBehaviour, IDamageable
         ApplyExplosionDamage();
         ApplyExplosionForce();
         ApplyRandomForce();
-        InstantiateExplosionVFX();
+        PlayExplosionVFX();
     }
 
     private void ApplyExplosionDamage()
@@ -110,11 +110,9 @@ public class Barrel : MonoBehaviour, IDamageable
         _rigidbody.AddTorque(randomTorque, ForceMode.Impulse);
     }
 
-    private void InstantiateExplosionVFX()
+    private void PlayExplosionVFX()
     {
-        if (!ReferenceEquals(_explosionEffect, null))
-        {
-            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
-        }
+        VFX vfx = PoolManager.Instance.GetFromPool<VFX>(EPoolObjectName.VFX_BarrelExplosion.ToString());
+        vfx.OnGetFromPool(transform.position);
     }
 } 

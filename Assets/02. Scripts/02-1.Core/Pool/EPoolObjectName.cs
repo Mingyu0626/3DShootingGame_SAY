@@ -5,7 +5,9 @@ public enum EPoolObjectName
     EnemyElite,
     Bomb,
     BulletTrail,
-    VFX_MuzzleEffect,
-    VFX_GunHitEffect,
-    VFX_BombEffect
+    VFX_Muzzle,
+    VFX_GunHit,
+    VFX_Melee,
+    VFX_BombExplosion,
+    VFX_BarrelExplosion
 }

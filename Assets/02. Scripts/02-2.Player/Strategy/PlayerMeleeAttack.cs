@@ -1,3 +1,4 @@
+using Redcode.Pools;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +36,7 @@ public class PlayerMeleeAttack : IAttackStrategy
     public void Attack()
     {
         MeleeAttack();
-        InstantiateMeleeAttackVFX();
+        PlayMeleeVFX();
     }
     public void AttackAnimation()
     {
@@ -72,17 +73,19 @@ public class PlayerMeleeAttack : IAttackStrategy
             }
         }
     }
-    private void InstantiateMeleeAttackVFX()
+    private void PlayMeleeVFX()
     {
         Vector3 basePos = _playerData.ShootPosition.transform.position;
         Vector3 heightOffset = new Vector3(0f, 0.5f, 0f);
         Vector3 vfxPosition = basePos - heightOffset;
-
         Quaternion rotation = Quaternion.LookRotation(_playerAttackController.transform.forward);
         rotation *= Quaternion.Euler(0f, 45f, 0f);
-        _playerAttackController.InstantiateObject(
-            _playerData.BladeEffect,
-            vfxPosition,
-            rotation);
+        //_playerAttackController.InstantiateObject(
+        //    _playerData.BladeEffect,
+        //    vfxPosition,
+        //    rotation);
+
+        VFX vfx = PoolManager.Instance.GetFromPool<VFX>(EPoolObjectName.VFX_Melee.ToString());
+        vfx.OnGetFromPool(vfxPosition, rotation);
     }
 }
