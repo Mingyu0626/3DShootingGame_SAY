@@ -1,3 +1,4 @@
+using Redcode.Pools;
 using System.Collections;
 using UnityEngine;
 
@@ -134,8 +135,10 @@ public class PlayerGunAttack : IAttackStrategy
     }
     private void CreateTracer(Vector3 start, Vector3 end)
     {
-        TrailRenderer trail =
-            _playerAttackController.InstantiateObject(_playerData.BulletTrailPrefab, start, Quaternion.identity);
+        TrailRenderer trail = 
+            PoolManager.Instance.GetFromPool<TrailRenderer>("BulletTrail");
+        trail.transform.position = start;
+        trail.transform.rotation = Quaternion.identity;
 
         float distance = Vector3.Distance(start, end);
         float duration = distance / _playerData.TracerSpeed;
@@ -153,6 +156,6 @@ public class PlayerGunAttack : IAttackStrategy
         }
 
         trail.transform.position = end;
-        _playerAttackController.DestroyObject(trail.gameObject);
+        PoolManager.Instance.TakeToPool<TrailRenderer>("BulletTrail", trail);
     }
 }

@@ -42,15 +42,16 @@ namespace Redcode.Pools
     /// Pool manager. You can set options for it in editor and then use in game. <br/>
     /// It creates specified pools in Awake method, which then you can find with <b>GetPool</b> methods and call its methods.
     /// </summary>
-    public class PoolManager : MonoBehaviour
+    public class PoolManager : Singleton<PoolManager>
     {
         [SerializeField]
         private List<PoolData> _pools;
 
         private readonly List<IPool<Component>> _poolsObjects = new();
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             var namesGroups = _pools.Select(p => p.Name).GroupBy(n => n).Where(g => g.Count() > 1);
 
             if (namesGroups.Count() > 0)

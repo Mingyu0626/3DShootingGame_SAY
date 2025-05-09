@@ -75,7 +75,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         _enemyData.CurrentHealthPoint = _enemyData.MaxHealthPoint;
         _uiEnemy.InitEnemyHP(_enemyData.MaxHealthPoint);
         _startPosition = transform.position;
-        SetStartState();
+        _enemyStateContext.ChangeState(_enemyStateDict[EEnemyState.Idle]);
     }
 
     private void Update()
@@ -116,22 +116,6 @@ public class EnemyController : MonoBehaviour, IDamageable
             _animator.SetTrigger("Hit");
             HitEffect();
             BloodEffect();
-        }
-    }
-
-    private void SetStartState()
-    {
-        switch (_enemyData.EnemyType)
-        {
-            case EEnemyType.Normal:
-                _enemyStateContext.ChangeState(_enemyStateDict[EEnemyState.Idle]);
-                break;
-            case EEnemyType.AlwaysTrace:
-                _enemyStateContext.ChangeState(_enemyStateDict[EEnemyState.Trace]);
-                break;
-            default:
-                _enemyStateContext.ChangeState(_enemyStateDict[EEnemyState.Idle]);
-                break;
         }
     }
 

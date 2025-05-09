@@ -1,3 +1,4 @@
+using Redcode.Pools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,7 +49,8 @@ public class EnemyDieState : IEnemyState
     private IEnumerator DieCoroutine()
     {
         yield return new WaitForSeconds(2f);
-        EnemyPool.Instance.ReturnObject(_enemyController.GetComponent<Enemy>());
+        PoolManager.Instance.TakeToPool<Enemy>($"Enemy{_enemyController.EnemyData.EnemyType}", _enemy);
+        // EnemyPool.Instance.ReturnObject(_enemyController.GetComponent<Enemy>());
         _enemy.SpawnGold();
     }
     private void DeathExplosion()

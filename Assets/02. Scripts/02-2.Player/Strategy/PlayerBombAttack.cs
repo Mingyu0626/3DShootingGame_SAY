@@ -1,3 +1,4 @@
+using Redcode.Pools;
 using UnityEngine;
 
 public class PlayerBombAttack : IAttackStrategy
@@ -55,7 +56,8 @@ public class PlayerBombAttack : IAttackStrategy
 
     private void FireBomb()
     {
-        Bomb bomb = BombPool.Instance.GetObject(BombType.NormalBomb, _playerData.ShootPosition.transform.position);
+        Bomb bomb = PoolManager.Instance.GetFromPool<Bomb>(nameof(Bomb));
+        bomb.transform.position = _playerData.ShootPosition.transform.position;
         Rigidbody bombRigidbody = bomb.gameObject.GetComponent<Rigidbody>();
         Vector3 force = Camera.main.transform.forward * _bombThrowingPower;
         if (_playerAttackController.CameraController.CurrentCameraMode == ECameraMode.Quarter)

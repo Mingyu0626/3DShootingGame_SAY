@@ -1,3 +1,4 @@
+using Redcode.Pools;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour, IProduct
@@ -32,7 +33,8 @@ public class Bomb : MonoBehaviour, IProduct
         _shakeCamera.Shake(0.5f, 1f);
 
         // 오브젝트 풀로 반환
-        BombPool.Instance.ReturnObject(this);
+        PoolManager.Instance.TakeToPool<Bomb>(nameof(Bomb), this);
+        // BombPool.Instance.ReturnObject(this);
         gameObject.SetActive(false);
     }
     private void DealExplosionDamage()

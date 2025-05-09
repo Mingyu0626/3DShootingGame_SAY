@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Redcode.Pools;
 
 [System.Serializable]
 public struct SpawnedEnemyInfo
@@ -64,14 +65,13 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        // 스폰 위치 계산 (랜덤 원형 범위 내)
+        // 스폰 위치 계산 (랜덤 범위 내)
         Vector2 randomCircle = Random.insideUnitCircle * _spawnRadius;
         Vector3 spawnPosition = transform.position + new Vector3(randomCircle.x, 0f, randomCircle.y);
 
         EEnemyType enemyType = PickSpawnEnemyType();
-        Enemy enemy = EnemyPool.Instance.GetObject(enemyType, spawnPosition);
-        EnemyController enemyController = enemy.GetComponent<EnemyController>();
-        enemyController.EnemyStateContext.ChangeState(enemyController.EnemyStateDict[EEnemyState.Idle]);
+        Enemy enemy = PoolManager.Instance.GetFromPool<Enemy>($"Enemy{enemyType}");
+        enemy.gameObject.transform.position = spawnPosition;
     }
 
     private EEnemyType PickSpawnEnemyType()

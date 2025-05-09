@@ -575,9 +575,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyType: 1
   _moveSpeed: 2.5
-  _findDistance: 7
+  _findDistance: 100000
   _idleToPatrolWaitTime: 5
-  _returnDistance: 5
+  _returnDistance: 10000
   _attackDistance: 2.5
   _attackDamage: 1
   _attackRange: 1.5
