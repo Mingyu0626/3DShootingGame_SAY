@@ -35,8 +35,7 @@ public class LoadingScene : MonoBehaviour
 
             // 이 때, 서버와 통신해서 유저 및 기획 데이터를 받아오면 된다.
 
-
-            if (asyncOperation.progress >= 0.9f)
+            if (0.9f <= asyncOperation.progress)
             {
                 _loadingSlider.value = 1;
                 _progressTMP.text = $"100%";
