@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class LoadingScene : MonoBehaviour
 {
-    // 목표 : 다음 Scene을 '비동기 방식'으로 로드하고 싶다.
-    // 또한, 로딩 진행률을 시각적으로 표현하고 싶다. -> Slider와 % 텍스트 표시를 통해
-
     private int _nextSceneIndex = 2;
 
     [SerializeField]
