@@ -147,14 +147,12 @@ public class PlayerGunAttack : IAttackStrategy
     {
         float time = 0f;
 
-        while (time < duration)
+        while (time < duration && !ReferenceEquals(trail, null))
         {
             trail.transform.position = Vector3.Lerp(start, end, time / duration);
             time += Time.deltaTime;
             yield return null;
         }
-
-        trail.transform.position = end;
         PoolManager.Instance.TakeToPool<TrailRenderer>(EPoolObjectName.BulletTrail.ToString(), trail);
     }
 }
