@@ -56,7 +56,7 @@ public class PlayerBombAttack : IAttackStrategy
 
     private void FireBomb()
     {
-        Bomb bomb = PoolManager.Instance.GetFromPool<Bomb>(nameof(Bomb));
+        Bomb bomb = PoolManager.Instance.GetFromPool<Bomb>(EPoolObjectName.Bomb.ToString());
         bomb.transform.position = _playerData.ShootPosition.transform.position;
         Rigidbody bombRigidbody = bomb.gameObject.GetComponent<Rigidbody>();
         Vector3 force = Camera.main.transform.forward * _bombThrowingPower;

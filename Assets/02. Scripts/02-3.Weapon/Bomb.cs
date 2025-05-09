@@ -1,4 +1,5 @@
 using Redcode.Pools;
+using System.Collections;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour, IProduct
@@ -23,19 +24,21 @@ public class Bomb : MonoBehaviour, IProduct
     public void Init() {}
     private void OnCollisionEnter(Collision collision)
     {
-        // VFX
-        Instantiate(_explosionVFXPrefab, transform.position, Quaternion.identity);
-
-        // 데미지 적용
+        StartCoroutine(ExplosionVFXCoroutine());
         DealExplosionDamage();
-
-        // 카메라 흔들림
         _shakeCamera.Shake(0.5f, 1f);
-
-        // 오브젝트 풀로 반환
-        PoolManager.Instance.TakeToPool<Bomb>(nameof(Bomb), this);
-        // BombPool.Instance.ReturnObject(this);
-        gameObject.SetActive(false);
+    }
+    private IEnumerator ExplosionVFXCoroutine()
+    {
+        ParticleSystem particleSystem = PoolManager.Instance.GetFromPool<ParticleSystem>(EPoolObjectName.VFX_BombEffect.ToString());
+        particleSystem.transform.position = transform.position;
+        particleSystem.Play();
+        while (particleSystem.IsAlive())
+        {
+            yield return null;
+        }
+        PoolManager.Instance.TakeToPool<ParticleSystem>(EPoolObjectName.VFX_BombEffect.ToString(), particleSystem);
+        PoolManager.Instance.TakeToPool<Bomb>(EPoolObjectName.Bomb.ToString(), this);
     }
     private void DealExplosionDamage()
     {

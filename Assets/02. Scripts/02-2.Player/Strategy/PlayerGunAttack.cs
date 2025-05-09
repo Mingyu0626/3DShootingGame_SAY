@@ -82,7 +82,7 @@ public class PlayerGunAttack : IAttackStrategy
     }
     private void Shoot()
     {
-        InstantiateMuzzleVFX();
+        _playerAttackController.StartCoroutineInPlayerAttackState(MuzzleVFXCoroutine());
         AttackAnimation();
         _lastShootTime = Time.time;
         _playerData.IsShooting = true;
@@ -98,7 +98,7 @@ public class PlayerGunAttack : IAttackStrategy
         int layerMask = LayerMask.GetMask("Enemy", "Obstacle", "Default");
         if (Physics.Raycast(ray, out hitInfo, _maxFireDistance, layerMask))
         {
-            InstantiateHitVFX(hitInfo);
+            _playerAttackController.StartCoroutineInPlayerAttackState(HitVFXCoroutine(hitInfo));
             CreateTracer(_playerData.ShootPosition.transform.position, hitInfo.point);
             if (hitInfo.collider.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
@@ -122,21 +122,37 @@ public class PlayerGunAttack : IAttackStrategy
         yield return new WaitForSeconds(_playerData.ContinuousShootingCooldown);
         _isContinousShootingCoolDown = false;
     }
-    private void InstantiateMuzzleVFX()
+    private IEnumerator MuzzleVFXCoroutine()
     {
-        _playerAttackController.InstantiateObject
-            (_playerData.MuzzleEffect, _playerData.ShootPosition.transform.position, Quaternion.identity);
+        ParticleSystem particleSystem =
+            PoolManager.Instance.GetFromPool<ParticleSystem>(EPoolObjectName.VFX_MuzzleEffect.ToString());
+        particleSystem.transform.position = _playerData.ShootPosition.transform.position;
+        particleSystem.transform.rotation = Quaternion.identity;
+        particleSystem.Play();
+        while (particleSystem.IsAlive())
+        {
+            yield return null;
+        }
+        PoolManager.Instance.TakeToPool<ParticleSystem>(EPoolObjectName.VFX_MuzzleEffect.ToString(), particleSystem);
     }
-    private void InstantiateHitVFX(RaycastHit hitInfo)
+    private IEnumerator HitVFXCoroutine(RaycastHit hitInfo)
     {
-        _playerData.BulletVFX.transform.position = hitInfo.point;
-        _playerData.BulletVFX.transform.forward = hitInfo.normal;
-        _playerData.BulletVFX.Play();
+        ParticleSystem particleSystem = 
+            PoolManager.Instance.GetFromPool<ParticleSystem>(EPoolObjectName.VFX_GunHitEffect.ToString());
+        particleSystem.transform.position = hitInfo.point;
+        particleSystem.transform.forward = hitInfo.normal;
+
+        particleSystem.Play();
+        while (particleSystem.IsAlive())
+        {
+            yield return null;
+        }
+        PoolManager.Instance.TakeToPool<ParticleSystem>(EPoolObjectName.VFX_GunHitEffect.ToString(), particleSystem);
     }
     private void CreateTracer(Vector3 start, Vector3 end)
     {
         TrailRenderer trail = 
-            PoolManager.Instance.GetFromPool<TrailRenderer>("BulletTrail");
+            PoolManager.Instance.GetFromPool<TrailRenderer>(EPoolObjectName.BulletTrail.ToString());
         trail.transform.position = start;
         trail.transform.rotation = Quaternion.identity;
 
@@ -156,6 +172,6 @@ public class PlayerGunAttack : IAttackStrategy
         }
 
         trail.transform.position = end;
-        PoolManager.Instance.TakeToPool<TrailRenderer>("BulletTrail", trail);
+        PoolManager.Instance.TakeToPool<TrailRenderer>(EPoolObjectName.BulletTrail.ToString(), trail);
     }
 }
