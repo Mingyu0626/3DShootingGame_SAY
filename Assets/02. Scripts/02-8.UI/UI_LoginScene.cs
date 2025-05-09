@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Security.Cryptography;
 using TMPro;
+using BCrypt.Net;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -41,7 +42,6 @@ public class UI_LoginScene : MonoBehaviour
     private UI_AccountInputFields _registerInputFields;
 
     private const string PREFIX = "ID_";
-    private const string SALT = "20010626";
 
     private void Awake()
     {
@@ -94,25 +94,12 @@ public class UI_LoginScene : MonoBehaviour
         }
 
         // 4. PlayerPrefs를 이용해서 저장한다.
-        PlayerPrefs.SetString(PREFIX + id, Encryption(password + SALT));
-        //PlayerPrefs.SetString("Id", id);
-        //PlayerPrefs.SetString("Password", password);
-
-        // PlayerAccountInfo로 클래스화하여 저장
-        //PlayerAccountInfo accountInfo = new PlayerAccountInfo
-        //{
-        //    Id = id,
-        //    Password = password
-        //};
-
-        //string json = JsonUtility.ToJson(accountInfo);
-        //PlayerPrefs.SetString("PlayerAccountInfo", json);
-        //PlayerPrefs.Save();
-
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+        PlayerPrefs.SetString(PREFIX + id, hashedPassword);
+        PlayerPrefs.Save();
 
         // 5. 로그인 창으로 돌아간다. 이때 아이디는 자동 입력되어 있다.
         _loginInputFields.InputFieldId.text = id;
-        _loginInputFields.ResultTMP.text = "";
         OnClickGotoLoginButton();
     }
 
@@ -142,7 +129,7 @@ public class UI_LoginScene : MonoBehaviour
         }
 
         string hashedPassword = PlayerPrefs.GetString(PREFIX + id);
-        if (hashedPassword != Encryption(password + SALT))
+        if (!BCrypt.Net.BCrypt.Verify(password, hashedPassword))
         {
             _loginInputFields.ResultTMP.text = "아이디 또는 비밀번호가 일치하지 않습니다.";
             return;
