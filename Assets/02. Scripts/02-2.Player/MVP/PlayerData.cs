@@ -115,13 +115,7 @@ public class PlayerData : MonoBehaviour
             PlayerBulletCountChanged?.Invoke(_currentBulletCount, _maxBulletCount);
         }
     }
-    [SerializeField]
-    private ParticleSystem _bulletVFX;
-    public ParticleSystem BulletVFX { get => _bulletVFX; set => _bulletVFX = value; }
 
-    [SerializeField]
-    private TrailRenderer _bulletTrailPrefab;
-    public TrailRenderer BulletTrailPrefab { get => _bulletTrailPrefab; set => _bulletTrailPrefab = value; }
     [SerializeField]
     private float _tracerSpeed = 200f;
     public float TracerSpeed { get => _tracerSpeed; set => _tracerSpeed = value; }
@@ -147,10 +141,6 @@ public class PlayerData : MonoBehaviour
     public int MeleeDamage { get => _meleeDamage; set => _meleeDamage = value; }
 
     [Header("Bomb Attack")]
-    [SerializeField]
-    private GameObject _bombPrefab;
-    public GameObject BombPrefab { get => _bombPrefab; set => _bombPrefab = value; }
-
     private int _maxBombCount = 3;
     public int MaxBombCount { get => _maxBombCount; set => _maxBombCount = value; }
 
