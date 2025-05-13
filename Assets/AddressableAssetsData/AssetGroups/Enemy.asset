@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Enemy
+  m_EditorClassIdentifier: 
+  m_GroupName: Enemy
+  m_GUID: b920bfa81632a2c439402310aa43a3a5
+  m_SerializeEntries:
+  - m_GUID: 17341cf0f9bb619448d4d8abe8ef4340
+    m_Address: Assets/09. VFX/Enemy/VFX_EnemyEliteExplosionEffect.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 60d86505413773f43828e5ce303c27a8
+    m_Address: Assets/09. VFX/Enemy/VFX_EnemyHitEffect.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 846b15fb298ab784fbbfa80bbf0b870f
+    m_Address: Assets/03. Prefabs/03-4. Enemy/EnemyType/Non-Elite Type/Enemy_Normal.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9dc25ed4614126a45af149195b8ae1ab
+    m_Address: Assets/03. Prefabs/03-4. Enemy/EnemyType/Elite Type/Enemy_Elite_Zombie.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aeef4a40f1c010148baf50e77c0bda8b
+    m_Address: Assets/03. Prefabs/03-4. Enemy/EnemyType/Non-Elite Type/Enemy_AlwaysTrace.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d32aa916f50cac94db11e6f19821a58f
+    m_Address: Assets/09. VFX/Enemy/VFX_EnemyBloodEffect.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3f4a32ffcedf23d44b0adc713d803082, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 706fa52f50416f64cbf3f7c9187b26e7, type: 2}
+    - {fileID: 11400000, guid: c7eec3e0ef3ce0e46b2173a3cb61548c, type: 2}

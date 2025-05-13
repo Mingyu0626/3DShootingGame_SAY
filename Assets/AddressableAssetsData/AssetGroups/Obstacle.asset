@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Obstacle
+  m_EditorClassIdentifier: 
+  m_GroupName: Obstacle
+  m_GUID: 8e3cd045d0d5ca84f8f7bb752d4942fa
+  m_SerializeEntries:
+  - m_GUID: 866e8cc5df7d3e544b42abe380f5d239
+    m_Address: Assets/03. Prefabs/03-9. System/Obstacles/Barrel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f2d3023b7626c884ba93fec0de211faa
+    m_Address: Assets/09. VFX/Obstacle/VFX_BarrelExplosion.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3f4a32ffcedf23d44b0adc713d803082, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: c8ed2809fb20bc74e839a7ec72ba4b54, type: 2}
+    - {fileID: 11400000, guid: 8175137f4d32e1f489b44f42dea52179, type: 2}
